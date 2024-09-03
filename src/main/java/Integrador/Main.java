@@ -24,7 +24,7 @@ public class Main {
 
         dbMySQL.dropTables();
         dbMySQL.createTables();
-        dbMySQL.populateDB(cliente);
+        dbMySQL.populateDB(cliente, factura);
         dbMySQL.closeConnection();
 
         System.out.println();

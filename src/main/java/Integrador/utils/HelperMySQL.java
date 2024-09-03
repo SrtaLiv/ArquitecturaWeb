@@ -1,6 +1,8 @@
 package Integrador.utils;
 
+import Integrador.dao.FacturaDAO;
 import Integrador.entities.Cliente;
+import Integrador.entities.Factura;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -110,7 +112,7 @@ public class HelperMySQL {
         return records;
     }
 
-    public void populateDB(ClienteDAO clientedao) throws Exception {
+    public void populateDB(ClienteDAO clientedao, FacturaDAO facturadao) throws Exception {
         //Metodo que recorre un archivo CSV y inserta los datos en las tablas indicadas
         try {
             System.out.println("Populating DB...");
@@ -120,7 +122,8 @@ public class HelperMySQL {
                     String idString = row.get(0);//obtiene el id de direccion
                     String nombreString = row.get(1);//obtiene el nombre
                     String emailString = row.get(2);//obtiene el email
-                    if(!idString.isEmpty() && !nombreString.isEmpty() && !emailString.isEmpty() ) {//si no estan vacios
+
+                    if(!idString.isEmpty() && !nombreString.isEmpty() && !emailString.isEmpty()) {//si no estan vacios
                         try {
                             int id = Integer.parseInt(idString);//lo parsea a int
                             Cliente cliente = new Cliente(id, nombreString, emailString);
@@ -132,6 +135,27 @@ public class HelperMySQL {
                 }
             }
             System.out.println("Clientes insertados");
+
+            for(CSVRecord row : getData("facturas.csv")) {
+                //idFactura, idCliente
+                if(row.size() >= 2) { // Verificar que hay al menos 3 campos en el CSVRecord
+                    String idFactura = row.get(0);//obtiene el idFactura
+                    String idCliente = row.get(1);//obtiene el idCliente
+
+                    if (!idFactura.isEmpty() && !idCliente.isEmpty()) { //si no estan vacios
+                        try {
+                            int idFac = Integer.parseInt(idFactura);//lo parsea a int
+                            int idCl = Integer.parseInt(idCliente);//lo parsea a int
+
+                            Factura factura = new Factura(idFac, idCl);
+                            facturadao.insertFactura(factura);
+                        } catch (NumberFormatException e) {
+                            System.err.println("Error de formato en datos de factura: " + e.getMessage());
+                        }
+                    }
+                }
+            }
+            System.out.println("Facturas insertados");
 
             /*for (CSVRecord row : getData("personas.csv")) {
                 if (row.size() >= 4) { // Verificar que hay al menos 4 campos en el CSVRecord
@@ -154,67 +178,88 @@ public class HelperMySQL {
                     }
                 }
             }*/
-
-            System.out.println("Personas insertadas");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /*private int insertPersona (Persona persona, Connection conn) throws Exception{
-        String insert = "INSERT INTO Persona (idPersona, nombre, edad,idDireccion) VALUES (?, ?, ?,?)";//crea el string con la sentencia
-        PreparedStatement ps = null; //Declara una variable ps de tipo PreparedStatement, que se usará para preparar y ejecutar la consulta SQL.
-        try {
-            //Preparar y Ejecutar la Consulta:
-            ps = conn.prepareStatement(insert);//Usa el objeto conn (que se supone es una conexión a la base de datos) para crear un PreparedStatement con la consulta de inserción.
-            //Establecer los Parámetros:
-            ps.setInt(1,persona.getIdPersona());
-            ps.setString(2, persona.getNombre());
-            ps.setInt(3,persona.getEdad());
-            ps.setInt(4,persona.getIdDireccion());
-            //executeUpdate() ejecuta la consulta SQL y devuelve el número de filas afectadas
-            //Si el número de filas afectadas es 0, significa que la inserción no se realizó correctamente
-            if (ps.executeUpdate() == 0) {
-                throw new Exception("No se pudo insertar");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    private int insertFactura (Factura factura /*Connection conn*/) throws Exception{
+    String insert = "INSERT INTO Factura (idFactura, idCliente) VALUES (?, ?)";//crea el string con la sentencia
+    PreparedStatement ps = null; //Declara una variable ps de tipo PreparedStatement, que se usará para preparar y ejecutar la consulta SQL.
+    try {
+        //Preparar y Ejecutar la Consulta:
+        ps = conn.prepareStatement(insert);//Usa el objeto conn (que se supone es una conexión a la base de datos) para crear un PreparedStatement con la consulta de inserción.
+        //Establecer los Parámetros:
+        ps.setInt(1,factura.getIdFactura());
+        ps.setInt(2, factura.getIdCliente());
+        //executeUpdate() ejecuta la consulta SQL y devuelve el número de filas afectadas
+        //Si el número de filas afectadas es 0, significa que la inserción no se realizó correctamente
+        if (ps.executeUpdate() == 0) {
+            throw new Exception("No se pudo insertar");
         }
-        //cierra el preparedStatement para liberar recursos
-        finally {
-            closePsAndCommit(conn, ps);
-        }
-        return 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    //cierra el preparedStatement para liberar recursos
+    finally {
+        closePsAndCommit(conn, ps);
+    }
+    return 0;
+}
 
-
-    private int insertDireccion(Direccion direccion, Connection conn) throws Exception {
-
-        String insert = "INSERT INTO Direccion (idDireccion, ciudad, calle,numero) VALUES (?, ?, ?,?)";//crea el string con la sentencia
-        PreparedStatement ps = null;//Declara una variable ps de tipo PreparedStatement, que se usará para preparar y ejecutar la consulta SQL.
-        try {
-            //Preparar y Ejecutar la Consulta:
-            ps = conn.prepareStatement(insert);//Usa el objeto conn (que se supone es una conexión a la base de datos) para crear un PreparedStatement con la consulta de inserción.
-            //Establecer los Parámetros:
-            ps.setInt(1,direccion.getIdDireccion());
-            ps.setString(2, direccion.getCiudad());
-            ps.setString(3,direccion.getCalle());
-            ps.setInt(4,direccion.getNumero());
-            //executeUpdate() ejecuta la consulta SQL y devuelve el número de filas afectadas
-            //Si el número de filas afectadas es 0, significa que la inserción no se realizó correctamente
-            if (ps.executeUpdate() == 0) {
-                throw new Exception("No se pudo insertar");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+/*private int insertPersona (Persona persona, Connection conn) throws Exception{
+    String insert = "INSERT INTO Persona (idPersona, nombre, edad,idDireccion) VALUES (?, ?, ?,?)";//crea el string con la sentencia
+    PreparedStatement ps = null; //Declara una variable ps de tipo PreparedStatement, que se usará para preparar y ejecutar la consulta SQL.
+    try {
+        //Preparar y Ejecutar la Consulta:
+        ps = conn.prepareStatement(insert);//Usa el objeto conn (que se supone es una conexión a la base de datos) para crear un PreparedStatement con la consulta de inserción.
+        //Establecer los Parámetros:
+        ps.setInt(1,persona.getIdPersona());
+        ps.setString(2, persona.getNombre());
+        ps.setInt(3,persona.getEdad());
+        ps.setInt(4,persona.getIdDireccion());
+        //executeUpdate() ejecuta la consulta SQL y devuelve el número de filas afectadas
+        //Si el número de filas afectadas es 0, significa que la inserción no se realizó correctamente
+        if (ps.executeUpdate() == 0) {
+            throw new Exception("No se pudo insertar");
         }
-        //cierra el preparedStatement para liberar recursos
-        finally {
-            closePsAndCommit(conn, ps);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    //cierra el preparedStatement para liberar recursos
+    finally {
+        closePsAndCommit(conn, ps);
+    }
+    return 0;
+}
+
+
+private int insertDireccion(Direccion direccion, Connection conn) throws Exception {
+
+    String insert = "INSERT INTO Direccion (idDireccion, ciudad, calle,numero) VALUES (?, ?, ?,?)";//crea el string con la sentencia
+    PreparedStatement ps = null;//Declara una variable ps de tipo PreparedStatement, que se usará para preparar y ejecutar la consulta SQL.
+    try {
+        //Preparar y Ejecutar la Consulta:
+        ps = conn.prepareStatement(insert);//Usa el objeto conn (que se supone es una conexión a la base de datos) para crear un PreparedStatement con la consulta de inserción.
+        //Establecer los Parámetros:
+        ps.setInt(1,direccion.getIdDireccion());
+        ps.setString(2, direccion.getCiudad());
+        ps.setString(3,direccion.getCalle());
+        ps.setInt(4,direccion.getNumero());
+        //executeUpdate() ejecuta la consulta SQL y devuelve el número de filas afectadas
+        //Si el número de filas afectadas es 0, significa que la inserción no se realizó correctamente
+        if (ps.executeUpdate() == 0) {
+            throw new Exception("No se pudo insertar");
         }
-        return 0;
-    }*/
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    //cierra el preparedStatement para liberar recursos
+    finally {
+        closePsAndCommit(conn, ps);
+    }
+    return 0;
+}*/
     private void closePsAndCommit(Connection conn, PreparedStatement ps) {
         //Funcion que cierra el PreparedStatement y commitea
         if (conn != null){
