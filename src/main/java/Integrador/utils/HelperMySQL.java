@@ -1,8 +1,10 @@
 package Integrador.utils;
 
+import Integrador.dao.FacturaDAO;
 import Integrador.dao.Factura_ProductoDAO;
 import Integrador.dao.ProductoDAO;
 import Integrador.entities.Cliente;
+import Integrador.entities.Factura;
 import Integrador.entities.Factura_Producto;
 import Integrador.entities.Producto;
 import org.apache.commons.csv.CSVFormat;
@@ -114,7 +116,7 @@ public class HelperMySQL {
         return records;
     }
 
-    public void populateDB(ClienteDAO clientedao, ProductoDAO productodao,Factura_ProductoDAO facturaProductodao) throws Exception {
+    public void populateDB(ClienteDAO clientedao, ProductoDAO productodao, Factura_ProductoDAO facturaProductodao, FacturaDAO facturadao) throws Exception {
         //Metodo que recorre un archivo CSV y inserta los datos en las tablas indicadas
         try {
             System.out.println("Populating DB...");
@@ -156,6 +158,27 @@ public class HelperMySQL {
                 }
             }
             System.out.println("Productos insertados");
+
+            for(CSVRecord row : getData("facturas.csv")) {
+                //idFactura, idCliente
+                if(row.size() >= 2) { // Verificar que hay al menos 3 campos en el CSVRecord
+                    String idFactura = row.get(0);//obtiene el idFactura
+                    String idCliente = row.get(1);//obtiene el idCliente
+
+                    if (!idFactura.isEmpty() && !idCliente.isEmpty()) { //si no estan vacios
+                        try {
+                            int idFac = Integer.parseInt(idFactura);//lo parsea a int
+                            int idCl = Integer.parseInt(idCliente);//lo parsea a int
+
+                            Factura factura = new Factura(idFac, idCl);
+                            facturadao.insertFactura(factura);
+                        } catch (NumberFormatException e) {
+                            System.err.println("Error de formato en datos de factura: " + e.getMessage());
+                        }
+                    }
+                }
+            }
+            System.out.println("Facturas insertados");
 
             for(CSVRecord row : getData("facturas-productos.csv")) {
                 //idFactura,idProducto,cantidad
