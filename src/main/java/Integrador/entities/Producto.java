@@ -3,9 +3,9 @@ package Integrador.entities;
 public class Producto {
     private Integer idProducto;
     private String nombre;
-    private Float valor;
+    private int valor;
     public Producto() {}
-    public Producto(Integer idProducto, String nombre, Float valor) {
+    public Producto(Integer idProducto, String nombre, int valor) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.valor = valor;
@@ -23,7 +23,7 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Float getValor() {
+    public int getValor() {
         return valor;
     }
 
@@ -36,7 +36,7 @@ public class Producto {
                 '}';
     }
 
-    public void setValor(Float valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 }

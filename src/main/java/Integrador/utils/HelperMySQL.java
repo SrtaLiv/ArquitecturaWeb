@@ -1,6 +1,10 @@
 package Integrador.utils;
 
+import Integrador.dao.Factura_ProductoDAO;
+import Integrador.dao.ProductoDAO;
 import Integrador.entities.Cliente;
+import Integrador.entities.Factura_Producto;
+import Integrador.entities.Producto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -110,7 +114,7 @@ public class HelperMySQL {
         return records;
     }
 
-    public void populateDB(ClienteDAO clientedao) throws Exception {
+    public void populateDB(ClienteDAO clientedao, ProductoDAO productodao,Factura_ProductoDAO facturaProductodao) throws Exception {
         //Metodo que recorre un archivo CSV y inserta los datos en las tablas indicadas
         try {
             System.out.println("Populating DB...");
@@ -133,30 +137,46 @@ public class HelperMySQL {
             }
             System.out.println("Clientes insertados");
 
-            /*for (CSVRecord row : getData("personas.csv")) {
-                if (row.size() >= 4) { // Verificar que hay al menos 4 campos en el CSVRecord
-                    String idString = row.get(0);
-                    String nombre = row.get(1);
-                    String edadString = row.get(2);
-                    String idDireccionString = row.get(3);
-
-                    if (!idString.isEmpty() && !nombre.isEmpty() && !edadString.isEmpty() && !idDireccionString.isEmpty()) {
+            for(CSVRecord row : getData("productos.csv")) {
+                //idFactura,idProducto,cantidad
+                if(row.size() >= 3) { // Verificar que hay al menos 4 campos en el CSVRecord
+                    String idString = row.get(0);//obtiene el id
+                    String nombreString = row.get(1);//obtiene el nombre
+                    String valorString = row.get(2);//obtiene el valor
+                    if(!idString.isEmpty() && !nombreString.isEmpty() && !valorString.isEmpty() ) {//si no estan vacios
                         try {
-                            int id = Integer.parseInt(idString);
-                            int edad = Integer.parseInt(edadString);
-                            int idDireccion = Integer.parseInt(idDireccionString);
-
-                            Persona persona = new Persona(id, nombre, edad, idDireccion);
-                            insertPersona(persona, conn);
+                            int id = Integer.parseInt(idString);//lo parsea a int
+                            int valor = Integer.parseInt(valorString);//lo parsea a int
+                            Producto producto = new Producto(id, nombreString, valor);
+                            productodao.insert(producto);
                         } catch (NumberFormatException e) {
-                            System.err.println("Error de formato en datos de persona: " + e.getMessage());
+                            System.err.println("Error de formato en datos de dirección: " + e.getMessage());
                         }
                     }
                 }
-            }*/
+            }
+            System.out.println("Productos insertados");
 
-            System.out.println("Personas insertadas");
-
+            for(CSVRecord row : getData("facturas-productos.csv")) {
+                //idFactura,idProducto,cantidad
+                if(row.size() >= 3) { // Verificar que hay al menos 4 campos en el CSVRecord
+                    String idFacturaString = row.get(0);//obtiene el id
+                    String idProductoString = row.get(1);//obtiene el id
+                    String cantidadString = row.get(2);//obtiene el valor
+                    if(!idFacturaString.isEmpty() && !idProductoString.isEmpty() && !cantidadString.isEmpty() ) {//si no estan vacios
+                        try {
+                            int idFactura = Integer.parseInt(idFacturaString);//lo parsea a int
+                            int idProducto = Integer.parseInt(idProductoString);//lo parsea a int
+                            int valor = Integer.parseInt(cantidadString);//lo parsea a int
+                            Factura_Producto facturaProducto = new Factura_Producto(idFactura, idProducto, valor);
+                            facturaProductodao.insert(facturaProducto);
+                        } catch (NumberFormatException e) {
+                            System.err.println("Error de formato en datos de dirección: " + e.getMessage());
+                        }
+                    }
+                }
+            }
+            System.out.println("Facturas-Productos insertados");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -25,7 +25,7 @@ public class ClienteDAO {
             ps.setString(2, cliente.getNombre()); // nombre
             ps.setString(3, cliente.getEmail()); // edad
             ps.executeUpdate();
-            System.out.println("Persona insertada exitosamente.");
+            //System.out.println("Persona insertada exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
