@@ -1,9 +1,11 @@
 package Integrador.dao;
 
+import Integrador.dto.ProductoDTO;
 import Integrador.entities.Producto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductoDAO {
@@ -44,13 +46,54 @@ public class ProductoDAO {
 
 
     public Producto find(Integer pk) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+        String select = "SELECT * " +
+                "FROM Producto p " +
+                "WHERE idProducto = ? ";
+        PreparedStatement ps = null;
+        Producto producto = null;
+        try{
+            ps = conn.prepareStatement(select);
+            ps.setInt(1, pk);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                Integer id = rs.getInt(1);
+                String nombre = rs.getString(2);
+                int valor = rs.getInt(3);
+                producto = new Producto(id, nombre, valor);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return producto;
     }
 
 
     public boolean update(Producto dao) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    public ProductoDTO getProductoMayorRecaudacion(){
+        String select = "SELECT p.idProducto, (sum(cantidad) * p.valor) " +
+                        "FROM Producto p " +
+                        "JOIN Factura_Producto fp ON p.idProducto = fp.idProducto " +
+                        "GROUP BY p.idProducto " +
+                        "ORDER BY 2 desc " +
+                        "LIMIT 1 ";
+        PreparedStatement ps = null;
+        Producto p = null;
+        ProductoDTO pDTO = null;
+        try{
+            ps = conn.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                p = find(rs.getInt(1));
+                pDTO = new ProductoDTO(p, rs.getInt(2));
+                System.out.println(rs.getInt(2));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return pDTO;
     }
 }
