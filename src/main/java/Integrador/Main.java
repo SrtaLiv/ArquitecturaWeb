@@ -58,6 +58,6 @@ public class Main {
 
 //        PersonaDTO personaDTO = persona.findPersonaDTO(2);
 //        System.out.println(personaDTO);
-
+        System.out.println(cliente.findByMasFacturado());
     }
 }
