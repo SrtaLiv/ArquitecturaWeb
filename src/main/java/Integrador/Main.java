@@ -4,13 +4,8 @@ import Integrador.dao.ClienteDAO;
 import Integrador.dao.FacturaDAO;
 import Integrador.dao.Factura_ProductoDAO;
 import Integrador.dao.ProductoDAO;
-import Integrador.dto.PersonaDTO;
 import Integrador.dto.ProductoDTO;
-import Integrador.entities.Producto;
 import Integrador.factory.AbstractFactory;
-import Integrador.utils.HelperMySQL;
-
-import java.util.List;
 
 public class Main {
 
@@ -22,7 +17,7 @@ public class Main {
         FacturaDAO factura = chosenFactory.getFacturaDAO();
         ProductoDAO producto = chosenFactory.getProductoDAO();
 
-        HelperMySQL dbMySQL = new HelperMySQL();
+//        HelperMySQL dbMySQL = new HelperMySQL();
 
 //        dbMySQL.dropTables();
 //        dbMySQL.createTables();
@@ -34,30 +29,12 @@ public class Main {
         System.out.println("////////////////////////////////////////////");
         System.out.println();
 
-        ProductoDTO productoMayorRecaudacion = producto.getProductoMayorRecaudacion();
-        System.out.println(productoMayorRecaudacion);
-
-        /*System.out.println("Busco una Persona por id: ");
-        Persona personaById = persona.find(2);
-        System.out.println(personaById);
-        System.out.println("////////////////////////////////////////////");
-        System.out.println("////////////////////////////////////////////");
-        System.out.println("Lista de direcciones: ");
-//        List<Direccion> listadoDirecciones = direccion.selectList();
-//        System.out.println(listadoDirecciones);
-        List<Direccion> listadoDirecciones = direccion.selectList();
-        for (Direccion dir : listadoDirecciones) {
-            System.out.println(dir);
-        }*/
+//        ProductoDTO productoMayorRecaudacion = producto.getProductoMayorRecaudacion();
+//        System.out.println(productoMayorRecaudacion);
 
         System.out.println("////////////////////////////////////////////");
         System.out.println("////////////////////////////////////////////");
 
-//        Persona p = new Persona(6,"Sergio",50,2);
-//        persona.insertPersona(p);
-
-//        PersonaDTO personaDTO = persona.findPersonaDTO(2);
-//        System.out.println(personaDTO);
         System.out.println(cliente.findByMasFacturado());
     }
 }

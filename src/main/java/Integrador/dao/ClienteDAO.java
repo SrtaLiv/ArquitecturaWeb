@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Integrador.dto.ClienteDTO;
-import Integrador.dto.PersonaDTO;
 import Integrador.entities.Cliente;
-import Integrador.entities.Producto;
 
 public class ClienteDAO {
     private Connection conn;
@@ -82,30 +80,24 @@ public class ClienteDAO {
         return clienteById;
         }
     public List<ClienteDTO> findByMasFacturado() {
-        String sql = "SELECT c.idCliente, \n" +
-                "       c.nombre, \n" +
-                "       c.email, \n" +
-                "       COALESCE(SUM(p.valor * fp.cantidad), 0) AS totalFacturado\n" +
-                "FROM Cliente c\n" +
-                "LEFT JOIN Factura f ON c.idCliente = f.idCliente\n" +
-                "LEFT JOIN Factura_Producto fp ON f.idFactura = fp.idFactura\n" +
-                "LEFT JOIN Producto p ON fp.idProducto = p.idProducto\n" +
-                "GROUP BY c.idCliente, c.nombre, c.email\n" +//Agrupa los resultados por cliente para sumar el monto total facturado a cada uno.
-                "ORDER BY totalFacturado DESC;";
-        Cliente clienteById = null;
-        int totalFacturado = 0;
+        String sql = "SELECT c.idCliente, c.nombre, c.email, " +
+                    "COALESCE(SUM(p.valor * fp.cantidad), 0) AS totalFacturado " +
+                    "FROM Cliente c " +
+                    "LEFT JOIN Factura f ON c.idCliente = f.idCliente " +
+                    "LEFT JOIN Factura_Producto fp ON f.idFactura = fp.idFactura " +
+                    "LEFT JOIN Producto p ON fp.idProducto = p.idProducto " +
+                    "GROUP BY c.idCliente, c.nombre, c.email " +//Agrupa los resultados por cliente para sumar el monto total facturado a cada uno.
+                    "ORDER BY totalFacturado DESC;";
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<ClienteDTO> list = null;
+        List<ClienteDTO> list = new ArrayList<>();
         try{
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            list = new ArrayList<ClienteDTO>();
             while (rs.next()) {
                 int facturado = rs.getInt("totalFacturado");
                 int idCliente = rs.getInt("idCliente");
                 String nombre = rs.getString("nombre");
-                String email = rs.getString("email");
                 ClienteDTO cliente = new ClienteDTO(facturado,idCliente,nombre);
                 list.add(cliente);
             }

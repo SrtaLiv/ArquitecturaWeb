@@ -12,10 +12,9 @@ public class ClienteDTO {
 
     @Override
     public String toString() {
-        return "ClienteDTO{" +
-                "facturado=" + facturado +
-                ", id=" + id +
+        return "\nCliente:" +
+                "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                '}';
+                ", facturado=" + facturado;
     }
 }
