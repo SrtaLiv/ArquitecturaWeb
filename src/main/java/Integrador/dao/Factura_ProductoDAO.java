@@ -1,10 +1,12 @@
 package Integrador.dao;
 
+import Integrador.entities.Cliente;
 import Integrador.entities.Factura_Producto;
 import Integrador.entities.Producto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Factura_ProductoDAO {
@@ -22,7 +24,6 @@ public class Factura_ProductoDAO {
             ps.setInt(2, facturaProducto.getIdProducto()); // idP
             ps.setInt(3, facturaProducto.getCantidad()); // cantidad
             ps.executeUpdate();
-            //System.out.println("producto insertado exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -43,12 +44,37 @@ public class Factura_ProductoDAO {
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
+    public Factura_Producto find(Integer idFactura, Integer idProducto) {
+        String query = "SELECT idFactura, idProducto, cantidad " +
+                        "FROM Factura_Producto " +
+                        "WHERE idFactura = ? and idProducto = ?";
+        Factura_Producto factura_producto = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-    public Factura_Producto find(Integer pk) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, idFactura);
+            ps.setInt(2, idProducto);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Integer cantidad = rs.getInt("cantidad");
+                factura_producto = new Factura_Producto(idFactura, idProducto, cantidad);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return factura_producto;
     }
-
 
     public boolean update(Factura_Producto dao) {
         // TODO Auto-generated method stub

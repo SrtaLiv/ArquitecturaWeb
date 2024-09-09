@@ -23,7 +23,6 @@ public class ProductoDAO {
             ps.setString(2, producto.getNombre()); // nombre
             ps.setInt(3, producto.getValor()); // valor
             ps.executeUpdate();
-            //System.out.println("producto insertado exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -44,11 +43,10 @@ public class ProductoDAO {
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
-
     public Producto find(Integer pk) {
         String select = "SELECT * " +
-                "FROM Producto p " +
-                "WHERE idProducto = ? ";
+                        "FROM Producto p " +
+                        "WHERE idProducto = ? ";
         PreparedStatement ps = null;
         Producto producto = null;
         try{
@@ -56,13 +54,21 @@ public class ProductoDAO {
             ps.setInt(1, pk);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Integer id = rs.getInt(1);
                 String nombre = rs.getString(2);
                 int valor = rs.getInt(3);
-                producto = new Producto(id, nombre, valor);
+                producto = new Producto(pk, nombre, valor);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return producto;
     }

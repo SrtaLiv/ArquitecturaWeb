@@ -17,11 +17,10 @@ public class ProductoDTO {
 
     @Override
     public String toString() {
-        return "ProductoDTO{" +
+        return "Producto:" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", valor=" + valor +
-                ", recaudado=" + recaudado +
-                '}';
+                ", recaudado=" + recaudado;
     }
 }

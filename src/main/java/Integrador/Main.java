@@ -24,17 +24,17 @@ public class Main {
 //        dbMySQL.populateDB(cliente,producto,factura_producto,factura);
 //        dbMySQL.closeConnection();
 
-        System.out.println();
-        System.out.println("////////////////////////////////////////////");
-        System.out.println("////////////////////////////////////////////");
-        System.out.println();
-
+//        System.out.println();
+//        System.out.println("////////////////////////////////////////////");
+//        System.out.println("////////////////////////////////////////////");
+//        System.out.println();
+//
 //        ProductoDTO productoMayorRecaudacion = producto.getProductoMayorRecaudacion();
 //        System.out.println(productoMayorRecaudacion);
-
-        System.out.println("////////////////////////////////////////////");
-        System.out.println("////////////////////////////////////////////");
-
+//
+//        System.out.println("////////////////////////////////////////////");
+//        System.out.println("////////////////////////////////////////////");
+//
         System.out.println(cliente.findByMasFacturado());
     }
 }

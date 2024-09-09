@@ -27,7 +27,6 @@ public class ClienteDAO {
             ps.setString(2, cliente.getNombre()); // nombre
             ps.setString(3, cliente.getEmail()); // edad
             ps.executeUpdate();
-            //System.out.println("Persona insertada exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -41,14 +40,15 @@ public class ClienteDAO {
             }
         }
     }
+
     public boolean delete(Integer id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
     public Cliente find(Integer pk) {
         String query = "SELECT c.nombre, c.email " +
-                "FROM Cliente c " +
-                "WHERE c.idCliente = ?";
+                        "FROM Cliente c " +
+                        "WHERE c.idCliente = ?";
         Cliente clienteById = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -66,7 +66,7 @@ public class ClienteDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 if (ps != null) {
                     ps.close();
@@ -76,9 +76,8 @@ public class ClienteDAO {
                 e.printStackTrace();
             }
         }
-
         return clienteById;
-        }
+    }
     public List<ClienteDTO> findByMasFacturado() {
         String sql = "SELECT c.idCliente, c.nombre, c.email, " +
                     "COALESCE(SUM(p.valor * fp.cantidad), 0) AS totalFacturado " +

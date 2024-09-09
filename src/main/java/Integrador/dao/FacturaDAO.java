@@ -2,9 +2,11 @@ package Integrador.dao;
 
 import Integrador.entities.Cliente;
 import Integrador.entities.Factura;
+import Integrador.entities.Factura_Producto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FacturaDAO {
@@ -44,8 +46,34 @@ public class FacturaDAO {
 
 
     public Factura find(Integer pk) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+        String query = "SELECT idFactura, idCliente " +
+                        "FROM Factura " +
+                        "WHERE idFactura = ?";
+        Factura factura = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, pk);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Integer idCliente = rs.getInt("idCliente");
+                factura = new Factura(pk,  idCliente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return factura;
     }
 
 
