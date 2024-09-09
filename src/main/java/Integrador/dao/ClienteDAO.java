@@ -16,7 +16,6 @@ public class ClienteDAO {
     public ClienteDAO(Connection conn) {
         this.conn = conn;
     }
-
     public void insertCliente(Cliente cliente) {
         String query = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?, ?, ?)";
         PreparedStatement ps = null;
@@ -40,10 +39,55 @@ public class ClienteDAO {
             }
         }
     }
-
     public boolean delete(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        if(find(id) == null)
+            return false;
+        String query = "DELETE FROM Cliente WHERE idCliente = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+    public boolean update(Cliente dao) {
+        if(find(dao.getIdCliente()) == null)
+            return false;
+        String query = "UPDATE Cliente " +
+                "SET nombre = ?, email = ? " +
+                "WHERE idCliente = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, dao.getNombre());
+            ps.setString(2, dao.getEmail());
+            ps.setInt(3, dao.getIdCliente());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
     public Cliente find(Integer pk) {
         String query = "SELECT c.nombre, c.email " +

@@ -36,13 +36,29 @@ public class ProductoDAO {
             }
         }
     }
-
-
     public boolean delete(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        if(find(id) == null)
+            return false;
+        String query = "DELETE FROM Producto WHERE idProducto = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
-
     public Producto find(Integer pk) {
         String select = "SELECT * " +
                         "FROM Producto p " +
@@ -72,13 +88,33 @@ public class ProductoDAO {
         }
         return producto;
     }
-
-
     public boolean update(Producto dao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        if(find(dao.getIdProducto()) == null)
+            return false;
+        String query = "UPDATE Producto " +
+                "SET nombre = ?, valor = ? " +
+                "WHERE idProducto = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, dao.getNombre());
+            ps.setInt(2, dao.getValor());
+            ps.setInt(3, dao.getIdProducto());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
-
     public ProductoDTO getProductoMayorRecaudacion(){
         String select = "SELECT p.idProducto, (sum(cantidad) * p.valor) " +
                         "FROM Producto p " +
@@ -95,7 +131,6 @@ public class ProductoDAO {
             if(rs.next()) {
                 p = find(rs.getInt(1));
                 pDTO = new ProductoDTO(p, rs.getInt(2));
-                System.out.println(rs.getInt(2));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

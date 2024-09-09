@@ -37,13 +37,30 @@ public class Factura_ProductoDAO {
             }
         }
     }
-
-
-    public boolean delete(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public boolean delete(Integer idFactura, Integer idProducto) {
+        if(find(idFactura, idProducto) == null)
+            return false;
+        String query = "DELETE FROM Factura_Producto WHERE idFactura = ? and idProducto = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, idFactura);
+            ps.setInt(2, idProducto);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
-
     public Factura_Producto find(Integer idFactura, Integer idProducto) {
         String query = "SELECT idFactura, idProducto, cantidad " +
                         "FROM Factura_Producto " +
@@ -75,9 +92,31 @@ public class Factura_ProductoDAO {
         }
         return factura_producto;
     }
-
     public boolean update(Factura_Producto dao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        if(find(dao.getIdFactura(), dao.getIdProducto()) == null)
+            return false;
+        String query = "UPDATE Factura_Producto " +
+                "SET cantidad = ? " +
+                "WHERE idFactura = ? and idProducto = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, dao.getCantidad());
+            ps.setInt(2, dao.getIdFactura());
+            ps.setInt(3, dao.getIdProducto());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
 }
