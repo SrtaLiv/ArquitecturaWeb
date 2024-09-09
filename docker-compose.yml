@@ -6,7 +6,7 @@ services:
     container_name: arqui-mysql-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
       MYSQL_DATABASE: arquiDB
     ports:
       - "3306:3306"
@@ -20,7 +20,7 @@ services:
     environment:
       PMA_HOST: db
       PMA_USER: root
-      PMA_PASSWORD: root
+      PMA_PASSWORD:
     ports:
       - "8080:80"
     depends_on:
