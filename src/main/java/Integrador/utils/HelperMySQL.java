@@ -205,60 +205,6 @@ public class HelperMySQL {
             e.printStackTrace();
         }
     }
-
-    /*private int insertPersona (Persona persona, Connection conn) throws Exception{
-        String insert = "INSERT INTO Persona (idPersona, nombre, edad,idDireccion) VALUES (?, ?, ?,?)";//crea el string con la sentencia
-        PreparedStatement ps = null; //Declara una variable ps de tipo PreparedStatement, que se usará para preparar y ejecutar la consulta SQL.
-        try {
-            //Preparar y Ejecutar la Consulta:
-            ps = conn.prepareStatement(insert);//Usa el objeto conn (que se supone es una conexión a la base de datos) para crear un PreparedStatement con la consulta de inserción.
-            //Establecer los Parámetros:
-            ps.setInt(1,persona.getIdPersona());
-            ps.setString(2, persona.getNombre());
-            ps.setInt(3,persona.getEdad());
-            ps.setInt(4,persona.getIdDireccion());
-            //executeUpdate() ejecuta la consulta SQL y devuelve el número de filas afectadas
-            //Si el número de filas afectadas es 0, significa que la inserción no se realizó correctamente
-            if (ps.executeUpdate() == 0) {
-                throw new Exception("No se pudo insertar");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //cierra el preparedStatement para liberar recursos
-        finally {
-            closePsAndCommit(conn, ps);
-        }
-        return 0;
-    }
-
-
-    private int insertDireccion(Direccion direccion, Connection conn) throws Exception {
-
-        String insert = "INSERT INTO Direccion (idDireccion, ciudad, calle,numero) VALUES (?, ?, ?,?)";//crea el string con la sentencia
-        PreparedStatement ps = null;//Declara una variable ps de tipo PreparedStatement, que se usará para preparar y ejecutar la consulta SQL.
-        try {
-            //Preparar y Ejecutar la Consulta:
-            ps = conn.prepareStatement(insert);//Usa el objeto conn (que se supone es una conexión a la base de datos) para crear un PreparedStatement con la consulta de inserción.
-            //Establecer los Parámetros:
-            ps.setInt(1,direccion.getIdDireccion());
-            ps.setString(2, direccion.getCiudad());
-            ps.setString(3,direccion.getCalle());
-            ps.setInt(4,direccion.getNumero());
-            //executeUpdate() ejecuta la consulta SQL y devuelve el número de filas afectadas
-            //Si el número de filas afectadas es 0, significa que la inserción no se realizó correctamente
-            if (ps.executeUpdate() == 0) {
-                throw new Exception("No se pudo insertar");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //cierra el preparedStatement para liberar recursos
-        finally {
-            closePsAndCommit(conn, ps);
-        }
-        return 0;
-    }*/
     private void closePsAndCommit(Connection conn, PreparedStatement ps) {
         //Funcion que cierra el PreparedStatement y commitea
         if (conn != null){
