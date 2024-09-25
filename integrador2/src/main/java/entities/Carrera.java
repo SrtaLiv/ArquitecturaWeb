@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +13,21 @@ public class Carrera {
     private List<Estudiante_Carrera> estudiantes;
 
     public Carrera() {}
-    public Carrera(String nombre) {
+    public Carrera(int i,String nombre) {
+        this.id_carrera = i;
         this.nombre = nombre;
         this.estudiantes = new ArrayList<Estudiante_Carrera>();
     }
 
+    @Override
+    public String toString() {
+        return "Carrera{" +
+                "id_carrera=" + id_carrera +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
+
+    public int getId_carrera() {
+        return id_carrera;
+    }
 }

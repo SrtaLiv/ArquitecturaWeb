@@ -3,7 +3,6 @@ package entities;
 
 
 import javax.persistence.*;
-import java.beans.ConstructorProperties;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -28,10 +27,11 @@ public class Estudiante_Carrera implements Serializable {
 
     public Estudiante_Carrera() {}
 
-    public Estudiante_Carrera(Estudiante e,Carrera c, String carrera_nombre, Date fecha_inicio, Date fecha_fin) {
+    public Estudiante_Carrera(Estudiante e, Carrera c, Date fecha_inicio, Date fecha_fin) {
         this.estudiante = e;
         this.carrera=c;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
+        this.pk = new Estudiante_Carrera_pk(c.getId_carrera(),e.getNroLU());
     }
 }

@@ -3,7 +3,6 @@ package entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
 public class Estudiante {
     @Id
@@ -45,6 +44,14 @@ public class Estudiante {
 
     public int getNroLU() {
         return nroLU;
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "nombre='" + nombre + '\'' +
+                ", nroLU=" + nroLU +
+                '}';
     }
 
     public void setNroLU(int nroLU) {
