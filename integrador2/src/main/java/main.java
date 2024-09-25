@@ -1,6 +1,5 @@
 import entities.Carrera;
 import entities.Estudiante;
-import entities.Estudiante_Carrera;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
