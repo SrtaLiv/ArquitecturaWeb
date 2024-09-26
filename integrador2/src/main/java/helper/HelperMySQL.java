@@ -8,10 +8,10 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 
 
-public class HelperMYSQL {
+public class HelperMySQL {
     private EntityManager em;
 
-    public HelperMYSQL(EntityManager em){
+    public HelperMySQL(EntityManager em){
         this.em = em;
     }
 
@@ -29,15 +29,13 @@ public class HelperMYSQL {
         em.persist(medicina);
         em.persist(tudai);
         em.persist(administracion);
-        Date inicio = new Date(2020, 3, 1);
-        Date fin = new Date(2021, 12, 10);
-        Date fin2 = new Date(2021, 12, 10);
-        Date fin3 = new Date(2021, 12, 10);
+        Date inicio = new Date(1692710400000L);
+        Date fin = new Date(1692710400000L);
 
         Estudiante_Carrera ec = new Estudiante_Carrera(tomi, medicina, inicio, fin);
-        Estudiante_Carrera ec2= new Estudiante_Carrera(oli, medicina, inicio, fin2);
+        Estudiante_Carrera ec2= new Estudiante_Carrera(oli, medicina, inicio, fin);
         Estudiante_Carrera ec3 = new Estudiante_Carrera(juli, medicina, inicio, null);
-        Estudiante_Carrera ec4 = new Estudiante_Carrera(tomi, tudai, inicio, fin3);
+        Estudiante_Carrera ec4 = new Estudiante_Carrera(tomi, tudai, inicio, fin);
 
         em.persist(ec);
         em.persist(ec2);

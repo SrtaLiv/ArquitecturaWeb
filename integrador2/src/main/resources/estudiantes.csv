@@ -1,3 +1,4 @@
+nroLU,nombre,apellido,edad,sexo,dni,ciudad
 123456,Juan,Perez,20,Masculino,12345678,Buenos Aires
 234567,Maria,Gomez,22,Femenino,23456789,Cordoba
 345678,Luis,Martinez,21,Masculino,34567890,Rosario
@@ -48,53 +49,3 @@
 686970,Ana,Sanchez,19,Femenino,68697022,Corrientes
 707172,Diego,Castillo,20,Masculino,70717233,San Juan
 727374,Marta,Villanueva,21,Femenino,72737444,Rio Cuarto
-747576,Ignacio,Aguirre,22,Masculino,74757655,La Plata
-767778,Candela,Benitez,23,Femenino,76777866,Catamarca
-787980,Ernesto,Ortiz,19,Masculino,78798077,Formosa
-808182,Silvana,Perez,20,Femenino,80818288,Tierra del Fuego
-828384,Gustavo,Fuentes,21,Masculino,82838499,Neuquen
-848586,Mariana,Campos,22,Femenino,84858600,Rosario
-868788,Arturo,Rodriguez,23,Masculino,86878811,San Martin
-888990,Sofia,Torres,19,Femenino,88899022,Jujuy
-909192,Ramon,Alonso,20,Masculino,90919233,Mar del Plata
-929394,Carla,Jimenez,21,Femenino,92939444,Corrientes
-949596,Felipe,Salazar,22,Masculino,94959655,Bahia Blanca
-969798,Liliana,Rojas,23,Femenino,96979866,San Luis
-LibretaUniversitaria,nombre,apellido,edad,genero,dni,ciudad
-101010,Martin,Lozano,20,Masculino,10101011,Cordoba
-111212,Valeria,Cano,22,Femenino,11121222,Mendoza
-121314,Diego,Palacios,21,Masculino,12131433,Rosario
-131415,Juliana,Casado,23,Femenino,13141544,La Plata
-141516,Raul,Aguilar,19,Masculino,14151655,Buenos Aires
-151617,Carmen,Carrillo,20,Femenino,15161766,Salta
-161718,Sergio,Marino,21,Masculino,16171877,Corrientes
-171819,Estela,Davila,22,Femenino,17181988,San Juan
-181920,Gustavo,Castilla,24,Masculino,18192099,Formosa
-202122,Susana,Almeida,19,Femenino,20212200,Jujuy
-222324,Oscar,Marquez,20,Masculino,22232411,Catamarca
-242526,Luciana,Peralta,21,Femenino,24252622,La Rioja
-262728,Ricardo,Ceballos,23,Masculino,26272833,Bahia Blanca
-282930,Silvia,Roldan,19,Femenino,28293044,San Martin
-303132,Eduardo,Carranza,20,Masculino,30313255,Neuquen
-323334,Gloria,Cordova,21,Femenino,32333466,Rio Cuarto
-343536,Julio,Vicente,22,Masculino,34353677,Mendoza
-363738,Patricia,Rivero,23,Femenino,36373888,Cordoba
-383940,Francisco,Solano,24,Masculino,38394099,Salta
-404142,Cecilia,Torres,20,Femenino,40414200,Buenos Aires
-424344,Hugo,Salazar,21,Masculino,42434411,Corrientes
-444546,Nadia,Jimenez,22,Femenino,44454622,San Juan
-464748,Marco,Campos,19,Masculino,46474833,Formosa
-484950,Estefania,Nieto,20,Femenino,48495044,Jujuy
-505152,Alberto,Silva,21,Masculino,50515255,La Plata
-525354,Monica,Ramirez,22,Femenino,52535466,Rosario
-545556,Matias,Rosales,23,Masculino,54555677,Mendoza
-565758,Carla,Maldonado,19,Femenino,56575888,Catamarca
-585960,Cristian,Peña,20,Masculino,58596099,Neuquen
-606162,Fabiana,Ponce,21,Femenino,60616200,Bahia Blanca
-626364,Leonel,Castro,22,Masculino,62636411,Corrientes
-646566,Silvana,Alvarado,23,Femenino,64656622,San Martin
-666768,Enrique,Ortiz,19,Masculino,66676833,Rio Cuarto
-686970,Micaela,Paredes,20,Femenino,68697044,Salta
-707172,Roberto,Lopez,21,Masculino,70717255,Cordoba
-727374,Estefania,Carrizo,22,Femenino,72737466,La Plata
-747576,Gonzalo,Segura,23,Masculino,74757677,Buenos Aires

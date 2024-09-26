@@ -46,4 +46,16 @@ public class EstudianteRepository implements Repository<Estudiante>{
         query.setParameter("ciudad", ciudad);
         return query.getResultList();
     }
+
+    public List<Estudiante> findEstudiantesReporte(EntityManager em,int id_carrera, boolean egresado) {
+        String jpql = null;
+        if(egresado){
+            jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND ec.fecha_fin IS NOT NULL ORDER BY ec.fecha_fin";
+        } else {
+            jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND ec.fecha_fin IS NULL ORDER BY ec.fecha_inicio";
+        }
+        Query query = em.createQuery(jpql);
+        query.setParameter("carrera", id_carrera);
+        return query.getResultList();
+    }
 }

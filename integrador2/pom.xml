@@ -8,11 +8,11 @@
   <url>https://maven.apache.org</url>
   <dependencies>
   <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
-    <dependency>
-      <groupId>org.apache.derby</groupId>
-      <artifactId>derby</artifactId>
-      <version>10.14.2.0</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.apache.derby</groupId>-->
+<!--      <artifactId>derby</artifactId>-->
+<!--      <version>10.14.2.0</version>-->
+<!--    </dependency>-->
     <!-- https://mvnrepository.com/artifact/org.apache.derby/derbytools -->
     <dependency>
       <groupId>org.apache.derby</groupId>
@@ -30,6 +30,11 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
       <version>5.6.15.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.5</version>
     </dependency>
   </dependencies>
 </project>

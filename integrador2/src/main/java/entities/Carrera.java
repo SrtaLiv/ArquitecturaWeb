@@ -23,11 +23,15 @@ public class Carrera {
     public String toString() {
         return "Carrera{" +
                 "id_carrera=" + id_carrera +
-                ", nombre='" + nombre + '\'' +
+                ", nombre='" + nombre +
                 '}';
     }
 
     public int getId_carrera() {
         return id_carrera;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 }
