@@ -7,39 +7,43 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class EstudianteRepository implements Repository<Estudiante>{
+    private EntityManager em;
+    public EstudianteRepository(EntityManager em) {
+        this.em = em;
+    }
     @Override
-    public void create(EntityManager em, Estudiante object) {
+    public void create(Estudiante object) {
         em.persist(object);
     }
 
     @Override
-    public void update(EntityManager em, Estudiante object) {
+    public void update(Estudiante object) {
         //TODO
     }
 
     @Override
-    public void delete(EntityManager em, int id) {
+    public void delete(int id) {
         //TODO
     }
 
     @Override
-    public Estudiante findById(EntityManager em, int id) {
+    public Estudiante findById(int id) {
         return em.find(Estudiante.class, id);
     }
 
-    public List<Estudiante> findAll(EntityManager em){
+    public List<Estudiante> findAll(){
         String jpql = "SELECT e FROM Estudiante e ORDER BY e.apellido";
         return  em.createQuery(jpql, Estudiante.class).getResultList();
     }
 
-    public List<Estudiante> findByGenero(EntityManager em, String genero){
+    public List<Estudiante> findByGenero(String genero){
         String jpql = "SELECT e FROM Estudiante e WHERE e.genero = :genero";
         Query q = em.createQuery(jpql, Estudiante.class);
         q.setParameter("genero", genero);
         return q.getResultList();
     }
 
-    public List<Estudiante> findByCarreraAndCiudad(EntityManager em,int id_carrera,String ciudad) {
+    public List<Estudiante> findByCarreraAndCiudad(int id_carrera,String ciudad) {
         String jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND e.ciudadResidencia = :ciudad";
         Query query = em.createQuery(jpql);
         query.setParameter("carrera", id_carrera);
@@ -47,7 +51,7 @@ public class EstudianteRepository implements Repository<Estudiante>{
         return query.getResultList();
     }
 
-    public List<Estudiante> findEstudiantesReporte(EntityManager em,int id_carrera, boolean egresado) {
+    public List<Estudiante> findEstudiantesReporte(int id_carrera, boolean egresado) {
         String jpql = null;
         if(egresado){
             jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND ec.fecha_fin IS NOT NULL ORDER BY ec.fecha_fin";

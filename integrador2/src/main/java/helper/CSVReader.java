@@ -18,15 +18,21 @@ import java.util.Date;
 
 public class CSVReader {
     private EntityManager em;
-    public CSVReader(EntityManager em){
+    private CarreraRepository cr;
+    private EstudianteRepository er;
+    private Estudiante_CarreraRepository ecr;
+    public CSVReader(EntityManager em, CarreraRepository cr, Estudiante_CarreraRepository ecr, EstudianteRepository er){
         this.em = em;
+        this.cr = cr;
+        this.er = er;
+        this.ecr = ecr;
     }
 
     private Iterable<CSVRecord> getData(String archivo) throws IOException {
         String path = "integrador2\\src\\main\\resources\\" + archivo;
         // String path = "integrador2/src/main/resources/" + archivo; //para linux
         Reader in = new FileReader(path);
-        String[] header = {};  // Puedes configurar tu encabezado personalizado aquí si es necesario
+        String[] header = {};
         CSVParser csvParser = CSVFormat.EXCEL.withHeader(header).parse(in);
 
         Iterable<CSVRecord> records = csvParser.getRecords();
@@ -35,10 +41,11 @@ public class CSVReader {
 
     public void populateDB() throws Exception {
         try {
-            System.out.println("Populating DB...");
-//            insertEstudiantes();
-//            insertCarreras();
+            em.getTransaction().begin();
+            insertEstudiantes();
+            insertCarreras();
             insertMatriculas();
+            em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,9 +68,7 @@ public class CSVReader {
                         int edad = Integer.parseInt(edadString);
                         int dni = Integer.parseInt(dniString);
                         Estudiante estudiante = new Estudiante(nroLU, nombre, apellido, edad, sexo, dni, ciudad);
-                        EstudianteRepository er = new EstudianteRepository();
-                        er.create(em, estudiante);
-//                        System.out.println(estudiante);
+                        er.create(estudiante);
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de dirección: " + e.getMessage());
                     }
@@ -74,15 +79,14 @@ public class CSVReader {
     private void insertCarreras() throws IOException {
         for(CSVRecord row : getData("carreras.csv")) {
             //id_carrera,nombre
-            if(row.size() >= 2) { // Verificar que hay al menos 4 campos en el CSVRecord
+            if(row.size() >= 2) {
                 String id_carreraString = row.get(0);
                 String nombre = row.get(1);
                 if(!id_carreraString.isEmpty() && !nombre.isEmpty()) {
                     try {
                         int id_carrera = Integer.parseInt(id_carreraString);
                         Carrera carrera = new Carrera(id_carrera, nombre);
-                        CarreraRepository er = new CarreraRepository();
-                        er.create(em, carrera);
+                        cr.create(carrera);
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de dirección: " + e.getMessage());
                     }
@@ -93,7 +97,7 @@ public class CSVReader {
     private void insertMatriculas() throws IOException {
         for(CSVRecord row : getData("matriculas.csv")) {
             //nroLu,id_carrera,fecha_inicio,fecha_fin
-            if(row.size() >= 4) { // Verificar que hay al menos 4 campos en el CSVRecord
+            if(row.size() >= 4) {
                 String nroLuString = row.get(0);
                 String id_carreraString = row.get(1);
                 String fecha_inicioString = row.get(2);
@@ -109,17 +113,10 @@ public class CSVReader {
                             long fecha_finL = Long.parseLong(fecha_finString);
                             fecha_fin = new Date(fecha_finL);
                         }
-                        EstudianteRepository er = new EstudianteRepository();
-                        CarreraRepository cr = new CarreraRepository();
-//                        String ec = nroLuString + " " + id_carreraString + " " + fecha_inicioString + " " + fecha_finString;
-//                        System.out.println(ec);
-                        Estudiante estudiante = er.findById(em, nroLu);
-                        Carrera carrera = cr.findById(em, id_carrera);
-//                        System.out.println(estudiante);
-//                        System.out.println(carrera);
+                        Estudiante estudiante = er.findById(nroLu);
+                        Carrera carrera = cr.findById(id_carrera);
                         Estudiante_Carrera estudianteCarrera = new Estudiante_Carrera(estudiante, carrera, fecha_inicio, fecha_fin);
-                        Estudiante_CarreraRepository ecr = new Estudiante_CarreraRepository();
-                        ecr.create(em, estudianteCarrera);
+                        ecr.create(estudianteCarrera);
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de dirección: " + e.getMessage());
                     }
