@@ -8,6 +8,7 @@ import java.util.List;
 public class Carrera {
     @Id
     private int id_carrera;
+    @Column
     private String nombre;
     @OneToMany(mappedBy = "carrera")
     private List<Estudiante_Carrera> estudiantes;

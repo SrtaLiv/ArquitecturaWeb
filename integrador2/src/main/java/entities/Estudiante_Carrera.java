@@ -1,7 +1,5 @@
 package entities;
 
-
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,7 +8,6 @@ import java.util.Date;
 public class Estudiante_Carrera implements Serializable {
     @EmbeddedId
     private Estudiante_Carrera_pk pk;
-
 
     @ManyToOne
     @MapsId("id_estudiante")
@@ -23,7 +20,6 @@ public class Estudiante_Carrera implements Serializable {
     private Date fecha_inicio;
     @Column
     private Date fecha_fin;
-
 
     public Estudiante_Carrera() {}
 

@@ -3,13 +3,11 @@ package repositories;
 import DTO.CarreraInfoDTO;
 import DTO.ReporteDTO;
 import entities.Carrera;
-import entities.Estudiante;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CarreraRepository implements Repository<Carrera>{
     private EntityManager em;

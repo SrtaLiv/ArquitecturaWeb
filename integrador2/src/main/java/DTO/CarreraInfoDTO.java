@@ -1,11 +1,5 @@
 package DTO;
 
-import entities.Carrera;
-import entities.Estudiante;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class CarreraInfoDTO {
     private int inscriptos;
     private int egresados;
@@ -17,9 +11,7 @@ public class CarreraInfoDTO {
 
     @Override
     public String toString() {
-        return "CarreraInfoDTO{" +
-                "inscriptos=" + inscriptos +
-                ", egresados=" + egresados +
-                '}';
+        return "inscriptos = " + inscriptos +
+                ", egresados = " + egresados;
     }
 }

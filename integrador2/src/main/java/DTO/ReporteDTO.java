@@ -13,10 +13,8 @@ public class ReporteDTO {
 
     @Override
     public String toString() {
-        return "ReporteDTO{" +
-                "nombreCarrera='" + nombreCarrera + '\'' +
-                ", infoPorAnio=" + infoPorAnio +
-                '}';
+        return "\nCarrera = " + nombreCarrera + ", " +
+                "Informacion de alumnos por año = " + infoPorAnio;
     }
 
     public String getNombreCarrera() {

@@ -1,6 +1,6 @@
 package service;
 
-import DTO.CarreraInfoDTO;
+import DTO.EstudianteDTO;
 import DTO.ReporteDTO;
 import entities.Carrera;
 import entities.Estudiante;
@@ -11,6 +11,7 @@ import repositories.EstudianteRepository;
 import repositories.Estudiante_CarreraRepository;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,38 +28,53 @@ public class Servicios {
         this.ecr = new Estudiante_CarreraRepository(em);
     }
 
+    private List<EstudianteDTO> convertirEstudiantes(List<Estudiante> estudiantes){
+        List<EstudianteDTO> estudiantesDTO = new ArrayList<>();
+        for (Estudiante estudiante : estudiantes){
+            EstudianteDTO estudianteDTO = new EstudianteDTO(estudiante);
+            estudiantesDTO.add(estudianteDTO);
+        }
+        return estudiantesDTO;
+    }
+
     public void inicializarDB() throws Exception {
         CSVReader reader = new CSVReader(em, cr, ecr, er);
         reader.populateDB();
     }
     //a
     public void agregarEstudiante(Estudiante estudiante){
+        em.getTransaction().begin();
         er.create(estudiante);
+        em.getTransaction().commit();
     }
     //b
-    public void matricularEstudiante(Estudiante estudiante, Carrera carrera){
+    public void matricularEstudiante(int estudianteLU, int carrera_id){
+        Carrera carrera = cr.findById(carrera_id);
+        Estudiante estudiante = er.findById(estudianteLU);
         Estudiante_Carrera estudianteCarrera = new Estudiante_Carrera(estudiante, carrera, new Date(), null);
+        em.getTransaction().begin();
         ecr.create(estudianteCarrera);
+        em.getTransaction().commit();
     }
     //c
-    public List<Estudiante> obtenerEstudiantes(){
-        return er.findAll();
+    public List<EstudianteDTO> obtenerEstudiantes(){
+        return convertirEstudiantes(er.findAll());
     }
     //d
-    public Estudiante obtenerEstudiantePorLU(int LU){
-        return er.findById(LU);
+    public EstudianteDTO obtenerEstudiantePorLU(int LU){
+        return new EstudianteDTO(er.findById(LU));
     }
     //e
-    public List<Estudiante> obtenerEstudiantesPorGenero(String genero){
-        return er.findByGenero(genero);
+    public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero){
+        return convertirEstudiantes(er.findByGenero(genero));
     }
     //f
     public List<Carrera> obteberCarrerasConInscriptos(){
         return cr.findCarreraConInscriptos();
     }
     //g
-    public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(int id_carrera, String ciudad){
-        return er.findByCarreraAndCiudad(id_carrera, ciudad);
+    public List<EstudianteDTO> obtenerEstudiantesPorCarreraCiudad(int id_carrera, String ciudad){
+        return convertirEstudiantes(er.findByCarreraAndCiudad(id_carrera, ciudad));
     }
     //3
     public List<ReporteDTO> generarReporte(){
