@@ -19,7 +19,7 @@ public class main {
 //        servicios.obtenerEstudiantesPorGenero();
 //        servicios.obteberCarrerasConInscriptos();
 //        servicios.obtenerEstudiantesPorCarreraCiudad();
-        servicios.generarReporte();
+        System.out.println(servicios.generarReporte());
         em.close();
         emf.close();
     }

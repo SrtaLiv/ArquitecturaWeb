@@ -1,11 +1,15 @@
 package repositories;
 
+import DTO.CarreraInfoDTO;
+import DTO.ReporteDTO;
 import entities.Carrera;
 import entities.Estudiante;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CarreraRepository implements Repository<Carrera>{
     private EntityManager em;
@@ -39,24 +43,31 @@ public class CarreraRepository implements Repository<Carrera>{
         return query.getResultList();
     }
 
-    public List<Carrera> generarReporte() {
-        String jpql = "SELECT c FROM Carrera c order by c.nombre ASC";
-        List<Carrera>carreras = em.createQuery(jpql).getResultList();
-        EstudianteRepository er = new EstudianteRepository(em);
-        for(Carrera c : carreras){
-            System.out.println(c.getNombre());
-            List<Estudiante> inscriptos = er.findEstudiantesReporte(c.getId_carrera(), false);
-            System.out.println("inscriptos\n");
-            System.out.println(inscriptos);
-            List<Estudiante> egresados = er.findEstudiantesReporte(c.getId_carrera(), true);
-            System.out.println("egresados\n");
-            System.out.println(egresados);
-            //TODO
-            // crear el DTO,
-            // hacer la query de los inscriptos por años
-            // agregar esa lista al DTO
-            // lo mismo con los egresados
+    public List<ReporteDTO> generarReporte() {
+        List<Carrera> carreras = em.createQuery("SELECT c FROM Carrera c ORDER BY c.nombre", Carrera.class).getResultList();
+        List<ReporteDTO> reportes = new ArrayList<>();
+
+        for(Carrera carrera : carreras){
+            ReporteDTO reporte = new ReporteDTO(carrera.getNombre());
+
+            String jpql = "SELECT YEAR(ec.fecha_inicio), COUNT(ec), " +
+                    "SUM(CASE WHEN ec.fecha_fin IS NOT NULL THEN 1 ELSE 0 END) " +
+                    "FROM Estudiante_Carrera ec " +
+                    "WHERE ec.carrera.id_carrera = :idCarrera " +
+                    "GROUP BY YEAR(ec.fecha_inicio) " +
+                    "ORDER BY YEAR(ec.fecha_inicio)";
+
+            List<Object[]> resultados = em.createQuery(jpql).setParameter("idCarrera", carrera.getId_carrera()).getResultList();
+            for (Object[] resultado : resultados){
+                int anio = (Integer) resultado[0];
+                int inscriptos = ((Number) resultado[1]).intValue();
+                int egresados = ((Number) resultado[2]).intValue();
+
+                reporte.getInfoPorAnio().put(anio, new CarreraInfoDTO(inscriptos, egresados));
+            }
+
+            reportes.add(reporte);
         }
-        return  null;
+        return reportes;
     }
 }

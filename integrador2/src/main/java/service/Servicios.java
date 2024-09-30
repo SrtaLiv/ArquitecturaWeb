@@ -1,5 +1,7 @@
 package service;
 
+import DTO.CarreraInfoDTO;
+import DTO.ReporteDTO;
 import entities.Carrera;
 import entities.Estudiante;
 import entities.Estudiante_Carrera;
@@ -59,8 +61,8 @@ public class Servicios {
         return er.findByCarreraAndCiudad(id_carrera, ciudad);
     }
     //3
-    public List<Carrera> generarReporte(){
-        return null;
+    public List<ReporteDTO> generarReporte(){
+        return cr.generarReporte();
     }
 
 }
