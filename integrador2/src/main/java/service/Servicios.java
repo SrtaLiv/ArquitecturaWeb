@@ -1,5 +1,6 @@
 package service;
 
+import DTO.CarreraDTO;
 import DTO.EstudianteDTO;
 import DTO.ReporteDTO;
 import entities.Carrera;
@@ -48,10 +49,10 @@ public class Servicios {
         em.getTransaction().commit();
     }
     //b
-    public void matricularEstudiante(int estudianteLU, int carrera_id){
+    public void matricularEstudiante(int dni, int carrera_id){
         Carrera carrera = cr.findById(carrera_id);
-        Estudiante estudiante = er.findById(estudianteLU);
-        Estudiante_Carrera estudianteCarrera = new Estudiante_Carrera(estudiante, carrera, new Date(), null);
+        Estudiante estudiante = er.findById(dni);
+        Estudiante_Carrera estudianteCarrera = new Estudiante_Carrera(estudiante, carrera, 2024, 0, 0);
         em.getTransaction().begin();
         ecr.create(estudianteCarrera);
         em.getTransaction().commit();
@@ -62,14 +63,14 @@ public class Servicios {
     }
     //d
     public EstudianteDTO obtenerEstudiantePorLU(int LU){
-        return new EstudianteDTO(er.findById(LU));
+        return new EstudianteDTO(er.findByLU(LU));
     }
     //e
     public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero){
         return convertirEstudiantes(er.findByGenero(genero));
     }
     //f
-    public List<Carrera> obteberCarrerasConInscriptos(){
+    public List<CarreraDTO> obteberCarrerasConInscriptos(){
         return cr.findCarreraConInscriptos();
     }
     //g

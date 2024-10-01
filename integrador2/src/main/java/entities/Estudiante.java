@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class Estudiante {
     @Id
-    private int nroLU;
+    private int dni;
     @Column
     private String nombre;
     @Column
@@ -16,15 +16,15 @@ public class Estudiante {
     @Column
     private String genero;
     @Column
-    private int dni;
-    @Column
     private String ciudadResidencia;
+    @Column
+    private int nroLU;
     @OneToMany(mappedBy = "carrera")
     private List<Estudiante_Carrera> carreras;
     public Estudiante() {
 
     }
-    public Estudiante(int nroLU, String nombre, String apellido, int edad, String genero, int dni, String ciudadResidencia) {
+    public Estudiante(int dni, String nombre, String apellido, int edad, String genero, int nroLU, String ciudadResidencia) {
         this.nroLU = nroLU;
         this.nombre = nombre;
         this.apellido = apellido;

@@ -53,21 +53,21 @@ public class CSVReader {
 
     private void insertEstudiantes() throws IOException {
         for(CSVRecord row : getData("estudiantes.csv")) {
-            //nroLU,nombre,apellido,edad,sexo,dni,ciudad
+            //DNI,nombre,apellido,edad,genero,ciudad,LU
             if(row.size() >= 7) {
-                String nroLUString = row.get(0);
+                String dniString = row.get(0);
                 String nombre = row.get(1);
                 String apellido = row.get(2);
                 String edadString = row.get(3);
-                String sexo = row.get(4);
-                String dniString = row.get(5);
-                String ciudad = row.get(6);
-                if(!nroLUString.isEmpty() && !nombre.isEmpty() && !apellido.isEmpty() && !edadString.isEmpty() && !sexo.isEmpty() && !dniString.isEmpty() && !ciudad.isEmpty()) {
+                String genero = row.get(4);
+                String ciudad = row.get(5);
+                String nroLUString = row.get(6);
+                if(!dniString.isEmpty() && !nombre.isEmpty() && !apellido.isEmpty() && !edadString.isEmpty() && !genero.isEmpty() && !nroLUString.isEmpty() && !ciudad.isEmpty()) {
                     try {
                         int nroLU = Integer.parseInt(nroLUString);
                         int edad = Integer.parseInt(edadString);
                         int dni = Integer.parseInt(dniString);
-                        Estudiante estudiante = new Estudiante(nroLU, nombre, apellido, edad, sexo, dni, ciudad);
+                        Estudiante estudiante = new Estudiante(dni, nombre, apellido, edad, genero, nroLU, ciudad);
                         er.create(estudiante);
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de dirección: " + e.getMessage());
@@ -78,14 +78,16 @@ public class CSVReader {
     }
     private void insertCarreras() throws IOException {
         for(CSVRecord row : getData("carreras.csv")) {
-            //id_carrera,nombre
-            if(row.size() >= 2) {
+            //id_carrera,nombre, duracion
+            if(row.size() >= 3) {
                 String id_carreraString = row.get(0);
                 String nombre = row.get(1);
-                if(!id_carreraString.isEmpty() && !nombre.isEmpty()) {
+                String duracionString = row.get(2);
+                if(!id_carreraString.isEmpty() && !nombre.isEmpty() && !duracionString.isEmpty()) {
                     try {
                         int id_carrera = Integer.parseInt(id_carreraString);
-                        Carrera carrera = new Carrera(id_carrera, nombre);
+                        int duracion = Integer.parseInt(duracionString);
+                        Carrera carrera = new Carrera(id_carrera, nombre, duracion);
                         cr.create(carrera);
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de dirección: " + e.getMessage());
@@ -95,28 +97,28 @@ public class CSVReader {
         }
     }
     private void insertMatriculas() throws IOException {
-        for(CSVRecord row : getData("matriculas.csv")) {
-            //nroLu,id_carrera,fecha_inicio,fecha_fin
-            if(row.size() >= 4) {
-                String nroLuString = row.get(0);
-                String id_carreraString = row.get(1);
-                String fecha_inicioString = row.get(2);
-                String fecha_finString = row.get(3);
-                if(!nroLuString.isEmpty() && !id_carreraString.isEmpty() && !fecha_inicioString.isEmpty() && !fecha_finString.isEmpty()) {
+        for(CSVRecord row : getData("estudianteCarrera.csv")) {
+            //id,id_estudiante,id_carrera,inscripcion,graduacion,antiguedad
+            if(row.size() >= 6) {
+                String idString = row.get(0);
+                String dniString = row.get(1);
+                String id_carreraString = row.get(2);
+                String anio_inicioString = row.get(3);
+                String anio_finString = row.get(4);
+                String antiguedadString = row.get(5);
+                if(!dniString.isEmpty() && !id_carreraString.isEmpty() && !anio_inicioString.isEmpty() && !anio_finString.isEmpty()) {
                     try {
-                        int nroLu = Integer.parseInt(nroLuString);
+                        int dni = Integer.parseInt(dniString);
                         int id_carrera = Integer.parseInt(id_carreraString);
-                        long fecha_inicioL = Long.parseLong(fecha_inicioString);
-                        Date fecha_inicio = new Date(fecha_inicioL);
-                        Date fecha_fin = null;
-                        if (!fecha_finString.equals("null")){
-                            long fecha_finL = Long.parseLong(fecha_finString);
-                            fecha_fin = new Date(fecha_finL);
-                        }
-                        Estudiante estudiante = er.findById(nroLu);
+                        int anio_inicio = Integer.parseInt(anio_inicioString);
+                        int anio_fin = Integer.parseInt(anio_finString);
+                        int antiguedad = Integer.parseInt(antiguedadString);
+
+                        Estudiante estudiante = er.findById(dni);
                         Carrera carrera = cr.findById(id_carrera);
-                        Estudiante_Carrera estudianteCarrera = new Estudiante_Carrera(estudiante, carrera, fecha_inicio, fecha_fin);
+                        Estudiante_Carrera estudianteCarrera = new Estudiante_Carrera(estudiante, carrera, anio_inicio, anio_fin, antiguedad);
                         ecr.create(estudianteCarrera);
+
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de dirección: " + e.getMessage());
                     }

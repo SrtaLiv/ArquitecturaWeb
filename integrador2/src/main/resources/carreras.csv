@@ -1,31 +1,16 @@
-id_carrera,nombre
-1,Medicina
-2,Administracion de Empresas
-3,Ingenieria Civil
-4,Arquitectura
-5,Psicologia
-6,Contaduria Publica
-7,Derecho
-8,Ingenieria de Sistemas
-9,Biologia
-10,Marketing
-11,Quimica
-12,Educacion
-13,Trabajo Social
-14,Ingenieria Electronica
-15,Economia
-16,Relaciones Internacionales
-17,Ingenieria Mecanica
-18,Enfermeria
-19,Ciencias de la Computacion
-20,Antropologia
-21,Fisioterapia
-22,Periodismo
-23,Odontologia
-24,Gestion Ambiental
-25,Arte y Diseno
-26,Matematicas
-27,Ciencias Politicas
-28,Turismo
-29,Produccion Audiovisual
-30,Filosofia
+id_carrera,carrera,duracion
+1,TUDAI,2
+2,Abogacia,4
+3,Ingenieria de Sistemas,5
+4,Ingenieria Electronica,5
+5,TUARI,2
+6,Veterinaria,6
+7,Profesorado Matematicas,5
+8,Medicina,6
+9,Educacion Fisica,5
+10,Licenciatura en Fisica,5
+11,Ingenieria Industrial,5
+12,Psicologia,4
+13,Periodismo,3
+14,Ciencias Economicas,4
+15,Arte,3

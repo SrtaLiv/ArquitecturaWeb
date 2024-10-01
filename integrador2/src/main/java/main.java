@@ -1,6 +1,3 @@
-import entities.Estudiante;
-import repositories.CarreraRepository;
-import repositories.EstudianteRepository;
 import service.Servicios;
 
 import javax.persistence.EntityManager;
@@ -13,15 +10,15 @@ public class main {
         EntityManager em = emf.createEntityManager();
         Servicios servicios = new Servicios(em);
 //        servicios.inicializarDB();
-//        Estudiante estudiante = new Estudiante(999999, "Pedro", "Sanchez", 99, "Masculino", 99999999, "Paris");
+//        Estudiante estudiante = new Estudiante(99999999, "Pedro", "Sanchez", 99, "Masculino", 999999, "Paris");
 //        servicios.agregarEstudiante(estudiante);
-//        servicios.matricularEstudiante(999999, 1);
+//        servicios.matricularEstudiante(99999999, 1);
 //        System.out.println(servicios.obtenerEstudiantes());
-//        System.out.println(servicios.obtenerEstudiantePorLU(101112));
-//        System.out.println(servicios.obtenerEstudiantesPorGenero("femenino"));
+//        System.out.println(servicios.obtenerEstudiantePorLU(26799));
+//        System.out.println(servicios.obtenerEstudiantesPorGenero("Male"));
 //        System.out.println(servicios.obteberCarrerasConInscriptos());
-//        System.out.println(servicios.obtenerEstudiantesPorCarreraCiudad(1, "Buenos Aires"));
-//        System.out.println(servicios.generarReporte());
+//        System.out.println(servicios.obtenerEstudiantesPorCarreraCiudad(1, "Rauch"));
+        System.out.println(servicios.generarReporte());
         em.close();
         emf.close();
     }

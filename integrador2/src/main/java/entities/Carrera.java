@@ -10,13 +10,16 @@ public class Carrera {
     private int id_carrera;
     @Column
     private String nombre;
+    @Column
+    private int duracion;
     @OneToMany(mappedBy = "carrera")
     private List<Estudiante_Carrera> estudiantes;
 
     public Carrera() {}
-    public Carrera(int i,String nombre) {
+    public Carrera(int i,String nombre, int duracion) {
         this.id_carrera = i;
         this.nombre = nombre;
+        this.duracion = duracion;
         this.estudiantes = new ArrayList<Estudiante_Carrera>();
     }
 

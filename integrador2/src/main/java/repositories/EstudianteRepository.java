@@ -30,6 +30,11 @@ public class EstudianteRepository implements Repository<Estudiante>{
     public Estudiante findById(int id) {
         return em.find(Estudiante.class, id);
     }
+    public Estudiante findByLU(int LU){
+        String jpql = "SELECT e FROM Estudiante e WHERE nroLU = :LU";
+
+        return  em.createQuery(jpql, Estudiante.class).setParameter("LU", LU).getSingleResult();
+    }
 
     public List<Estudiante> findAll(){
         String jpql = "SELECT e FROM Estudiante e ORDER BY e.apellido";
@@ -44,22 +49,22 @@ public class EstudianteRepository implements Repository<Estudiante>{
     }
 
     public List<Estudiante> findByCarreraAndCiudad(int id_carrera,String ciudad) {
-        String jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND e.ciudadResidencia = :ciudad";
+        String jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.dni = e.dni WHERE ec.carrera.id_carrera = :carrera AND e.ciudadResidencia = :ciudad";
         Query query = em.createQuery(jpql);
         query.setParameter("carrera", id_carrera);
         query.setParameter("ciudad", ciudad);
         return query.getResultList();
     }
 
-    public List<Estudiante> findEstudiantesReporte(int id_carrera, boolean egresado) {
-        String jpql = null;
-        if(egresado){
-            jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND ec.fecha_fin IS NOT NULL ORDER BY ec.fecha_fin";
-        } else {
-            jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND ec.fecha_fin IS NULL ORDER BY ec.fecha_inicio";
-        }
-        Query query = em.createQuery(jpql);
-        query.setParameter("carrera", id_carrera);
-        return query.getResultList();
-    }
+//    public List<Estudiante> findEstudiantesReporte(int id_carrera, boolean egresado) {
+//        String jpql = null;
+//        if(egresado){
+//            jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND ec.fecha_fin IS NOT NULL ORDER BY ec.fecha_fin";
+//        } else {
+//            jpql = "SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.nroLU = e.nroLU WHERE ec.carrera.id_carrera = :carrera AND ec.fecha_fin IS NULL ORDER BY ec.fecha_inicio";
+//        }
+//        Query query = em.createQuery(jpql);
+//        query.setParameter("carrera", id_carrera);
+//        return query.getResultList();
+//    }
 }
