@@ -1,11 +1,12 @@
 package integrador3.integrador3.entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 public class Estudiante {
     @Id
     private int dni;
@@ -21,10 +22,8 @@ public class Estudiante {
     private String ciudadResidencia;
     @Column
     private int nroLU;
-    @OneToMany(mappedBy = "carrera")
+    @OneToMany(mappedBy = "estudiante")
     private List<Estudiante_Carrera> carreras;
-    @jakarta.persistence.Id
-    private Long id;
 
     public Estudiante() {
 
@@ -39,85 +38,7 @@ public class Estudiante {
         this.ciudadResidencia= ciudadResidencia;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getNroLU() {
-        return nroLU;
-    }
-
-    @Override
-    public String toString() {
-        return "Estudiante{" +
-                "nroLU=" + nroLU +
-                ", nombre='" + nombre +
-                ", apellido='" + apellido +
-                ", edad=" + edad +
-                ", genero='" + genero +
-                ", dni=" + dni +
-                ", ciudadResidencia='" + ciudadResidencia +
-                ", carreras=" + carreras +
-                '}';
-    }
-
-    public void setNroLU(int nroLU) {
-        this.nroLU = nroLU;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public int getDni() {
-        return dni;
-    }
-
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
-    public String getCiudadResidencia() {
-        return ciudadResidencia;
-    }
-
-    public void setCiudadResidencia(String ciudadResidencia) {
-        this.ciudadResidencia = ciudadResidencia;
-    }
-
     public List<Estudiante_Carrera> getCarreras() {
         return new ArrayList<Estudiante_Carrera>(carreras);
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }

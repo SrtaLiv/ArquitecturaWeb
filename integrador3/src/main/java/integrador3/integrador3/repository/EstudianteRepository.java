@@ -2,9 +2,8 @@ package integrador3.integrador3.repository;
 
 
 import integrador3.integrador3.entities.Estudiante;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@org.springframework.stereotype.Repository //no se pq se importa asi .-.
-public interface EstudianteRepository extends Repository<Estudiante, Long> {
+public interface EstudianteRepository extends JpaRepository<Estudiante, Integer> {
 
 }

@@ -1,20 +1,19 @@
 package integrador3.integrador3.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.io.Serializable;
 
 @Entity
+@Data
 public class Estudiante_Carrera implements Serializable {
     @EmbeddedId
     private Estudiante_Carrera_pk pk;
 
     @ManyToOne
-    @MapsId("id_estudiante")
     private Estudiante estudiante;
-
     @ManyToOne
-    @MapsId("id_carrera")
     private Carrera carrera;
     @Column
     private int anio_inicio;
