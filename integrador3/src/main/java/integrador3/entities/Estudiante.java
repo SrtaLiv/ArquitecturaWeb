@@ -1,5 +1,6 @@
 package integrador3.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Estudiante {
     @Column
     private int nroLU;
     @OneToMany(mappedBy = "estudiante")
+    @JsonIgnore
     private List<Estudiante_Carrera> carreras;
 
     public Estudiante() {

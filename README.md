@@ -22,3 +22,48 @@ Ademas, no usamos el id de estudianteCarrera, ya que utilizamos un id compuesto 
 <br>
 Descomenta la línea 111.
 Comenta la línea 110.</p>
+
+### Endpoints
+#### GET
+`/estudiantes/list`
+
+`/carreras/list`
+
+`/matriculas/list`
+#### POST
+
+```
+/estudiantes
+
+{
+  "dni": 87654321,
+  "nombre": "María",
+  "apellido": "González",
+  "edad": 22,
+  "genero": "Femenino",
+  "nroLU": 56789,
+  "ciudadResidencia": "Rosario"
+}
+```
+
+```
+/carreras
+
+{
+    "id_carrera": 99,
+    "nombre": "Carrera de prueba",
+    "duracion": 99
+}
+```
+```
+/matriculas
+
+{
+    "id": 150,
+    "id_estudiante":10719241,
+    "id_carrera":1,
+    "anio_inicio":2020,
+    "anio_fin":0,
+    "antiguedad": 5
+}
+```

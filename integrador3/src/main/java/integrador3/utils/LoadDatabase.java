@@ -4,6 +4,8 @@ import integrador3.entities.Carrera;
 import integrador3.entities.Estudiante;
 import integrador3.repository.CarreraRepository;
 import integrador3.repository.EstudianteRepository;
+import integrador3.repository.Estudiante_CarreraRepository;
+import integrador3.service.CarreraService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -11,18 +13,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@Slf4j
+
 public class LoadDatabase {
-/*
+
     @Bean
     CommandLineRunner initDatabase(
-            @Qualifier("carreraRepository") CarreraRepository carreraRepo
-    ) {
+            @Qualifier("carreraRepository") CarreraRepository carreraRepository,
+            @Qualifier("estudianteRepository") EstudianteRepository estudianteRepository,
+            @Qualifier("estudiante_CarreraRepository") Estudiante_CarreraRepository estudiante_carreraRepository
+            ) {
         return args -> {
-            Carrera c1 = new Carrera(1, "Bien", 11);
-            Carrera c2 = new Carrera(2, "Bien2", 11);
-            log.info("Preloading " + carreraRepo.save(c1));
-            log.info("Preloading " + carreraRepo.save(c2));
+            CSVReader reader = new CSVReader(carreraRepository, estudianteRepository, estudiante_carreraRepository);
+            reader.populateDB();
         };
-    }*/
+    }
 }
