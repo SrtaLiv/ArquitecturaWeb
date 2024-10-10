@@ -1,4 +1,4 @@
-package integrador3.integrador3;
+package integrador3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

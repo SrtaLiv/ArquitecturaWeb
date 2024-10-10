@@ -1,4 +1,4 @@
-package integrador3.integrador3.entities;
+package integrador3.entities;
 
 import jakarta.persistence.Embeddable;
 import java.io.Serializable;

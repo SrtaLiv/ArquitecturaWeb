@@ -1,5 +1,8 @@
-package integrador3.integrador3.DTO;
+package integrador3.DTO;
 
+import lombok.Getter;
+
+@Getter
 public class CarreraInfoDTO {
     private int inscriptos;
     private int egresados;

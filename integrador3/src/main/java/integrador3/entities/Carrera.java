@@ -1,4 +1,4 @@
-package integrador3.integrador3.entities;
+package integrador3.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,6 +22,7 @@ public class Carrera {
     private List<Estudiante_Carrera> estudiantes;
 
     public Carrera() {}
+
     public Carrera(int i,String nombre, int duracion) {
         this.id_carrera = i;
         this.nombre = nombre;

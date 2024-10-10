@@ -1,8 +1,10 @@
-package integrador3.integrador3.DTO;
+package integrador3.DTO;
 
 
-import integrador3.integrador3.entities.Carrera;
+import integrador3.entities.Carrera;
+import lombok.Getter;
 
+@Getter
 public class CarreraDTO {
     private String nombre;
     private int cantidad;

@@ -1,49 +1,67 @@
-package integrador3.integrador3.controllers;
+package integrador3.controllers;
 
-import integrador3.integrador3.repository.CarreraRepository;
+import integrador3.entities.Carrera;
+import integrador3.service.CarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/carreras")
 public class CarreraController {
-    @Qualifier("carreraRepository")
+
     @Autowired
-    private CarreraRepository carreraRepository;
+    private CarreraService carreraService;
 
-    public CarreraControllerJpa(@Qualifier("carreraRepository") CarreraRepository carreraRepository){
-        this.carreraRepository = carreraRepository;
+    @GetMapping("/list")
+    public ResponseEntity<?> getAll(){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(carreraService.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
     }
 
-    @GetMapping("/carrera")
-    public Iterable<Carrera> carreras(){
-        return carreraRepository.findAll();
+    @GetMapping("/{id}")
+    public ResponseEntity<?>getOne(@PathVariable int id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(carreraService.findById(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
+                    ".\"}");
+        }
     }
 
-    @GetMapping("/carrera/{id}")
-    public Optional<Carrera> carrera(@PathVariable Long id){
-        return carreraRepository.findById(id);
+    @PostMapping("")
+    public ResponseEntity<?> save(@RequestBody Carrera entity){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(carreraService.save(entity));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
     }
 
-    @PostMapping("/carrera")
-    public Carrera carrera(@RequestBody Carrera carrera){
-        return carreraRepository.save(carrera);
+    @PutMapping("/{id}")
+    Carrera replaceCarrera(@PathVariable int id, @RequestBody Carrera carrera) throws Exception {
+        return carreraService.save(carrera);
     }
 
-    @PutMapping("/carrera/{id}")
-    Carrera replaceCarrera(@PathVariable Long id, @RequestBody Carrera carrera){
-        return carreraRepository.save(carrera);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable int id){
+        try{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(carreraService.delete(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
+        }
     }
 
-    @DeleteMapping("/carrera/{id}")
-    void deleteCarrera(@PathVariable Long id){
-        carreraRepository.deleteById(id);
-    }
-
-    @GetMapping("/carrerafindCarreraConInscriptos")
-    public Iterable<Carrera> findCarreraConInscriptos(){
-        return carreraRepository.findCarreraConInscriptos();
-    }
+   @GetMapping("/findCarreraConInscriptos")
+   public ResponseEntity<?> findCarreraConInscriptos() {
+       try{
+           return ResponseEntity.status(HttpStatus.OK).body(carreraService.findCarreraConInscriptos());
+       }catch (Exception e){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+       }
+   }
 }

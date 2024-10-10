@@ -1,4 +1,4 @@
-package integrador3.integrador3.entities;
+package integrador3.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -38,7 +38,5 @@ public class Estudiante {
         this.ciudadResidencia= ciudadResidencia;
     }
 
-    public List<Estudiante_Carrera> getCarreras() {
-        return new ArrayList<Estudiante_Carrera>(carreras);
-    }
+
 }

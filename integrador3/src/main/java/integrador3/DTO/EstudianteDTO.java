@@ -1,7 +1,9 @@
-package integrador3.integrador3.DTO;
+package integrador3.DTO;
 
-import integrador3.integrador3.entities.Estudiante;
+import integrador3.entities.Estudiante;
+import lombok.Getter;
 
+@Getter
 public class EstudianteDTO {
     private String nombre;
     private String apellido;
@@ -19,4 +21,5 @@ public class EstudianteDTO {
                 ", apellido = " + apellido +
                 ", nombre = " + nombre;
     }
+
 }
