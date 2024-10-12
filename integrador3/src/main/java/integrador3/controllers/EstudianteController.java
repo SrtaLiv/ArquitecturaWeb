@@ -3,6 +3,7 @@ package integrador3.controllers;
 import integrador3.entities.Carrera;
 import integrador3.entities.Estudiante;
 import integrador3.repository.EstudianteRepository;
+import integrador3.service.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +13,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("estudiantes")
 public class EstudianteController {
     @Autowired
-    private final EstudianteRepository estudianteRepository;
+    private final EstudianteService estudianteService;
 
-    public EstudianteController(EstudianteRepository repository) {
-        this.estudianteRepository = repository;
+    public EstudianteController(EstudianteService service) {
+        this.estudianteService = service;
     }
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Estudiante entity){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteRepository.save(entity));
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteService.save(entity));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo crear el estudiante, revise los campos e intente nuevamente.\"}");
         }
@@ -30,10 +31,28 @@ public class EstudianteController {
     @GetMapping("/list")
     public ResponseEntity<?> findAll(){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteRepository.findAll());
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteService.findAll());
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
         }
 
+    }
+
+    @GetMapping("/lu/{lu}")
+    public ResponseEntity<?> findByLu(@PathVariable("lu") int lu){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteService.findByLU(lu));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
+        }
+    }
+
+    @GetMapping("/genero/{genero}")
+    public ResponseEntity<?> findByGenero(@PathVariable("genero") String genero){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteService.findByGenero(genero));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
+        }
     }
 }

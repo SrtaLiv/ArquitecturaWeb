@@ -6,13 +6,9 @@ import integrador3.entities.Estudiante_Carrera;
 import integrador3.repository.CarreraRepository;
 import integrador3.repository.EstudianteRepository;
 import integrador3.repository.Estudiante_CarreraRepository;
-import integrador3.service.CarreraService;
-import integrador3.service.EstudianteService;
-import integrador3.service.Estudiante_CarreraService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;

@@ -34,8 +34,7 @@ public class Estudiante_CarreraController {
     public ResponseEntity<?> save(@RequestBody Estudiante_CarreraJSON entity) throws Exception {
         Estudiante est = estudianteService.findById(entity.getId_estudiante());
         Carrera car = carreraService.findById(entity.getId_carrera());
-        Estudiante_Carrera ec = new Estudiante_Carrera(entity.getId(), est, car, entity.getAnio_inicio(), entity.getAnio_fin(), entity.getAntiguedad());
-        log.warn("entity" + entity);
+        Estudiante_Carrera ec = new Estudiante_Carrera(est, car, entity.getAnio_inicio(), entity.getAnio_fin(), entity.getAntiguedad());
         try{
             return ResponseEntity.status(HttpStatus.OK).body(estudiante_CarreraService.save(ec));
         }catch (Exception e){

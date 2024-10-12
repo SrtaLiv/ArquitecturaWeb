@@ -11,6 +11,7 @@ public class Estudiante_Carrera implements Serializable {
 //    @EmbeddedId
 //    private Estudiante_Carrera_pk pk;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
     private Estudiante estudiante;
@@ -26,7 +27,11 @@ public class Estudiante_Carrera implements Serializable {
     public Estudiante_Carrera() {}
 
     public Estudiante_Carrera(int id, Estudiante e, Carrera c, int anio_inicio, int anio_fin, int antiguedad) {
+        this(e, c, anio_inicio, anio_fin, antiguedad);
         this.id = id;
+//        this.pk = new Estudiante_Carrera_pk(c.getId_carrera(),e.getDni());
+    }
+    public Estudiante_Carrera(Estudiante e, Carrera c, int anio_inicio, int anio_fin, int antiguedad) {
         this.estudiante = e;
         this.carrera=c;
         this.anio_inicio = anio_inicio;

@@ -1,9 +1,12 @@
 package integrador3.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity
