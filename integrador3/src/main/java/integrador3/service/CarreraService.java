@@ -3,9 +3,12 @@ package integrador3.service;
 import integrador3.DTO.CarreraDTO;
 import integrador3.entities.Carrera;
 import integrador3.repository.CarreraRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,6 +16,7 @@ import java.util.stream.Collectors;
 @Service("CarreraService")
 public class CarreraService implements Servicio<Carrera>{
 
+    private static final Logger log = LoggerFactory.getLogger(CarreraService.class);
     @Autowired
     private CarreraRepository carreraRepository;
 
@@ -67,10 +71,19 @@ public class CarreraService implements Servicio<Carrera>{
         }
     }
 
-    public Object findCarreraConInscriptos() throws Exception {
-        var resultado = carreraRepository.findCarreraConInscriptos();
+    public List<CarreraDTO> findCarreraConInscriptos() throws Exception {
         try{
-            return resultado.stream().map(carrera->new CarreraDTO(new Carrera(),carrera.getCantidad())).collect(Collectors.toList());
+            log.info("llegue");
+            List<Object[]> query = carreraRepository.findCarreraConInscriptos();
+            log.info("llegue x2 ");
+            List<CarreraDTO> carreras = new ArrayList<>();
+            for (Object[] elemento : query){
+                Carrera c = carreraRepository.findById((Integer) elemento[0]).get();
+                Integer cantidad = Math.toIntExact((Long) elemento[1]);
+                CarreraDTO carrera = new CarreraDTO(c, cantidad);
+                carreras.add(carrera);
+            }
+            return carreras;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

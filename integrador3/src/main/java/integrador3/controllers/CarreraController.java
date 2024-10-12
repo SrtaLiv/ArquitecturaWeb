@@ -56,7 +56,7 @@ public class CarreraController {
         }
     }
 
-   @GetMapping("/findCarreraConInscriptos")
+   @GetMapping("/inscriptos")
    public ResponseEntity<?> findCarreraConInscriptos() {
        try{
            return ResponseEntity.status(HttpStatus.OK).body(carreraService.findCarreraConInscriptos());

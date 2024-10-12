@@ -24,12 +24,7 @@ Descomenta la línea 111.
 Comenta la línea 110.</p>
 
 ### Endpoints
-#### GET
-`/estudiantes/list`
 
-`/carreras/list`
-
-`/matriculas/list`
 #### POST
 
 ```
@@ -67,3 +62,22 @@ Comenta la línea 110.</p>
     "antiguedad": 5
 }
 ```
+--> a) dar de alta un estudiante (POST /estudiantes)
+
+--> b) matricular un estudiante en una carrera (POST /matriculas)
+
+--> c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.(GET estudiantes/list)
+
+--> d) recuperar un estudiante, en base a su número de libreta universitaria.(GET estudiantes/lu/{lu})
+
+--> e) recuperar todos los estudiantes, en base a su género.(GET estudiantes/{genero})
+
+f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos. (GET carreras/incriptos)
+
+g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia. (GET estudiantes/{carrera}/{ciudad}/
+
+
+h) generar un reporte de las carreras, que para cada carrera incluya información de los
+inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
+presentar los años de manera cronológica. (GET carreras/informe)
+
