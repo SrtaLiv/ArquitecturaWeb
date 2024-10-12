@@ -80,4 +80,13 @@ public class EstudianteService implements Servicio<Estudiante>{
             throw new Exception(e.getMessage());
         }
     }
+
+    public List<Estudiante> findByCarreraCiudad(int carrera, String ciudad) throws Exception {
+        try{
+            List<Estudiante> estudiante = repository.findByCarreraCiudad(carrera, ciudad);
+            return estudiante;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }

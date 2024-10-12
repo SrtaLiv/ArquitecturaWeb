@@ -55,4 +55,13 @@ public class EstudianteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
         }
     }
+
+    @GetMapping("carrerayciudad/{carrera}/{ciudad}")
+    public ResponseEntity<?> findByCarreraCiudad(@PathVariable("carrera") int carrera, @PathVariable("ciudad") String ciudad){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteService.findByCarreraCiudad(carrera, ciudad));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
+        }
+    }
 }

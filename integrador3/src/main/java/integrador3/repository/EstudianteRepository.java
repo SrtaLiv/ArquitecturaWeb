@@ -16,5 +16,8 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>
     @Query("SELECT e FROM Estudiante e WHERE e.genero = :genero")
     public List<Estudiante> findByGenero(String genero);
 
+    @Query("SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.dni = e.dni WHERE ec.carrera.id_carrera = :carrera AND e.ciudadResidencia = :ciudad")
+    List<Estudiante> findByCarreraCiudad(int carrera, String ciudad);
+
     //  Object getEstudiantesPorAtributoOrderByEdadAsc(String atributo);
 }
