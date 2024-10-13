@@ -71,8 +71,7 @@ public class EstudianteService implements Servicio<Estudiante>{
 
     public List<Estudiante> findByGenero(String genero) throws Exception {
         try{
-            List<Estudiante> estudiante = repository.findByGenero(genero);
-            return estudiante;
+            return repository.findByGenero(genero);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
@@ -80,8 +79,7 @@ public class EstudianteService implements Servicio<Estudiante>{
 
     public List<Estudiante> findByCarreraCiudad(int carrera, String ciudad) throws Exception {
         try{
-            List<Estudiante> estudiante = repository.findByCarreraCiudad(carrera, ciudad);
-            return estudiante;
+            return repository.findByCarreraCiudad(carrera, ciudad);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

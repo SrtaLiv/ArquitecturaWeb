@@ -25,11 +25,9 @@ Comenta la línea 110.</p>
 
 ### Endpoints
 
-#### POST
-
 ```
-/estudiantes
-
+a) dar de alta un estudiante 
+POST /estudiantes
 {
   "dni": 87654321,
   "nombre": "María",
@@ -40,19 +38,9 @@ Comenta la línea 110.</p>
   "ciudadResidencia": "Rosario"
 }
 ```
-
 ```
-/carreras
-
-{
-    "id_carrera": 99,
-    "nombre": "Carrera de prueba",
-    "duracion": 99
-}
-```
-```
-/matriculas
-
+b) matricular un estudiante en una carrera 
+POST /matriculas
 {
     "id": 150,
     "id_estudiante":10719241,
@@ -62,22 +50,149 @@ Comenta la línea 110.</p>
     "antiguedad": 5
 }
 ```
---> a) dar de alta un estudiante (POST /estudiantes)
-
---> b) matricular un estudiante en una carrera (POST /matriculas)
-
---> c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.(GET estudiantes/list)
-
---> d) recuperar un estudiante, en base a su número de libreta universitaria.(GET estudiantes/lu/{lu})
-
---> e) recuperar todos los estudiantes, en base a su género.(GET estudiantes/{genero})
-
---> f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos. (GET carreras/incriptos)
-
---> g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia. (GET estudiantes/{carrera}/{ciudad}/
-
-
-h) generar un reporte de las carreras, que para cada carrera incluya información de los
-inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
-presentar los años de manera cronológica. (GET carreras/informe)
-
+```
+c) recuperar todos los estudiantesy especificar algún criterio de ordenamiento simple
+GET /estudiantes/list
+respuesta:
+[
+    {
+        "dni": 44782708,
+        "nombre": "Ham",
+        "apellido": "Airy",
+        "edad": 27,
+        "genero": "Male",
+        "ciudadResidencia": "Dashtobod",
+        "nroLU": 90958
+    },
+    {
+        "dni": 89370812,
+        "nombre": "Stormy",
+        "apellido": "Audrey",
+        "edad": 26,
+        "genero": "Female",
+        "ciudadResidencia": "N",
+        "nroLU": 93298
+    },
+    .
+    .
+    . 
+]
+```
+``` 
+d) recuperar un estudiante, en base a su número de libreta universitaria.
+GET /estudiantes/lu/{lu}
+lu = 90958
+respuesta:
+{
+    "dni": 44782708,
+    "nombre": "Ham",
+    "apellido": "Airy",
+    "edad": 27,
+    "genero": "Male",
+    "ciudadResidencia": "Dashtobod",
+    "nroLU": 90958
+}
+```
+``` 
+e) recuperar todos los estudiantes, en base a su género.
+GET /estudiantes/genero/{genero}
+genero = Female
+respuesta:
+[
+    {
+        "dni": 10719241,
+        "nombre": "Hanni",
+        "apellido": "Harrisson",
+        "edad": 49,
+        "genero": "Female",
+        "ciudadResidencia": "Samal",
+        "nroLU": 72976
+    },
+    {
+        "dni": 12950356,
+        "nombre": "Domini",
+        "apellido": "Larderot",
+        "edad": 70,
+        "genero": "Female",
+        "ciudadResidencia": "Mengyin",
+        "nroLU": 84506
+    },
+    .
+    .
+    .
+]
+```
+```
+f) recuperar las carreras con estudiantes inscriptos y ordenar por cantidad de inscriptos. 
+GET /carreras/incriptos
+respuesta:
+[
+    {
+        "nombre": "TUDAI",
+        "cantidad": 18
+    },
+    {
+        "nombre": "Educacion Fisica",
+        "cantidad": 12
+    },
+    .
+    .
+    .
+]
+```
+``` 
+g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia. 
+GET /estudiantes/carrerayciudad/{carrera}/{ciudad}
+carrera = 1, ciudad = Samal
+respuesta:
+[
+    {
+        "dni": 10719241,
+        "nombre": "Hanni",
+        "apellido": "Harrisson",
+        "edad": 49,
+        "genero": "Female",
+        "ciudadResidencia": "Samal",
+        "nroLU": 72976
+    }
+]
+```
+``` 
+h) generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica. 
+GET carreras/informe
+respuesta:
+[
+    {
+        "nombreCarrera": "Abogacia",
+        "infoPorAnio": {
+            "2017": {
+                "inscriptos": 3,
+                "egresados": 0
+            },
+            "2018": {
+                "inscriptos": 1,
+                "egresados": 0
+            },
+            "2021": {
+                "inscriptos": 1,
+                "egresados": 0
+            },
+            "2022": {
+                "inscriptos": 0,
+                "egresados": 1
+            },
+            "2023": {
+                "inscriptos": 0,
+                "egresados": 3
+            },
+            "2024": {
+                "inscriptos": 0,
+                "egresados": 1
+            }
+        }
+    },
+    .
+    .
+    .
+]
+```

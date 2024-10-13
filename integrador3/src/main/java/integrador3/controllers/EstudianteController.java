@@ -1,8 +1,6 @@
 package integrador3.controllers;
 
-import integrador3.entities.Carrera;
 import integrador3.entities.Estudiante;
-import integrador3.repository.EstudianteRepository;
 import integrador3.service.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +31,7 @@ public class EstudianteController {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(estudianteService.findAll());
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudieron recuperar los datos.\"}");
         }
 
     }
@@ -43,7 +41,7 @@ public class EstudianteController {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(estudianteService.findByLU(lu));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudieron recuperar los datos.\"}");
         }
     }
 
@@ -52,7 +50,7 @@ public class EstudianteController {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(estudianteService.findByGenero(genero));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudieron recuperar los datos.\"}");
         }
     }
 
@@ -61,7 +59,7 @@ public class EstudianteController {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(estudianteService.findByCarreraCiudad(carrera, ciudad));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo traer los estudiantes, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudieron recuperar los datos.\"}");
         }
     }
 }

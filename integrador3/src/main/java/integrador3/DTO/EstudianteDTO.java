@@ -14,12 +14,4 @@ public class EstudianteDTO {
         this.apellido = estudiante.getApellido();
         this.LU = estudiante.getNroLU();
     }
-
-    @Override
-    public String toString() {
-        return "\nLU = " + LU +
-                ", apellido = " + apellido +
-                ", nombre = " + nombre;
-    }
-
 }

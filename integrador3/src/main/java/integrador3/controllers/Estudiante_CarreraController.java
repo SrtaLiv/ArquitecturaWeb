@@ -31,11 +31,11 @@ public class Estudiante_CarreraController {
     public ResponseEntity<?> save(@RequestBody Estudiante_CarreraJSON entity) throws Exception {
         Estudiante est = estudianteService.findById(entity.getId_estudiante());
         Carrera car = carreraService.findById(entity.getId_carrera());
-        Estudiante_Carrera ec = new Estudiante_Carrera(est, car, entity.getAnio_inicio(), entity.getAnio_fin(), entity.getAntiguedad());
+        Estudiante_Carrera ec = new Estudiante_Carrera(entity.getId(), est, car, entity.getAnio_inicio(), entity.getAnio_fin(), entity.getAntiguedad());
         try{
             return ResponseEntity.status(HttpStatus.OK).body(estudiante_CarreraService.save(ec));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo crear el estudiante, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular al estudiante, revise los campos e intente nuevamente.\"}");
         }
     }
     @GetMapping("/list")

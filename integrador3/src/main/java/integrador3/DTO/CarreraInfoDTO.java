@@ -15,10 +15,4 @@ public class CarreraInfoDTO {
     public void setEgresados(int egresados) {
         this.egresados = egresados;
     }
-
-    @Override
-    public String toString() {
-        return "inscriptos = " + inscriptos +
-                ", egresados = " + egresados;
-    }
 }

@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EstudianteRepository extends JpaRepository<Estudiante, Integer> {
+    @Query("SELECT e FROM Estudiante e ORDER BY e.apellido")
+    List<Estudiante> findAll();
 
     @Query("SELECT e FROM Estudiante e WHERE e.nroLU = :lu")
-    public Optional<Estudiante> findByLU(int lu);
+    Optional<Estudiante> findByLU(int lu);
 
     @Query("SELECT e FROM Estudiante e WHERE e.genero = :genero")
-    public List<Estudiante> findByGenero(String genero);
+    List<Estudiante> findByGenero(String genero);
 
     @Query("SELECT e FROM Estudiante e JOIN Estudiante_Carrera ec ON ec.estudiante.dni = e.dni WHERE ec.carrera.id_carrera = :carrera AND e.ciudadResidencia = :ciudad")
     List<Estudiante> findByCarreraCiudad(int carrera, String ciudad);
-
-    //  Object getEstudiantesPorAtributoOrderByEdadAsc(String atributo);
 }

@@ -13,10 +13,4 @@ public class CarreraDTO {
         this.cantidad = cantidad;
         this.nombre = carrera.getNombre();
     }
-
-    @Override
-    public String toString() {
-        return  "\nnombre='" + nombre + '\'' +
-                ", inscriptos=" + cantidad;
-    }
 }
