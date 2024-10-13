@@ -64,4 +64,13 @@ public class CarreraController {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
        }
    }
+
+    @GetMapping("/reporte")
+    public ResponseEntity<?> getReporte() {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(carreraService.getReporte());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
 }

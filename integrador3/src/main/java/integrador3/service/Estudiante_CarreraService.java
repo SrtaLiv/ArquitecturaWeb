@@ -50,4 +50,20 @@ public class Estudiante_CarreraService implements Servicio<Estudiante_Carrera>{
             throw new Exception(e.getMessage());
         }
     }
+
+    public List<Object[]> getByAnioInicio(int idCarrera) throws Exception {
+        try {
+            return estudianteCarreraRepository.getByAnioInicio(idCarrera);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public List<Object[]> getByAnioFin(int idCarrera) throws Exception {
+        try {
+            return estudianteCarreraRepository.getByAnioFin(idCarrera);
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }

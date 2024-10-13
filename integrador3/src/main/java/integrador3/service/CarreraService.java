@@ -1,24 +1,24 @@
 package integrador3.service;
 
 import integrador3.DTO.CarreraDTO;
+import integrador3.DTO.CarreraInfoDTO;
+import integrador3.DTO.ReporteDTO;
 import integrador3.entities.Carrera;
 import integrador3.repository.CarreraRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service("CarreraService")
 public class CarreraService implements Servicio<Carrera>{
 
-    private static final Logger log = LoggerFactory.getLogger(CarreraService.class);
     @Autowired
     private CarreraRepository carreraRepository;
+    @Autowired
+    private Estudiante_CarreraService estudiante_CarreraService;
 
     @Override
     public List<Carrera> findAll() throws Exception {
@@ -73,9 +73,7 @@ public class CarreraService implements Servicio<Carrera>{
 
     public List<CarreraDTO> findCarreraConInscriptos() throws Exception {
         try{
-            log.info("llegue");
             List<Object[]> query = carreraRepository.findCarreraConInscriptos();
-            log.info("llegue x2 ");
             List<CarreraDTO> carreras = new ArrayList<>();
             for (Object[] elemento : query){
                 Carrera c = carreraRepository.findById((Integer) elemento[0]).get();
@@ -90,4 +88,37 @@ public class CarreraService implements Servicio<Carrera>{
     }
 
 
+    public List<ReporteDTO> getReporte() throws Exception {
+        try {
+            List<Carrera> carreras = carreraRepository.getByName();
+            List<ReporteDTO> reportes = new ArrayList<>();
+            for (Carrera c : carreras){
+                ReporteDTO reporte = new ReporteDTO(c.getNombre());
+
+                List<Object[]> inscriptos = estudiante_CarreraService.getByAnioInicio(c.getId_carrera());
+                List<Object[]> egresados = estudiante_CarreraService.getByAnioFin(c.getId_carrera());
+
+                for (Object[] item : inscriptos){
+                    int anio = (Integer) item[0];
+                    int cantidad = ((Number) item[1]).intValue();
+                    reporte.getInfoPorAnio().put(anio, new CarreraInfoDTO(cantidad));
+                }
+
+                for (Object[] item : egresados){
+                    int anio = (Integer) item[0];
+                    int cantidad = ((Number) item[1]).intValue();
+                    CarreraInfoDTO carrera = reporte.getInfoPorAnio().get(anio);
+                    if (carrera == null){
+                        carrera = new CarreraInfoDTO(0);
+                    }
+                    carrera.setEgresados(cantidad);
+                    reporte.getInfoPorAnio().put(anio, carrera);
+                }
+                reportes.add(reporte);
+            }
+            return reportes;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }

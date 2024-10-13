@@ -3,8 +3,6 @@ package integrador3.service;
 import integrador3.entities.Carrera;
 import integrador3.entities.Estudiante;
 import integrador3.repository.EstudianteRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +12,6 @@ import java.util.Optional;
 @Service("EstudianteService")
 public class EstudianteService implements Servicio<Estudiante>{
 
-    private static final Logger log = LoggerFactory.getLogger(EstudianteService.class);
     @Autowired
     private EstudianteRepository repository;
 

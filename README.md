@@ -72,9 +72,9 @@ Comenta la línea 110.</p>
 
 --> e) recuperar todos los estudiantes, en base a su género.(GET estudiantes/{genero})
 
-f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos. (GET carreras/incriptos)
+--> f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos. (GET carreras/incriptos)
 
-g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia. (GET estudiantes/{carrera}/{ciudad}/
+--> g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia. (GET estudiantes/{carrera}/{ciudad}/
 
 
 h) generar un reporte de las carreras, que para cada carrera incluya información de los
