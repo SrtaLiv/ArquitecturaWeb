@@ -15,8 +15,6 @@
 ### Consideraciones del csv
 Para no tener problemas a la hora de cargar los valores del csv eliminamos un valor repetido del csv estudianteCarrera(id 82) y agregamos un 0 al dni de los valores 103 y 104 porque no encontraba al estudiante en la base de dato (no existia).
 
-Ademas, no usamos el id de estudianteCarrera, ya que utilizamos un id compuesto (dni, id_carrera).
-
 ### Para Linux
 <p>Si estás utilizando Linux, realiza los siguientes cambios en el archivo /utils/HelperMySQL.java 
 <br>
