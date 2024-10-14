@@ -143,17 +143,17 @@ respuesta:
 ``` 
 g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia. 
 GET /estudiantes/carrerayciudad/{carrera}/{ciudad}
-carrera = 1, ciudad = Samal
+carrera = 15, ciudad = Jiaoyuan
 respuesta:
 [
     {
-        "dni": 10719241,
-        "nombre": "Hanni",
-        "apellido": "Harrisson",
-        "edad": 49,
-        "genero": "Female",
-        "ciudadResidencia": "Samal",
-        "nroLU": 72976
+        "dni": 71779527,
+        "nombre": "Isidro",
+        "apellido": "Blackmuir",
+        "edad": 66,
+        "genero": "Male",
+        "ciudadResidencia": "Jiaoyuan",
+        "nroLU": 34978
     }
 ]
 ```

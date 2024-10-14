@@ -16,17 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("matriculas")
 public class Estudiante_CarreraController {
     @Autowired
-    private final Estudiante_CarreraService estudiante_CarreraService;
+    private Estudiante_CarreraService estudiante_CarreraService;
     @Autowired
-    private final EstudianteService estudianteService;
+    private EstudianteService estudianteService;
     @Autowired
-    private final CarreraService carreraService;
+    private CarreraService carreraService;
 
-    public Estudiante_CarreraController(Estudiante_CarreraService estudianteCarreraService, EstudianteService estudianteService, CarreraService carreraService) {
-        estudiante_CarreraService = estudianteCarreraService;
-        this.estudianteService = estudianteService;
-        this.carreraService = carreraService;
-    }
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Estudiante_CarreraJSON entity) throws Exception {
         Estudiante est = estudianteService.findById(entity.getId_estudiante());

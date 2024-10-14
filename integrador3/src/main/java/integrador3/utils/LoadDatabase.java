@@ -13,14 +13,9 @@ import org.springframework.context.annotation.Configuration;
 public class LoadDatabase {
 
     @Bean
-    CommandLineRunner initDatabase(
-            @Qualifier("carreraRepository") CarreraRepository carreraRepository,
-            @Qualifier("estudianteRepository") EstudianteRepository estudianteRepository,
-            @Qualifier("estudiante_CarreraRepository") Estudiante_CarreraRepository estudiante_carreraRepository
-            ) {
+    CommandLineRunner initDatabase(@Qualifier("CSVReader") CSVReader csvReader) {
         return args -> {
-            CSVReader reader = new CSVReader(carreraRepository, estudianteRepository, estudiante_carreraRepository);
-            reader.populateDB();
+            csvReader.populateDB();
         };
     }
 }

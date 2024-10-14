@@ -9,6 +9,7 @@ import integrador3.repository.Estudiante_CarreraRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -16,18 +17,14 @@ import java.io.IOException;
 import java.io.Reader;
 
 @Service
-public class CSVReader {
+public final class CSVReader {
 
+    @Autowired
     private EstudianteRepository er;
+    @Autowired
     private CarreraRepository cr;
+    @Autowired
     private Estudiante_CarreraRepository ecr;
-
-    public CSVReader(CarreraRepository cr, EstudianteRepository er, Estudiante_CarreraRepository ecr){
-        this.cr = cr;
-        this.er = er;
-        this.ecr = ecr;
-    }
-
 
     private Iterable<CSVRecord> getData(String archivo) throws IOException {
         String path = "integrador2\\src\\main\\resources\\" + archivo;
