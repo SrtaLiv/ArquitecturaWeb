@@ -10,10 +10,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="integrador3" />
+        <module name="eureka-service" />
+        <module name="config-server" />
+        <module name="microservicio_viaje" />
         <module name="ejemploDAOyPatrones" />
         <module name="microservicio_user" />
+        <module name="microservicio_monopatin" />
+        <module name="integrador3" />
+        <module name="microservicio_parada" />
         <module name="integrador2" />
+        <module name="microservicio_mantenimiento_admin" />
+        <module name="gateway" />
         <module name="integrador1" />
       </profile>
     </annotationProcessing>
@@ -21,8 +28,15 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Integra4" options="-parameters" />
+      <module name="config-server" options="-parameters" />
+      <module name="eureka-service" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="integrador3" options="-parameters" />
+      <module name="microservicio_mantenimiento_admin" options="-parameters" />
+      <module name="microservicio_monopatin" options="-parameters" />
+      <module name="microservicio_parada" options="-parameters" />
       <module name="microservicio_user" options="-parameters" />
+      <module name="microservicio_viaje" options="-parameters" />
     </option>
   </component>
 </project>
