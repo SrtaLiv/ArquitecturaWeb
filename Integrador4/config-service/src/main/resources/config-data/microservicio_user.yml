@@ -12,8 +12,6 @@ spring:
       ddl-auto: update
     show-sql: true
     database: mysql
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 eureka:
   client:
     fetch-registry: true
