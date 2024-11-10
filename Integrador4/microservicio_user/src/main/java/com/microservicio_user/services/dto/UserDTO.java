@@ -18,8 +18,7 @@ public class UserDTO {
 
     private Set<Cuenta> cuenta;
 
-    public UserDTO() {
-    }
+    public UserDTO() {}
 
     public UserDTO(User usuario) {
         this.id = usuario.getId();

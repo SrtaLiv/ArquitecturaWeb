@@ -1,6 +1,7 @@
 package com.microservicio_user.services;
 
 import com.microservicio_user.entity.User;
+import com.microservicio_user.services.dto.CuentaDTO;
 import com.microservicio_user.services.dto.UserDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class UserService {
-
+    @Autowired
     UserRepository userRepository;
 
 
