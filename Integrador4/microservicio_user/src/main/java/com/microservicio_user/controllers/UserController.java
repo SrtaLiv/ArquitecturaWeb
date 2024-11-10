@@ -13,14 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
-    private UserService se;
-
-
     @Autowired
-    public UserController(UserService se){
-        this.se=se;
-    }
-
+    private UserService se;
 
     @GetMapping("")
     public ResponseEntity<?> getAll(){

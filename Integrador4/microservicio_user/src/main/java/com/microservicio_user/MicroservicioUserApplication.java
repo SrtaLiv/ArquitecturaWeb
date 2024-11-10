@@ -19,6 +19,7 @@ public class MicroservicioUserApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MicroservicioUserApplication.class, args);
 	}
+
 	@PostConstruct
 	public void init() throws IOException {
 		cargaDeDatos.cargarDatosDesdeCSV();

@@ -1,13 +1,13 @@
-package com.microservicio_monopatin.microservicio_monopatin;
+package com.microservicio_parada.microservicio_parada;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MicroservicioMonopatin {
+public class MicroservicioMantenimientoAdmin {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MicroservicioMonopatin.class, args);
+		SpringApplication.run(MicroservicioMantenimientoAdmin.class, args);
 	}
 
 }
