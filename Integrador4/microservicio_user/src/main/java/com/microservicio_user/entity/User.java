@@ -56,4 +56,5 @@ public class User {
         this.fechaAlta = LocalDate.now();
     }
 
+    public User(User user) {}
 }
