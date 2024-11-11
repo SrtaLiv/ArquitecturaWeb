@@ -50,7 +50,7 @@ public class MonopatinController {
             }
         }
 
-        @PutMapping("/{id}")
+        @PutMapping("/editar/{id}")
         public ResponseEntity<Monopatin> updateMonopatin(@PathVariable Long id, @RequestBody Monopatin paradaDetails) throws ChangeSetPersister.NotFoundException {
             Optional<Monopatin> updatedMonopatin = Optional.ofNullable(monopatinService.update(id, paradaDetails));
             return updatedMonopatin.map(value -> new ResponseEntity<>(value, HttpStatus.OK))

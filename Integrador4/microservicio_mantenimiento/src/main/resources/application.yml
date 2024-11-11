@@ -2,6 +2,6 @@ spring:
   profiles:
     active: default
   application:
-    name: microservicio_mantenimiento_admin
+    name: microservicio_mantenimiento
   config:
     import: optional:configserver:http://localhost:8081

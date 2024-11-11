@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MicroservicioMantenimiento {
 
 	public static void main(String[] args) {
-		SpringApplication.run(com.microservicio_mantenimiento.MicroservicioMantenimiento.class, args);
+		SpringApplication.run(MicroservicioMantenimiento.class, args);
 	}
 
 }
