@@ -10,19 +10,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="microservicio_admin" />
+        <module name="microservicio_user (2)" />
         <module name="ejemploDAOyPatrones" />
         <module name="config-service" />
-        <module name="microservicio_mantenimiento" />
+        <module name="microservicio-admin" />
+        <module name="microservicio-mantenimiento" />
         <module name="integrador3" />
         <module name="microservicio_parada" />
         <module name="integrador2" />
         <module name="integrador1" />
+        <module name="microservicio-monopatin" />
         <module name="eureka-service" />
         <module name="config-server" />
         <module name="microservicio_viaje" />
-        <module name="microservicio_monopatin" />
         <module name="gateway" />
+        <module name="microservicio_user (1)" />
       </profile>
       <profile name="Annotation profile for Integrador4" enabled="true">
         <sourceOutputDir name="../microservicio_parada/target/generated-sources/annotations" />
@@ -43,11 +45,12 @@
       <module name="eureka-service" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="integrador3" options="-parameters" />
-      <module name="microservicio_admin" options="-parameters" />
-      <module name="microservicio_mantenimiento" options="-parameters" />
-      <module name="microservicio_monopatin" options="-parameters" />
+      <module name="microservicio-admin" options="-parameters" />
+      <module name="microservicio-mantenimiento" options="-parameters" />
+      <module name="microservicio-monopatin" options="-parameters" />
       <module name="microservicio_parada" options="-parameters" />
       <module name="microservicio_user" options="-parameters" />
+      <module name="microservicio_user (2)" options="-parameters" />
       <module name="microservicio_viaje" options="-parameters" />
     </option>
   </component>

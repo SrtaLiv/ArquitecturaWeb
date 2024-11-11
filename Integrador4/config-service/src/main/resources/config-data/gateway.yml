@@ -15,10 +15,10 @@ spring:
     gateway:
       mvc:
         routes:
-          - id: microservicio_mantenimiento_admin
-            uri: lb://microservicio_mantenimiento_admin
+          - id: microservicio-admin
+            uri: lb://microservicio-admin
             predicates:
-              - Path=/api/mantenimiento_admin/**
+              - Path=/api/admin/**
           - id: microservicio_monopatin
             uri: lb://microservicio_monopatin
             predicates:
