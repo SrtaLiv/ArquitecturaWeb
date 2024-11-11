@@ -4,7 +4,7 @@ import com.microservicio_parada.model.Parada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.microservicio_parada.service.Parada2Service;
+import com.microservicio_parada.service.ParadaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +16,10 @@ import java.util.Optional;
 @RequestMapping("/paradas")
 public class ParadaController {
 
-    private Parada2Service paradaService;
+    private ParadaService paradaService;
 
     @Autowired
-    public ParadaController(Parada2Service paradaService) {
+    public ParadaController(ParadaService paradaService) {
         this.paradaService = paradaService;
     }
 
