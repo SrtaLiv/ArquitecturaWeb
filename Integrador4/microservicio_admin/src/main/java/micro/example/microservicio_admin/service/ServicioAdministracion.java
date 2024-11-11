@@ -43,8 +43,8 @@ public class ServicioAdministracion {
         this.monopatinFeignClient = monopatinFeignClient;
     }
 
-    @Transactional
-    public ResponseEntity registrarMonopatinEnMantenimiento(@Valid Long id){
+/*    @Transactional*/
+   /* public ResponseEntity registrarMonopatinEnMantenimiento(@Valid Long id){
         // Validar que el monopatin exista
         Monopatin monopatin1 = monopatinFeignClient.getMonopatinById(id);
         if (monopatin1 == null) {
@@ -54,7 +54,7 @@ public class ServicioAdministracion {
         if (!monopatin1.isEnMantenimiento()){
             monopatin1.setEnMantenimiento(true);
         }
-    }
+    }*/
 
     @Transactional
     public ResponseEntity settearMonopatinAMantenimiento(Long id) {
