@@ -1,5 +1,6 @@
 package service;
 
+import jakarta.transaction.Transactional;
 import model.Parada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class ParadaService {
     @Autowired
     private ParadaRepository paradaRepository;
 
+    @Transactional
     public List<Parada> getAllParadas() {
         return paradaRepository.findAll();
     }
@@ -24,6 +26,7 @@ public class ParadaService {
         return parada.orElse(null);  // Devuelve null si no se encuentra
     }
 
+    @Transactional
     public Parada createParada(Parada parada) {
         return paradaRepository.save(parada);
     }
@@ -35,7 +38,6 @@ public class ParadaService {
             parada.setLatitud(paradaDetails.getLatitud());
             parada.setLongitud(paradaDetails.getLongitud());
             parada.setKm_acumulados(paradaDetails.getKm_acumulados());
-            // Aquí puedes añadir otros campos a actualizar si existen
             return paradaRepository.save(parada);
         } else {
             return null;

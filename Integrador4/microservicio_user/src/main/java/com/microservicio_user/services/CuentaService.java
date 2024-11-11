@@ -43,6 +43,7 @@ public class CuentaService {
     public CuentaDTO update(Long id, Cuenta entity) throws Exception {
         return this.save(entity);
     }
+
     @Transactional
     public ResponseEntity<?> delete(Long id) throws Exception {
         if (cr.existsById(id)) {
