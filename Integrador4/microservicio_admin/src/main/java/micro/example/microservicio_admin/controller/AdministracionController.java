@@ -20,7 +20,7 @@ public class AdministracionController {
     }
 
     @PutMapping("/monopatines/setearAMantenimiento/{idMonopatin}")
-    public ResponseEntity<ResponseEntity> setearAMantenimiento (@PathVariable Long idMonopatin){
+    public ResponseEntity<ResponseEntity> setearAMantenimiento (@PathVariable Long idMonopatin){it
         return ResponseEntity.status(HttpStatus.OK).body(sa.settearMonopatinAMantenimiento(idMonopatin));
     }
 

@@ -37,22 +37,23 @@ public class ServicioAdministracion {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<MonopatinDTO> response = restTemplate.exchange("http://localhost:8089/monopatin/" + id,
+        ResponseEntity<MonopatinDTO> response = restTemplate.exchange("http://microservicio_monopatin/monopatines/" + id,
                 HttpMethod.GET, requestEntity, new ParameterizedTypeReference<MonopatinDTO>(){});
         if (response.getStatusCode().is2xxSuccessful()) {
             MonopatinDTO monopatin = response.getBody();
-            Monopatin m = new Monopatin(monopatin);
-            if (!monopatin.isEnMantenimiento()) {
-                this.agregarMantenimiento(m);
-                m.setEnMantenimiento(true);
-                HttpEntity<Monopatin> requestEntity2 = new HttpEntity<>(m, headers);
-                ResponseEntity<MonopatinDTO> response2 = restTemplate.exchange("http://localhost:8089/monopatin/editar/" + id,
-                        HttpMethod.PUT, requestEntity2, new ParameterizedTypeReference<MonopatinDTO>() {
-                        });
-                return response2;
-            }else{
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatin ya está en mantenimiento");
-
+            if(monopatin != null) {
+                Monopatin m = new Monopatin(monopatin);
+                if (!monopatin.isEnMantenimiento()) {
+                    this.agregarMantenimiento(m);
+                    m.setEnMantenimiento(true);
+                    HttpEntity<Monopatin> requestEntity2 = new HttpEntity<>(m, headers);
+                    ResponseEntity<MonopatinDTO> response2 = restTemplate.exchange("http://microservicio_monopatin/monopatines/editar/" + id,
+                            HttpMethod.PUT, requestEntity2, new ParameterizedTypeReference<MonopatinDTO>() {
+                            });
+                    return response2;
+                }else{
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatin ya está en mantenimiento");
+                }
             }
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el monopatin a dar de baja");
@@ -70,7 +71,7 @@ public class ServicioAdministracion {
 
             HttpEntity<Mantenimiento> requestEntity = new HttpEntity<>(mantenimiento, headers);
 
-            ResponseEntity<String> response = restTemplate.exchange("http://localhost:8083/mantenimiento/agregar",
+            ResponseEntity<String> response = restTemplate.exchange("http://microservicio_mantenimiento/mantenimiento/agregar",
                     HttpMethod.POST, requestEntity, String.class);
             return response;
         }
