@@ -5,7 +5,8 @@
     <file url="file://$PROJECT_DIR$/Integrador4/config-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Integrador4/eureka-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Integrador4/gateway/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Integrador4/microservicio_mantenimiento_admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Integrador4/microservicio_admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Integrador4/microservicio_mantenimiento/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Integrador4/microservicio_monopatin/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Integrador4/microservicio_parada/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Integrador4/microservicio_user/src/main/java" charset="UTF-8" />
