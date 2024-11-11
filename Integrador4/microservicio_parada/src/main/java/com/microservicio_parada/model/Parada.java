@@ -1,4 +1,4 @@
-package model;
+package com.microservicio_parada.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
@@ -9,8 +9,6 @@ import lombok.Setter;
 
 @Entity @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Parada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +18,15 @@ public class Parada {
     private int monopatin_id;
     private int km_acumulados;
 
+    public Parada(Long id, int latitud, int longitud, int monopatin_id, int km_acumulados) {
+        this.id = id;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.monopatin_id = monopatin_id;
+        this.km_acumulados = km_acumulados;
+    }
+
+    public Parada() {
+
+    }
 }

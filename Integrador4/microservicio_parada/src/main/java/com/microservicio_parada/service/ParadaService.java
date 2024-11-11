@@ -1,10 +1,10 @@
-package service;
+package com.microservicio_parada.service;
 
 import jakarta.transaction.Transactional;
-import model.Parada;
+import com.microservicio_parada.model.Parada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.ParadaRepository;
+import com.microservicio_parada.repository.ParadaRepository;
 
 
 import java.util.List;

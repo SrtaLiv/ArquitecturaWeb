@@ -1,6 +1,6 @@
-package repository;
+package com.microservicio_parada.repository;
 
-import model.Parada;
+import com.microservicio_parada.model.Parada;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

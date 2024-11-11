@@ -1,4 +1,4 @@
-package com.microservicio_parada.microservicio_parada;
+package com.microservicio_parada;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

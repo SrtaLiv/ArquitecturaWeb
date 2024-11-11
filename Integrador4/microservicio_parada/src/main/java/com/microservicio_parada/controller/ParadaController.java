@@ -1,10 +1,10 @@
-package controller;
+package com.microservicio_parada.controller;
 
-import model.Parada;
+import com.microservicio_parada.model.Parada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.RequestMapping;
-import service.Parada2Service;
+import com.microservicio_parada.service.Parada2Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +16,14 @@ import java.util.Optional;
 @RequestMapping("/paradas")
 public class ParadaController {
 
-    @Autowired
     private Parada2Service paradaService;
 
-    @GetMapping("/")
+    @Autowired
+    public ParadaController(Parada2Service paradaService) {
+        this.paradaService = paradaService;
+    }
+
+    @GetMapping("")
     public ResponseEntity<List<Parada>> getAllParadas() throws Exception {
         try{
             List<Parada> paradas = paradaService.findAll();

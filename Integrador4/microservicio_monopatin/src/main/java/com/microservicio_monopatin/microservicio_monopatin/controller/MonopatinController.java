@@ -1,4 +1,4 @@
-package controller;
+package com.microservicio_monopatin.microservicio_monopatin.controller;
 
 import model.Monopatin;
 import org.springframework.beans.factory.annotation.Autowired;
