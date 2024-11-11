@@ -3,8 +3,8 @@ package micro.example.microservicio_admin.service;
 
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.repository.AdministracionRepo;
-import micro.example.microservicio_admin.repository.clases.Mantenimiento;
-import micro.example.microservicio_admin.repository.clases.Monopatin;
+import micro.example.microservicio_admin.entity.clases.Mantenimiento;
+import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.service.dto.AdministradorDTO;
 import micro.example.microservicio_admin.service.dto.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class ServicioAdministracion {
+
     private RestTemplate restTemplate;
     private AdministracionRepo ar;
 
     @Autowired
-    public ServicioAdministracion(AdministracionRepo ar) {
+    public ServicioAdministracion(AdministracionRepo ar, RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
         this.ar = ar;
     }
 
@@ -59,8 +61,6 @@ public class ServicioAdministracion {
         public ResponseEntity<?> agregarMantenimiento(Monopatin monopatin) {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-
-
 
             Mantenimiento mantenimiento = new Mantenimiento();
             mantenimiento.setId_monopatin(monopatin.getId());

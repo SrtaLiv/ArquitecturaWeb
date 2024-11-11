@@ -1,4 +1,4 @@
-package micro.example.microservicio_admin.repository.clases;
+package micro.example.microservicio_admin.entity.clases;
 
 
 import jakarta.persistence.*;

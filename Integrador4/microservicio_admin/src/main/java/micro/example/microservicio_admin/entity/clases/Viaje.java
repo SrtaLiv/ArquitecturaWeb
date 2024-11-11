@@ -1,11 +1,8 @@
-package micro.example.microservicio_admin.repository.clases;
+package micro.example.microservicio_admin.entity.clases;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Data

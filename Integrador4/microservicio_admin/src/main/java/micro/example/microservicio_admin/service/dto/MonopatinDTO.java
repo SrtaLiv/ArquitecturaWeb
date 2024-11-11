@@ -1,10 +1,9 @@
 package micro.example.microservicio_admin.service.dto;
 
 import lombok.Getter;
-import micro.example.microservicio_admin.repository.clases.Monopatin;
+import micro.example.microservicio_admin.entity.clases.Monopatin;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 public class MonopatinDTO implements Serializable {
