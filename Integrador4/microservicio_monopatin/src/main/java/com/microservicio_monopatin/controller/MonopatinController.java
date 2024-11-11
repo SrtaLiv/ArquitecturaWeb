@@ -1,12 +1,12 @@
-package com.microservicio_viaje.controller;
+package com.microservicio_monopatin.controller;
 
-import com.microservicio_viaje.model.Monopatin;
+import com.microservicio_monopatin.model.Monopatin;
+import com.microservicio_monopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.microservicio_viaje.service.MonopatinService;
 
 import java.util.List;
 import java.util.Optional;

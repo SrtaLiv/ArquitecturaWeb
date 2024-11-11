@@ -1,4 +1,4 @@
-package com.microservicio_viaje.model;
+package com.microservicio_monopatin.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

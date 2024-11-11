@@ -1,7 +1,9 @@
 package micro.example.microservicio_admin.service;
 
 
+import jakarta.validation.Valid;
 import micro.example.microservicio_admin.entity.Administrador;
+import micro.example.microservicio_admin.feignClients.MonopatinFeignClient;
 import micro.example.microservicio_admin.repository.AdministracionRepo;
 import micro.example.microservicio_admin.entity.clases.Mantenimiento;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
@@ -23,13 +25,35 @@ import java.util.stream.Collectors;
 @Service
 public class ServicioAdministracion {
 
+    @Autowired
     private RestTemplate restTemplate;
-    private AdministracionRepo ar;
 
     @Autowired
-    public ServicioAdministracion(AdministracionRepo ar, RestTemplate restTemplate) {
+    MonopatinFeignClient monopatinFeignClient;
+
+    @Autowired
+    private AdministracionRepo ar;
+
+
+    @Autowired
+    public ServicioAdministracion(AdministracionRepo ar, RestTemplate restTemplate,
+                                  MonopatinFeignClient monopatinFeignClient) {
         this.restTemplate = restTemplate;
         this.ar = ar;
+        this.monopatinFeignClient = monopatinFeignClient;
+    }
+
+    @Transactional
+    public ResponseEntity registrarMonopatinEnMantenimiento(@Valid Long id){
+        // Validar que el monopatin exista
+        Monopatin monopatin1 = monopatinFeignClient.getMonopatinById(id);
+        if (monopatin1 == null) {
+            System.out.println("no existe");
+        }
+
+        if (!monopatin1.isEnMantenimiento()){
+            monopatin1.setEnMantenimiento(true);
+        }
     }
 
     @Transactional

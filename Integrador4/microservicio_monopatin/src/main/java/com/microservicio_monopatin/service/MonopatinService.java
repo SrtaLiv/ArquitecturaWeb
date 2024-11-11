@@ -1,6 +1,6 @@
-package com.microservicio_viaje.service;
+package com.microservicio_monopatin.service;
 
-import com.microservicio_viaje.model.Monopatin;
+import com.microservicio_monopatin.model.Monopatin;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import com.microservicio_viaje.repository.MonopatinRepository;
+import com.microservicio_monopatin.repository.MonopatinRepository;
 
 import java.util.List;
 import java.util.Optional;

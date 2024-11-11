@@ -1,6 +1,6 @@
-package com.microservicio_viaje.repository;
+package com.microservicio_monopatin.repository;
 
-import com.microservicio_viaje.model.Monopatin;
+import com.microservicio_monopatin.model.Monopatin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
