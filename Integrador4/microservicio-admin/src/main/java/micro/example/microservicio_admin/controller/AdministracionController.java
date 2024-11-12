@@ -2,6 +2,7 @@ package micro.example.microservicio_admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
+import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.service.ServicioAdministracion;
 import micro.example.microservicio_admin.service.dto.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,26 @@ public class AdministracionController {
         this.sa = sa;
     }
 
+    @DeleteMapping("/paradas/{id}")
+    public ResponseEntity<?> eliminarParada(@PathVariable Long id) {
+        try {
+            return sa.deleteParada(id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"error\":\"Error. No se pudo eliminar la parada, revise los campos e intente nuevamente.\"}");
+        }
+    }
+
+    @PostMapping("/paradas")
+    public ResponseEntity<?> registrarParada(@RequestBody Parada entity) { //DTO?
+        try {
+            return sa.addParada(entity);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"error\":\"Error. No se pudo agregar la parada.\"}");
+        }
+    }
+
     @PostMapping("/monopatines")
     public ResponseEntity<?> agregarMonopatin(@RequestBody MonopatinDTO entity) {
         try {
@@ -31,10 +52,15 @@ public class AdministracionController {
         }
     }
 
-    /*@DeleteMapping("/monopatines/{id}")
+    @DeleteMapping("/monopatines/{id}")
     public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id) {
-        return sa.deleteMonopatin(id);
-    }*/
+        try {
+            return sa.deleteMonopatin(id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"error\":\"Error. No se pudo eliminar el monopatin, revise los campos e intente nuevamente.\"}");
+        }
+    }
 
     @PutMapping("/monopatines/setearAMantenimiento/{idMonopatin}")
     public ResponseEntity<ResponseEntity> setearAMantenimiento (@PathVariable Long idMonopatin){

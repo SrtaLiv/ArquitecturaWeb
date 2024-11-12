@@ -24,6 +24,14 @@
         <module name="eureka-service" />
         <module name="config-server" />
         <module name="microservicio-viaje" />
+        <module name="microservicio_viaje" />
+        <module name="gateway" />
+        <module name="microservicio_user (1)" />
+      </profile>
+      <profile name="Annotation profile for Integrador4" enabled="true">
+        <sourceOutputDir name="../microservicio_parada/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../microservicio_parada/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
         <module name="microservicio_user" />
         <module name="gateway" />
       </profile>

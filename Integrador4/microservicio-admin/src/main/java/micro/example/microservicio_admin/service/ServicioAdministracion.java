@@ -3,8 +3,10 @@ package micro.example.microservicio_admin.service;
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
+import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.feignClients.MantenimientoFeignClient;
 import micro.example.microservicio_admin.feignClients.MonopatinFeignClient;
+import micro.example.microservicio_admin.feignClients.ParadaFeignClient;
 import micro.example.microservicio_admin.repository.AdministracionRepo;
 import micro.example.microservicio_admin.entity.clases.Mantenimiento;
 import micro.example.microservicio_admin.service.dto.AdministradorDTO;
@@ -29,21 +31,43 @@ public class ServicioAdministracion {
     private RestTemplate restTemplate;
 
     @Autowired
-    MonopatinFeignClient monopatinFeignClient;
+    private AdministracionRepo ar;
 
     @Autowired
-    private AdministracionRepo ar;
+    MonopatinFeignClient monopatinFeignClient;
 
     @Autowired
     MantenimientoFeignClient mantenimientoFeignClient;
 
     @Autowired
+    ParadaFeignClient paradaFeignClient;
+
+    @Autowired
     public ServicioAdministracion(AdministracionRepo ar, RestTemplate restTemplate,
-                                  MonopatinFeignClient monopatinFeignClient, MantenimientoFeignClient mantenimientoFeignClient) {
+                                  MonopatinFeignClient monopatinFeignClient, MantenimientoFeignClient mantenimientoFeignClient, ParadaFeignClient paradaFeignClient) {
         this.restTemplate = restTemplate;
         this.ar = ar;
         this.monopatinFeignClient = monopatinFeignClient;
         this.mantenimientoFeignClient = mantenimientoFeignClient;
+        this.paradaFeignClient = paradaFeignClient;
+    }
+
+    @Transactional
+    public ResponseEntity addParada(Parada parada){ //DTO?
+        ResponseEntity<Parada> response = paradaFeignClient.saveParada(parada);
+        return ResponseEntity.ok(response.getBody());
+    }
+
+    @Transactional
+    public ResponseEntity<String> deleteParada(Long id) {
+        try {
+            paradaFeignClient.deleteParada(id);
+            return ResponseEntity.ok("Parada eliminada exitosamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error del servidor al intentar eliminar la parada.");
+        }
     }
 
     @Transactional
@@ -52,25 +76,19 @@ public class ServicioAdministracion {
         return ResponseEntity.ok(response.getBody());
     }
 
-   /* @Transactional
-    public ResponseEntity<String> deleteMonopatin(Long idMonopatin) {
+    @Transactional
+    public ResponseEntity<String> deleteMonopatin(Long id) {
         try {
-            ResponseEntity<Void> response = monopatinFeignClient.deleteMonopatin(idMonopatin);
-
-            if (response.getStatusCode() == HttpStatus.NO_CONTENT) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Monopatín eliminado exitosamente.");
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("Error al eliminar el monopatín. Verifique el ID.");
-            }
+            monopatinFeignClient.deleteMonopatin(id);
+            return ResponseEntity.ok("Monopatín eliminado exitosamente.");
         } catch (Exception e) {
-            // Log de la excepción para fines de depuración
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error del servidor al intentar eliminar el monopatín.");
         }
     }
-*/
+
+
     @Transactional
     public ResponseEntity settearMonopatinAMantenimiento(Long id) {
         HttpHeaders headers = new HttpHeaders();

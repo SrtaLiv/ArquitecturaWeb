@@ -39,14 +39,14 @@ public class ParadaService {
     }
 
     @Transactional
-    public Parada update(long id, Parada updatedUsuario) throws ChangeSetPersister.NotFoundException {
+    public Parada update(Long id, Parada par) throws ChangeSetPersister.NotFoundException {
         Optional<Parada> paradaOptional = paradaRepository.findById(id);
 
         if (paradaOptional.isPresent()) {
             Parada parada = paradaOptional.get();
-            parada.setLatitud(parada.getLatitud());
-            parada.setLongitud(parada.getLongitud());
-            parada.setKm_acumulados(parada.getKm_acumulados());
+            parada.setX(par.getX());
+            parada.setY(par.getY());
+            parada.setMonopatinesEnLaParada(par.getMonopatinesEnLaParada());
             return paradaRepository.save(parada);
         } else {
             return null;
