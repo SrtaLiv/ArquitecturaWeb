@@ -52,25 +52,19 @@ public class ServicioAdministracion {
         return ResponseEntity.ok(response.getBody());
     }
 
-   /* @Transactional
-    public ResponseEntity<String> deleteMonopatin(Long idMonopatin) {
+    @Transactional
+    public ResponseEntity<String> deleteMonopatin(Long id) {
         try {
-            ResponseEntity<Void> response = monopatinFeignClient.deleteMonopatin(idMonopatin);
-
-            if (response.getStatusCode() == HttpStatus.NO_CONTENT) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Monopatín eliminado exitosamente.");
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("Error al eliminar el monopatín. Verifique el ID.");
-            }
+            monopatinFeignClient.deleteMonopatin(id);
+            return ResponseEntity.ok("Monopatín eliminado exitosamente.");
         } catch (Exception e) {
-            // Log de la excepción para fines de depuración
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error del servidor al intentar eliminar el monopatín.");
         }
     }
-*/
+
+
     @Transactional
     public ResponseEntity settearMonopatinAMantenimiento(Long id) {
         HttpHeaders headers = new HttpHeaders();

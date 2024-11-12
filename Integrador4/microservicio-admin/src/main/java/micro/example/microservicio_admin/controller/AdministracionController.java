@@ -31,10 +31,15 @@ public class AdministracionController {
         }
     }
 
-    /*@DeleteMapping("/monopatines/{id}")
+    @DeleteMapping("/monopatines/{id}")
     public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id) {
-        return sa.deleteMonopatin(id);
-    }*/
+        try {
+            return sa.deleteMonopatin(id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"error\":\"Error. No se pudo eliminar el monopatin, revise los campos e intente nuevamente.\"}");
+        }
+    }
 
     @PutMapping("/monopatines/setearAMantenimiento/{idMonopatin}")
     public ResponseEntity<ResponseEntity> setearAMantenimiento (@PathVariable Long idMonopatin){
