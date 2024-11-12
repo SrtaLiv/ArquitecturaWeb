@@ -1,12 +1,12 @@
 package micro.example.microservicio_admin.feignClients;
 
 import micro.example.microservicio_admin.entity.clases.Parada;
-import micro.example.microservicio_admin.service.dto.ParadaDTO;
+import micro.example.microservicio_admin.dto.ParadaDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name="microservicio-parada")
+@FeignClient(name="microservicio-parada") // Cambiar solo el nombre aquí
 public interface ParadaFeignClient {
 
         @GetMapping("paradas/{id}")
@@ -16,7 +16,7 @@ public interface ParadaFeignClient {
         ResponseEntity<Parada> updateParada(@PathVariable Long id, Parada parada);
 
         @PostMapping("paradas")
-        ResponseEntity<ParadaDTO> saveParada(@RequestBody ParadaDTO parada);
+        ResponseEntity<ParadaDTO> createParada(@RequestBody ParadaDTO parada);
 
         @DeleteMapping("paradas/{id}")
         ResponseEntity<Void> deleteParada(@PathVariable Long id);

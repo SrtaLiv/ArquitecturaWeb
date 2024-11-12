@@ -3,15 +3,14 @@ package micro.example.microservicio_admin.service;
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
-import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.feignClients.MantenimientoFeignClient;
 import micro.example.microservicio_admin.feignClients.MonopatinFeignClient;
 import micro.example.microservicio_admin.feignClients.ParadaFeignClient;
 import micro.example.microservicio_admin.repository.AdministracionRepo;
 import micro.example.microservicio_admin.entity.clases.Mantenimiento;
-import micro.example.microservicio_admin.service.dto.AdministradorDTO;
-import micro.example.microservicio_admin.service.dto.MonopatinDTO;
-import micro.example.microservicio_admin.service.dto.ParadaDTO;
+import micro.example.microservicio_admin.dto.AdministradorDTO;
+import micro.example.microservicio_admin.dto.MonopatinDTO;
+import micro.example.microservicio_admin.dto.ParadaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.*;
@@ -58,10 +57,22 @@ public class ServicioAdministracion {
      * Registrar y quitar una nueva Parada
      * ==============================================
      ** */
-    @Transactional
-    public ResponseEntity addParada(ParadaDTO parada){
-        ResponseEntity<ParadaDTO> response = paradaFeignClient.saveParada(parada);
+ /*   @Transactional
+    public ResponseEntity createParada(ParadaDTO parada){
+        ResponseEntity<ParadaDTO> response = paradaFeignClient.createParada(parada);
         return ResponseEntity.ok(response.getBody());
+    }*/
+    @Transactional
+    public ResponseEntity createParada(ParadaDTO parada) {
+        ResponseEntity<ParadaDTO> response = paradaFeignClient.createParada(parada);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return ResponseEntity.ok(response.getBody());
+        } else {
+            // Si la respuesta no es exitosa, se puede devolver un error específico
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("{\"error\":\"Error al crear la parada. Código de error: " + response.getStatusCode() + "\"}");
+        }
     }
 
     @Transactional

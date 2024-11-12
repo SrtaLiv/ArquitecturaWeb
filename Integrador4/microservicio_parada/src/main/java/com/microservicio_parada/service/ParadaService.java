@@ -1,5 +1,6 @@
 package com.microservicio_parada.service;
 
+import com.microservicio_parada.dto.ParadaDTO;
 import jakarta.transaction.Transactional;
 import com.microservicio_parada.model.Parada;
 import org.springframework.beans.factory.annotation.Autowired;

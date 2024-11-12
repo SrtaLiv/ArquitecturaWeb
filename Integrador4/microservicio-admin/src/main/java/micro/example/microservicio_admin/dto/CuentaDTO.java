@@ -1,4 +1,4 @@
-package micro.example.microservicio_admin.service.dto;
+package micro.example.microservicio_admin.dto;
 
 
 import lombok.Getter;

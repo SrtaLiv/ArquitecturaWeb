@@ -1,7 +1,7 @@
 package micro.example.microservicio_admin.entity.clases;
 
 import lombok.*;
-import micro.example.microservicio_admin.service.dto.MonopatinDTO;
+import micro.example.microservicio_admin.dto.MonopatinDTO;
 
 import java.util.List;
 

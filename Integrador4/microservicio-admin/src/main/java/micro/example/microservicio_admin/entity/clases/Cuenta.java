@@ -1,8 +1,7 @@
 package micro.example.microservicio_admin.entity.clases;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import micro.example.microservicio_admin.service.dto.CuentaDTO;
+import micro.example.microservicio_admin.dto.CuentaDTO;
 
 
 import java.time.LocalDate;

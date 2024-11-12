@@ -41,7 +41,6 @@ public class MonopatinController {
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));*/
         }
 
-        /* REGISTRAR PARADA */
         @PostMapping("")
         public ResponseEntity<?> createMonopatin(@RequestBody Monopatin entity){
             try{

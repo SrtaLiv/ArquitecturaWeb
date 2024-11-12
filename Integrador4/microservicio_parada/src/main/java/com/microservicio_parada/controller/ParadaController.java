@@ -1,5 +1,6 @@
 package com.microservicio_parada.controller;
 
+import com.microservicio_parada.dto.ParadaDTO;
 import com.microservicio_parada.model.Parada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -41,7 +42,6 @@ public class ParadaController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /* REGISTRAR PARADA */
     @PostMapping("")
     public ResponseEntity<?> createParada(@RequestBody Parada entity){
         try{

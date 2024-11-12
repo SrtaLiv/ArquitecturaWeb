@@ -1,7 +1,7 @@
 package micro.example.microservicio_admin.feignClients;
 
 import micro.example.microservicio_admin.entity.clases.Monopatin;
-import micro.example.microservicio_admin.service.dto.MonopatinDTO;
+import micro.example.microservicio_admin.dto.MonopatinDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
