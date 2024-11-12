@@ -3,6 +3,7 @@ package micro.example.microservicio_admin.service;
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
+import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.feignClients.MantenimientoFeignClient;
 import micro.example.microservicio_admin.feignClients.MonopatinFeignClient;
 import micro.example.microservicio_admin.feignClients.ParadaFeignClient;
@@ -57,12 +58,24 @@ public class ServicioAdministracion {
      * Registrar y quitar una nueva Parada
      * ==============================================
      ** */
+    @Transactional
+    public ResponseEntity<?> createParada(Parada p) {
+    try{
+        Parada paradaNueva = new Parada(p);
+
+        ResponseEntity<Parada> response = paradaFeignClient.createParada(paradaNueva);
+        return ResponseEntity.ok(response.getBody());
+    }
+    catch (Exception e){
+        return ResponseEntity.badRequest().body(e.getMessage()+"fallo");
+        }
+    }
  /*   @Transactional
     public ResponseEntity createParada(ParadaDTO parada){
         ResponseEntity<ParadaDTO> response = paradaFeignClient.createParada(parada);
         return ResponseEntity.ok(response.getBody());
     }*/
-    @Transactional
+    /*@Transactional
     public ResponseEntity createParada(ParadaDTO parada) {
         ResponseEntity<ParadaDTO> response = paradaFeignClient.createParada(parada);
 
@@ -74,7 +87,7 @@ public class ServicioAdministracion {
                     .body("{\"error\":\"Error al crear la parada. Código de error: " + response.getStatusCode() + "\"}");
         }
     }
-
+*/
     @Transactional
     public ResponseEntity<String> deleteParada(Long id) {
         try {

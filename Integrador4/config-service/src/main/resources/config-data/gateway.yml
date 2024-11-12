@@ -23,8 +23,8 @@ spring:
             uri: lb://microservicio_monopatin
             predicates:
               - Path=/api/monopatines/**
-          - id: microservicio_parada
-            uri: lb://microservicio_parada
+          - id: microservicioparada
+            uri: lb://microservicioparada
             predicates:
               - Path=/api/paradas/**
           - id: microservicio_user

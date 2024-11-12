@@ -83,7 +83,7 @@
         <module>microservicio_user</module>
         <module>microservicio-monopatin</module>
         <module>microservicio-viaje</module>
-        <module>microservicio_parada</module>
+        <module>microservicioparada</module>
         <module>microservicio-mantenimiento</module>
         <module>config-service</module>
         <module>eureka-service</module>

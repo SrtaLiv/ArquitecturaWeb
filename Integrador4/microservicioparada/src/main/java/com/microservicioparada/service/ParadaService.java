@@ -35,8 +35,13 @@ public class ParadaService {
 
     @Transactional
     public Parada save(Parada entity) throws Exception {
-        paradaRepository.save(entity);
-        return this.findById(entity.getId());
+        try{
+            paradaRepository.save(entity);
+            return this.findById(entity.getId());
+        }
+        catch(Exception e){
+            throw new Exception(e.getMessage()+"error en service");
+        }
     }
 
     @Transactional

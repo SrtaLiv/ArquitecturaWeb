@@ -7,11 +7,11 @@
 		<artifactId>Integrador4</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.microservicio_parada</groupId>
-	<artifactId>microservicio_parada</artifactId>
+	<groupId>com.microservicioparada</groupId>
+	<artifactId>microservicioparada</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservicio_parada</name>
-	<description>microservicio_parada</description>
+	<name>microservicioparada</name>
+	<description>microservicioparada</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -2,6 +2,7 @@ package micro.example.microservicio_admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
+import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.service.ServicioAdministracion;
 import micro.example.microservicio_admin.dto.MonopatinDTO;
 import micro.example.microservicio_admin.dto.ParadaDTO;
@@ -34,7 +35,7 @@ public class AdministracionController {
     }
 
    @PostMapping("/paradas")
-    public ResponseEntity<?> registrarParada(@RequestBody ParadaDTO entity) {
+    public ResponseEntity<?> registrarParada(@RequestBody Parada entity) {
         try {
             return sa.createParada(entity);
         } catch (Exception e) {
