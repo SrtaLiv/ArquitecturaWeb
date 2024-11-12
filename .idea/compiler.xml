@@ -24,13 +24,18 @@
         <module name="config-server" />
         <module name="microservicio_viaje" />
         <module name="gateway" />
-        <module name="microservicio_user (1)" />
       </profile>
       <profile name="Annotation profile for Integrador4" enabled="true">
         <sourceOutputDir name="../microservicio_parada/target/generated-sources/annotations" />
         <sourceTestOutputDir name="../microservicio_parada/target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="microservicio_user" />
+      </profile>
+      <profile name="Annotation profile for microservicio_user (1)" enabled="true">
+        <sourceOutputDir name="../microservicio_user/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../microservicio_user/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="microservicio_user (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -50,6 +55,7 @@
       <module name="microservicio-monopatin" options="-parameters" />
       <module name="microservicio_parada" options="-parameters" />
       <module name="microservicio_user" options="-parameters" />
+      <module name="microservicio_user (1)" options="-parameters" />
       <module name="microservicio_user (2)" options="-parameters" />
       <module name="microservicio_viaje" options="-parameters" />
     </option>

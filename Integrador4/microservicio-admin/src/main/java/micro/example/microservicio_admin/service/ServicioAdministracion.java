@@ -2,6 +2,7 @@ package micro.example.microservicio_admin.service;
 
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.feignClients.MantenimientoFeignClient;
 import micro.example.microservicio_admin.feignClients.MonopatinFeignClient;
@@ -24,6 +25,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ServicioAdministracion {
 
     @Autowired
@@ -77,6 +79,7 @@ public class ServicioAdministracion {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el monopatin a dar de baja");
     }
+
     @Transactional
     public ResponseEntity<?> agregarMantenimiento(Monopatin monopatin) {
 
@@ -85,7 +88,6 @@ public class ServicioAdministracion {
         mantenimiento.setInicio(LocalDate.now());
         mantenimiento.setFin(null);
         mantenimiento.setKm_recorridos(monopatin.getKilometraje());
-
 
         ResponseEntity<Mantenimiento> response = mantenimientoFeignClient.agregarMantenimiento(mantenimiento);
         return response;
