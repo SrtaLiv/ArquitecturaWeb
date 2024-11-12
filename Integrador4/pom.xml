@@ -82,7 +82,7 @@
         <module>microservicio-admin</module>
         <module>microservicio_user</module>
         <module>microservicio-monopatin</module>
-        <module>microservicio_viaje</module>
+        <module>microservicio-viaje</module>
         <module>microservicio_parada</module>
         <module>microservicio-mantenimiento</module>
         <module>config-service</module>
