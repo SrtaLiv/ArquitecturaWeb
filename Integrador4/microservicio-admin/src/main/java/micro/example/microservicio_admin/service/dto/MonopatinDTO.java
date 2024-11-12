@@ -12,7 +12,6 @@ public class MonopatinDTO implements Serializable {
     private double kilometraje;
     private boolean enMantenimiento;
 
-
     public MonopatinDTO() {
     }
 

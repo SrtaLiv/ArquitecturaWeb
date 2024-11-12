@@ -40,13 +40,14 @@ public class MonopatinService {
     }
 
     @Transactional
-    public Monopatin update(long id, Monopatin updatedUsuario) throws ChangeSetPersister.NotFoundException {
+    public Monopatin update(Long id, Monopatin updatedUsuario) throws ChangeSetPersister.NotFoundException {
         Optional<Monopatin> paradaOptional = monopatinRepository.findById(id);
 
         if (paradaOptional.isPresent()) {
             Monopatin mono = paradaOptional.get();
-            mono.setLatitud(mono.getLatitud());
-            mono.setLongitud(mono.getLongitud());
+            mono.setKilometraje(mono.getKilometraje());
+            mono.setNumeroSerie(mono.getNumeroSerie());
+            mono.setEnMantenimiento(mono.isEnMantenimiento());
 //            mono.setEstado(mono.getEs());
             return monopatinRepository.save(mono);
         } else {

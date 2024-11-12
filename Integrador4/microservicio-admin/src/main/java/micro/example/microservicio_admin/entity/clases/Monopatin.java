@@ -1,12 +1,15 @@
 package micro.example.microservicio_admin.entity.clases;
 
-import lombok.Data;
+import lombok.*;
 import micro.example.microservicio_admin.service.dto.MonopatinDTO;
 
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Monopatin {
+
     private Long id;
     private String numeroSerie;
     private double kilometraje;
@@ -30,59 +33,5 @@ public class Monopatin {
         this.enMantenimiento = monopatin.isEnMantenimiento();
     }
 
-    public Monopatin(Long id, String numeroSerie, double kilometraje, boolean enMantenimiento, List<Viaje> viajes) {
-        this.id = id;
-        this.numeroSerie = numeroSerie;
-        this.kilometraje = kilometraje;
-        this.enMantenimiento = enMantenimiento;
-        this.viajes = viajes;
-    }
 
-    public Monopatin() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNumeroSerie() {
-        return numeroSerie;
-    }
-
-    public void setNumeroSerie(String numeroSerie) {
-        this.numeroSerie = numeroSerie;
-    }
-
-    public double getKilometraje() {
-        return kilometraje;
-    }
-
-    public void setKilometraje(double kilometraje) {
-        this.kilometraje = kilometraje;
-    }
-
-    public boolean isEnMantenimiento() {
-        return enMantenimiento;
-    }
-
-    public void setEnMantenimiento(boolean enMantenimiento) {
-        this.enMantenimiento = enMantenimiento;
-    }
-
-    public List<Viaje> getViajes() {
-        return viajes;
-    }
-
-    public void setViajes(List<Viaje> viajes) {
-        this.viajes = viajes;
-    }
-
-    public void addViaje(Viaje viaje){
-        this.viajes.add(viaje);
-    }
 }

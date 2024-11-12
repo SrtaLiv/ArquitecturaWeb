@@ -1,18 +1,15 @@
 package micro.example.microservicio_admin.service;
 
-
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
+import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.feignClients.MantenimientoFeignClient;
 import micro.example.microservicio_admin.feignClients.MonopatinFeignClient;
 import micro.example.microservicio_admin.repository.AdministracionRepo;
 import micro.example.microservicio_admin.entity.clases.Mantenimiento;
-import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.service.dto.AdministradorDTO;
 import micro.example.microservicio_admin.service.dto.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -49,19 +46,31 @@ public class ServicioAdministracion {
         this.mantenimientoFeignClient = mantenimientoFeignClient;
     }
 
-/*    @Transactional*/
-   /* public ResponseEntity registrarMonopatinEnMantenimiento(@Valid Long id){
-        // Validar que el monopatin exista
-        Monopatin monopatin1 = monopatinFeignClient.getMonopatinById(id);
-        if (monopatin1 == null) {
-            System.out.println("no existe");
-        }
+    @Transactional
+    public ResponseEntity addMonopatin(MonopatinDTO monopatin){
+        ResponseEntity<MonopatinDTO> response = monopatinFeignClient.saveMonopatin(monopatin);
+        return ResponseEntity.ok(response.getBody());
+    }
 
-        if (!monopatin1.isEnMantenimiento()){
-            monopatin1.setEnMantenimiento(true);
-        }
-    }*/
+   /* @Transactional
+    public ResponseEntity<String> deleteMonopatin(Long idMonopatin) {
+        try {
+            ResponseEntity<Void> response = monopatinFeignClient.deleteMonopatin(idMonopatin);
 
+            if (response.getStatusCode() == HttpStatus.NO_CONTENT) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Monopatín eliminado exitosamente.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Error al eliminar el monopatín. Verifique el ID.");
+            }
+        } catch (Exception e) {
+            // Log de la excepción para fines de depuración
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error del servidor al intentar eliminar el monopatín.");
+        }
+    }
+*/
     @Transactional
     public ResponseEntity settearMonopatinAMantenimiento(Long id) {
         HttpHeaders headers = new HttpHeaders();

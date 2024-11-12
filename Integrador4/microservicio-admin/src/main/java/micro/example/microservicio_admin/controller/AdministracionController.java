@@ -3,6 +3,7 @@ package micro.example.microservicio_admin.controller;
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.service.ServicioAdministracion;
+import micro.example.microservicio_admin.service.dto.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/administrar")
 @RequiredArgsConstructor
 public class AdministracionController {
+    @Autowired
     private ServicioAdministracion sa;
 
     @Autowired
     public AdministracionController(ServicioAdministracion sa) {
         this.sa = sa;
     }
+
+    @PostMapping("/monopatines")
+    public ResponseEntity<?> agregarMonopatin(@RequestBody MonopatinDTO entity) {
+        try {
+            return sa.addMonopatin(entity);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"error\":\"Error. No se pudo agregar el monopatin, revise los campos e intente nuevamente.\"}");
+        }
+    }
+
+    /*@DeleteMapping("/monopatines/{id}")
+    public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id) {
+        return sa.deleteMonopatin(id);
+    }*/
 
     @PutMapping("/monopatines/setearAMantenimiento/{idMonopatin}")
     public ResponseEntity<ResponseEntity> setearAMantenimiento (@PathVariable Long idMonopatin){
