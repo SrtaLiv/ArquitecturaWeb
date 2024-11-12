@@ -46,7 +46,7 @@ public class ParadaService {
             Parada parada = paradaOptional.get();
             parada.setX(par.getX());
             parada.setY(par.getY());
-            parada.setMonopatinesEnLaParada(par.getMonopatinesEnLaParada());
+            parada.setMonopatinIds(par.getMonopatinIds());
             return paradaRepository.save(parada);
         } else {
             return null;

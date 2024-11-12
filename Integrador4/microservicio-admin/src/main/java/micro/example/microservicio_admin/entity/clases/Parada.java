@@ -18,7 +18,6 @@ public class Parada implements Serializable {
     private long id;
     private Long x;
     private Long y;
-    private List<Monopatin> monopatinesEnLaParada;
-
+    private List<Long> monopatinIds;
 }
 

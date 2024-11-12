@@ -11,6 +11,7 @@ import micro.example.microservicio_admin.repository.AdministracionRepo;
 import micro.example.microservicio_admin.entity.clases.Mantenimiento;
 import micro.example.microservicio_admin.service.dto.AdministradorDTO;
 import micro.example.microservicio_admin.service.dto.MonopatinDTO;
+import micro.example.microservicio_admin.service.dto.ParadaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.*;
@@ -52,9 +53,14 @@ public class ServicioAdministracion {
         this.paradaFeignClient = paradaFeignClient;
     }
 
+    /**
+     * ==============================================
+     * Registrar y quitar una nueva Parada
+     * ==============================================
+     ** */
     @Transactional
-    public ResponseEntity addParada(Parada parada){ //DTO?
-        ResponseEntity<Parada> response = paradaFeignClient.saveParada(parada);
+    public ResponseEntity addParada(ParadaDTO parada){
+        ResponseEntity<ParadaDTO> response = paradaFeignClient.saveParada(parada);
         return ResponseEntity.ok(response.getBody());
     }
 
@@ -70,6 +76,11 @@ public class ServicioAdministracion {
         }
     }
 
+    /**
+     * ==============================================
+     * Agregar y eliminar un nuevo monopatin
+     * ==============================================
+     ** */
     @Transactional
     public ResponseEntity addMonopatin(MonopatinDTO monopatin){
         ResponseEntity<MonopatinDTO> response = monopatinFeignClient.saveMonopatin(monopatin);
@@ -87,7 +98,6 @@ public class ServicioAdministracion {
                     .body("Error del servidor al intentar eliminar el monopatín.");
         }
     }
-
 
     @Transactional
     public ResponseEntity settearMonopatinAMantenimiento(Long id) {

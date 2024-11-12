@@ -5,6 +5,7 @@ import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.service.ServicioAdministracion;
 import micro.example.microservicio_admin.service.dto.MonopatinDTO;
+import micro.example.microservicio_admin.service.dto.ParadaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class AdministracionController {
     }
 
     @PostMapping("/paradas")
-    public ResponseEntity<?> registrarParada(@RequestBody Parada entity) { //DTO?
+    public ResponseEntity<?> registrarParada(@RequestBody ParadaDTO entity) {
         try {
             return sa.addParada(entity);
         } catch (Exception e) {

@@ -17,6 +17,7 @@ public class Parada {
     private Long x;
     private Long y;
 
-    @OneToMany(mappedBy = "parada") // Mapea la relación con el atributo "parada" en Monopatin
-    private List<Monopatin> monopatinesEnLaParada;
+    // Lista de IDs de Monopatines en lugar de la entidad completa
+    @ElementCollection
+    private List<Long> monopatinIds;
 }
