@@ -1,5 +1,6 @@
 package com.microservicio_viaje.service;
 
+import com.microservicio_viaje.dto.MonopatinViajeDTO;
 import com.microservicio_viaje.entity.Viaje;
 import com.microservicio_viaje.entity.clases.Monopatin;
 import com.microservicio_viaje.repository.RepositoryViaje;
@@ -25,7 +26,7 @@ public class ServiceViaje {
     }
 
     @Transactional
-    public List<Monopatin> findMonopatinesConMasDeXViajesPorAnio(int cantidad, int anio) {
+    public List<MonopatinViajeDTO> findMonopatinesConMasDeXViajesPorAnio(int cantidad, int anio) {
         return repositoryViaje.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio);
     }
 

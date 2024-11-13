@@ -150,5 +150,22 @@ public class AdministracionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
         }
     }
+    @GetMapping("/monopatines/reporte/kilometraje/{limite}/{incluirPausas}")
+    public ResponseEntity<?> getReporteKilometraje(@PathVariable Long limite, @PathVariable boolean incluirPausas){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(sa.getReporteKilometraje(limite, incluirPausas));
+        }catch (Exception e ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo conseguir lo buscado intente nuevamente.\"}");
 
+        }
+    }
+    @GetMapping("/viajes/totalFacturado/{anio}/{mesInicio}/{mesFin}")
+    public ResponseEntity<?> getTotalFacturadoEntreMeses(@PathVariable int anio, @PathVariable int mesInicio, @PathVariable int mesFin){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(sa.getTotalFacturadoEntreMeses(anio, mesInicio, mesFin));
+        }catch (Exception e ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo conseguir lo buscado intente nuevamente.\"}");
+
+        }
+    }
 }

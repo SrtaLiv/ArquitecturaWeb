@@ -1,5 +1,6 @@
 package com.microservicio_viaje.controller;
 
+import com.microservicio_viaje.dto.MonopatinViajeDTO;
 import com.microservicio_viaje.entity.Viaje;
 import com.microservicio_viaje.entity.clases.Monopatin;
 import com.microservicio_viaje.service.ServiceViaje;
@@ -24,11 +25,11 @@ public class ControllerViaje {
     }
 
     @GetMapping("/{cantidad}/{anio}")
-    public ResponseEntity<List<Monopatin>> findMonopatinesConMasDeXViajesPorAnio(
+    public ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(
             @PathVariable int cantidad,
             @PathVariable int anio) {
         try {
-            List<Monopatin> monopatins = serviceViaje.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio);
+            List<MonopatinViajeDTO> monopatins = serviceViaje.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio);
             return new ResponseEntity<>(monopatins, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

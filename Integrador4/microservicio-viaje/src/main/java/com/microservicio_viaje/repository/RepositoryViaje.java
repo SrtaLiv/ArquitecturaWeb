@@ -1,7 +1,8 @@
 package com.microservicio_viaje.repository;
 
+import com.microservicio_viaje.dto.MonopatinViajeDTO;
+import com.microservicio_viaje.dto.ReporteKilometrajeDTO;
 import com.microservicio_viaje.entity.Viaje;
-import com.microservicio_viaje.entity.clases.Monopatin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,10 +13,16 @@ import java.util.List;
 @Repository
 public interface RepositoryViaje extends JpaRepository<Viaje, Long> {
 
-    // Seleccionar los viajes en esa fecha y que el monopatín tenga más de X viajes
-    @Query("SELECT v FROM Viaje v WHERE YEAR(v.fecha) = :anio AND v.idMonopatin IN (" +
-            "SELECT v2.idMonopatin FROM Viaje v2 WHERE YEAR(v2.fecha) = :anio " +
-            "GROUP BY v2.idMonopatin HAVING COUNT(v2) > :cantidad)")
-    List<Monopatin> findMonopatinesConMasDeXViajesPorAnio(@Param("cantidad") int x, @Param("anio") int anio);
+    @Query("SELECT new com.microservicio_viaje.dto.MonopatinViajeDTO(v.idMonopatin, COUNT(v)) FROM Viaje v WHERE FUNCTION('YEAR', v.fecha) = :anio GROUP BY v.idMonopatin HAVING COUNT(v) > :cantidad")
+    List<MonopatinViajeDTO> findMonopatinesConMasDeXViajesPorAnio(@Param("cantidad") int cantidad, @Param("anio") int anio);
 
+    @Query("select NEW com.microservicio_viaje.dto.ReporteKilometrajeDTO(v.idMonopatin,sum(v.kmRecorridos)) from Viaje v where v.kmRecorridos >= :umbral group by v.idMonopatin")
+    List<ReporteKilometrajeDTO> getReporteKilometraje(long umbral);
+
+
+    @Query("select NEW com.microservicio_viaje.dto.ReporteKilometrajeDTO(v.idMonopatin,sum(v.kmRecorridos),sum(p.pausaTotal)) from Viaje v join Pausa p on v.id=p.id where v.kmRecorridos >= :umbral group by v.idMonopatin")
+    List<ReporteKilometrajeDTO> getReporteKilometrajeConPausas(long umbral);
+
+    @Query("SELECT SUM(p.valor + p.valorPorPausaExtendida) FROM Viaje v JOIN v.precio p WHERE FUNCTION('YEAR', v.fecha) = :anio AND FUNCTION('MONTH', v.fecha) BETWEEN :mesInicio AND :mesFin")
+    Integer getFacturadoEntreMeses(int anio, int mesInicio, int mesFin);
 }
