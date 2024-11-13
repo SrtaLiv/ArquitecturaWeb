@@ -76,4 +76,8 @@ public class ServiceViaje {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El viaje con ID " + id + " no existe");
         }
     }
+    @Transactional
+    public Integer getFacturadoEntreMeses(int anio, int mesInicio, int mesFin) {
+        return repositoryViaje.getFacturadoEntreMeses(anio, mesInicio, mesFin);
+    }
 }

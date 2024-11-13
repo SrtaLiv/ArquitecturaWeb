@@ -22,4 +22,8 @@ public interface ViajeFeignClient {
 
     @GetMapping("/viajes/getReporteKilometraje/{limite}/{incluirPausas}")
     ResponseEntity<List<ReporteKilometrajeDTO>> getReporteKilometraje(@PathVariable Long limite, @PathVariable boolean incluirPausas);
+
+    @GetMapping("/viajes/facturado/{anio}/{mesInicio}/{mesFin}")
+    ResponseEntity<Integer> getTotalFacturadoEntreMeses(@PathVariable int anio, @PathVariable int mesInicio, @PathVariable int mesFin);
+
 }

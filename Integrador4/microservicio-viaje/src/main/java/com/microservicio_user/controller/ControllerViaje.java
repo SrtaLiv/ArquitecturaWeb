@@ -74,4 +74,12 @@ public class ControllerViaje {
 
         }
     }
+    @GetMapping("/facturado/{anio}/{mesInicio}/{mesFin}")
+    public ResponseEntity<?> getFacturadoEntreMeses(@PathVariable int anio, @PathVariable int mesInicio, @PathVariable int mesFin){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(serviceViaje.getFacturadoEntreMeses(anio, mesInicio, mesFin));
+        }catch (Exception e ){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
 }

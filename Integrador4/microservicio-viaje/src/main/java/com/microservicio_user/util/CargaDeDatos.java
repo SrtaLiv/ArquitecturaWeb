@@ -65,7 +65,7 @@ public class CargaDeDatos {
                 v.setHoraInicio(LocalTime.parse(viaje.get("fechaInicio"),formatter));
                 v.setHoraFin(LocalTime.parse(viaje.get("fechaFin"),formatter));
                 v.setKmRecorridos(Double.parseDouble(viaje.get("kmRecorridos")));
-
+                v.setFecha(LocalDate.parse(viaje.get("fecha"),formatterPrecio));
                 Long monopatinId = Long.valueOf(viaje.get("monopatinId"));
                 v.setIdMonopatin(monopatinId);
 

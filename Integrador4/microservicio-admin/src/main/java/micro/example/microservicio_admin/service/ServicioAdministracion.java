@@ -199,6 +199,17 @@ public class ServicioAdministracion {
             return ResponseEntity.badRequest().body(e.getMessage() + " fallo");
         }
     }
+    @Transactional
+    public ResponseEntity<?> getTotalFacturadoEntreMeses(int anio, int mesInicio, int mesFin) {
+        try {
+
+            ResponseEntity<Integer> response = viajeFeignClient.getTotalFacturadoEntreMeses(anio, mesInicio,mesFin);
+
+            return ResponseEntity.ok(response.getBody());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage() + " fallo");
+        }
+    }
 }
 
 
