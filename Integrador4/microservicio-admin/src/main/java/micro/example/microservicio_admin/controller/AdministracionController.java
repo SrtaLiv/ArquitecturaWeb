@@ -28,8 +28,16 @@ public class AdministracionController {
         this.sa = sa;
     }
 
+    /**
+     * Como administrador quiero poder anular cuentas para ihabilitar el uso momentaneo de la misma.
+     */
+    @PutMapping("/anular/{id}")
+    public ResponseEntity<?> anularCuenta(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(sa.anularCuenta(id));
+    }
+
     @PostMapping("/precios/agregar")
-    public ResponseEntity<?> agregarPrecio(Precio p){
+    public ResponseEntity<?> agregarPrecio(@RequestBody  Precio p){
         return ResponseEntity.status(HttpStatus.OK).body(sa.agregarPrecio(p));
     }
 

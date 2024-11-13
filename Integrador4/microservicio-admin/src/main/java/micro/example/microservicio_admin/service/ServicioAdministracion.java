@@ -5,10 +5,7 @@ import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.entity.clases.Precio;
-import micro.example.microservicio_admin.feignClients.MantenimientoFeignClient;
-import micro.example.microservicio_admin.feignClients.MonopatinFeignClient;
-import micro.example.microservicio_admin.feignClients.ParadaFeignClient;
-import micro.example.microservicio_admin.feignClients.ViajeFeignClient;
+import micro.example.microservicio_admin.feignClients.*;
 import micro.example.microservicio_admin.repository.AdministracionRepo;
 import micro.example.microservicio_admin.entity.clases.Mantenimiento;
 import micro.example.microservicio_admin.dto.AdministradorDTO;
@@ -44,17 +41,27 @@ public class ServicioAdministracion {
     ViajeFeignClient viajeFeignClient;
 
     @Autowired
+    UserFeignClient userFeignClient;
+
+    @Autowired
     public ServicioAdministracion(AdministracionRepo ar,
                                   MonopatinFeignClient monopatinFeignClient, MantenimientoFeignClient mantenimientoFeignClient,
-                                  ParadaFeignClient paradaFeignClient, ViajeFeignClient viajeFeignClient) {
+                                  ParadaFeignClient paradaFeignClient, ViajeFeignClient viajeFeignClient,
+                                  UserFeignClient userFeignClient) {
         this.ar = ar;
         this.monopatinFeignClient = monopatinFeignClient;
         this.mantenimientoFeignClient = mantenimientoFeignClient;
         this.paradaFeignClient = paradaFeignClient;
         this.viajeFeignClient = viajeFeignClient;
+        this.userFeignClient = userFeignClient;
     }
 
-   @Transactional
+    @Transactional
+    public ResponseEntity<?> anularCuenta(Long id){
+        return ResponseEntity.ok(userFeignClient.anularCuenta(id));
+    }
+
+    @Transactional
    public ResponseEntity<?> agregarPrecio(Precio precio) {
        return ResponseEntity.ok(viajeFeignClient.agregarPrecio(precio));
 
