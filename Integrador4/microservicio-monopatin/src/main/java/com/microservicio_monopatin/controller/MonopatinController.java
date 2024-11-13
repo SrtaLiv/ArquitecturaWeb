@@ -36,9 +36,6 @@ public class MonopatinController {
         @GetMapping("/{id}")
         public ResponseEntity<Monopatin> getMonopatinById(@PathVariable Long id) throws Exception {
             return ResponseEntity.ok(monopatinService.findById(id));
-            /*Optional<Monopatin> parada = Optional.ofNullable(monopatinService.findById(id));
-            return parada.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));*/
         }
 
         @PostMapping("")
@@ -63,6 +60,15 @@ public class MonopatinController {
                 return ResponseEntity.status(HttpStatus.OK).body(monopatinService.delete(id));
             }catch (Exception e){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
+            }
+        }
+        @GetMapping("/comparacionEstados")
+        public ResponseEntity<?> getComparacionEstados(){
+            try {
+                return ResponseEntity.status(HttpStatus.OK).body(monopatinService.getComparacionEstados());
+            }catch (Exception e){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
+                        ".\"}");
             }
         }
     }

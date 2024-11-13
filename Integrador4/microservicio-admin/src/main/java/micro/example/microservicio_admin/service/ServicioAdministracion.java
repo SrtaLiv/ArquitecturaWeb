@@ -1,8 +1,7 @@
 package micro.example.microservicio_admin.service;
 
 import lombok.RequiredArgsConstructor;
-import micro.example.microservicio_admin.dto.FacturadoDTO;
-import micro.example.microservicio_admin.dto.ReporteKilometrajeDTO;
+import micro.example.microservicio_admin.dto.*;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.entity.clases.Parada;
@@ -10,8 +9,6 @@ import micro.example.microservicio_admin.entity.clases.Precio;
 import micro.example.microservicio_admin.feignClients.*;
 import micro.example.microservicio_admin.repository.AdministracionRepo;
 import micro.example.microservicio_admin.entity.clases.Mantenimiento;
-import micro.example.microservicio_admin.dto.AdministradorDTO;
-import micro.example.microservicio_admin.dto.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.*;
@@ -214,6 +211,17 @@ public class ServicioAdministracion {
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage() + " fallo");
+        }
+    }
+    @Transactional
+    public ResponseEntity<?> getComparacionEstados(){
+        try{
+            ResponseEntity<EstadoMonopatinDTO> response = monopatinFeignClient.comparacionEstados();
+            EstadoMonopatinDTO informe = response.getBody();
+            return ResponseEntity.ok(informe);
+        }
+        catch(Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

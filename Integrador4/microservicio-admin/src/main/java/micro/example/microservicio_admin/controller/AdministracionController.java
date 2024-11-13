@@ -151,4 +151,8 @@ public class AdministracionController {
 
         }
     }
+    @GetMapping("/monopatines/getComparacionEstados")
+    public ResponseEntity<?> getComparacionEstados(){
+        return ResponseEntity.status(HttpStatus.OK).body(sa.getComparacionEstados());
+    }
 }

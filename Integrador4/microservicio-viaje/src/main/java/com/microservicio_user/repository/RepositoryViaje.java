@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface RepositoryViaje extends JpaRepository<Viaje, Long> {
 
-
     @Query("select NEW com.microservicio_user.service.dto.ReporteKilometrajeDTO(v.idMonopatin,sum(v.kmRecorridos)) from Viaje v where v.kmRecorridos >= :umbral group by v.idMonopatin")
     List<ReporteKilometrajeDTO> getReporteKilometraje(long umbral);
 
