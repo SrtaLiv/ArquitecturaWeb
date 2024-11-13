@@ -1,6 +1,7 @@
 package micro.example.microservicio_admin.service;
 
 import lombok.RequiredArgsConstructor;
+import micro.example.microservicio_admin.dto.ReporteKilometrajeDTO;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.entity.clases.Parada;
@@ -185,6 +186,17 @@ public class ServicioAdministracion {
             return ResponseEntity.status(HttpStatus.OK).body("Eliminación exitosa");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La entidad con ID " + id + " no existe");
+        }
+    }
+    @Transactional
+    public ResponseEntity<?> getReporteKilometraje(Long limite, boolean incluirPausas) {
+        try {
+
+            ResponseEntity<List<ReporteKilometrajeDTO>> response = viajeFeignClient.getReporteKilometraje(limite, incluirPausas);
+
+            return ResponseEntity.ok(response.getBody());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage() + " fallo");
         }
     }
 }

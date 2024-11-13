@@ -2,6 +2,7 @@ package com.microservicio_user.service;
 
 import com.microservicio_user.model.Viaje;
 import com.microservicio_user.repository.RepositoryViaje;
+import com.microservicio_user.service.dto.ReporteKilometrajeDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -57,7 +58,14 @@ public class ServiceViaje {
             throw new ChangeSetPersister.NotFoundException();
         }
     }
-
+    @Transactional
+    public List<ReporteKilometrajeDTO> getReporteKilometraje(long umbral, boolean conPausas){
+        if(conPausas){
+            return repositoryViaje.getReporteKilometrajeConPausas(umbral);
+        }else{
+            return repositoryViaje.getReporteKilometraje(umbral);
+        }
+    }
 
     @Transactional
     public ResponseEntity<?> delete(Long id) throws Exception {

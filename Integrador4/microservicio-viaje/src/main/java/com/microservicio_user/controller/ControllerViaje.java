@@ -2,6 +2,7 @@ package com.microservicio_user.controller;
 
 import com.microservicio_user.model.Viaje;
 import com.microservicio_user.service.ServiceViaje;
+import com.microservicio_user.service.dto.ReporteKilometrajeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -62,6 +63,15 @@ public class ControllerViaje {
             return ResponseEntity.status(HttpStatus.OK).body(serviceViaje.delete(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
+        }
+    }
+    @GetMapping("/getReporteKilometraje/{limite}/{incluirPausa}")
+    public ResponseEntity<?> getReporteKilometraje(@PathVariable Long limite, @PathVariable boolean incluirPausa){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(serviceViaje.getReporteKilometraje(limite, incluirPausa));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+
         }
     }
 }
