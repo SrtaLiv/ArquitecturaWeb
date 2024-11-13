@@ -25,4 +25,5 @@ public interface RepositoryViaje extends JpaRepository<Viaje, Long> {
 
     @Query("SELECT SUM(p.valor + p.valorPorPausaExtendida) FROM Viaje v JOIN v.precio p WHERE FUNCTION('YEAR', v.fecha) = :anio AND FUNCTION('MONTH', v.fecha) BETWEEN :mesInicio AND :mesFin")
     Integer getFacturadoEntreMeses(int anio, int mesInicio, int mesFin);
+
 }

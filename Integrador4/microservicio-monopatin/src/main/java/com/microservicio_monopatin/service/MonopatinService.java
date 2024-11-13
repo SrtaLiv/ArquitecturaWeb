@@ -1,5 +1,6 @@
 package com.microservicio_monopatin.service;
 
+import com.microservicio_monopatin.dto.EstadoMonopatinDTO;
 import com.microservicio_monopatin.model.Monopatin;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,9 @@ public class MonopatinService {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La parada con ID " + id + " no existe");
         }
+    }
+    @Transactional
+    public EstadoMonopatinDTO getComparacionEstados() {
+        return monopatinRepository.getComparacionEstados();
     }
 }

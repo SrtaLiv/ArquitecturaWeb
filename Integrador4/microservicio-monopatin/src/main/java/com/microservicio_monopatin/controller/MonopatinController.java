@@ -63,4 +63,13 @@ public class MonopatinController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
             }
         }
+        @GetMapping("/comparacionEstados")
+        public ResponseEntity<?> getComparacionEstados(){
+            try {
+                return ResponseEntity.status(HttpStatus.OK).body(monopatinService.getComparacionEstados());
+            }catch (Exception e){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
+                        ".\"}");
+            }
+        }
     }
