@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,18 +16,18 @@ import java.util.Optional;
 @RequestMapping("/monopatines")
 public class MonopatinController {
 
-        private MonopatinService monopatinService;
+    private MonopatinService monopatinService;
 
-        @Autowired
-        public MonopatinController(MonopatinService monopatinService) {
-            this.monopatinService = monopatinService;
-        }
+    @Autowired
+    public MonopatinController(MonopatinService monopatinService) {
+        this.monopatinService = monopatinService;
+    }
 
         @GetMapping("")
         public ResponseEntity<List<Monopatin>> getAllMonopatines() throws Exception {
             try{
-                List<Monopatin> paradas = monopatinService.findAll();
-                return new ResponseEntity<>(paradas, HttpStatus.OK);
+                List<Monopatin> monopatin = monopatinService.findAll();
+                return new ResponseEntity<>(monopatin, HttpStatus.OK);
             }
             catch (Exception e){
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -36,9 +37,6 @@ public class MonopatinController {
         @GetMapping("/{id}")
         public ResponseEntity<Monopatin> getMonopatinById(@PathVariable Long id) throws Exception {
             return ResponseEntity.ok(monopatinService.findById(id));
-            /*Optional<Monopatin> parada = Optional.ofNullable(monopatinService.findById(id));
-            return parada.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));*/
         }
 
         @PostMapping("")

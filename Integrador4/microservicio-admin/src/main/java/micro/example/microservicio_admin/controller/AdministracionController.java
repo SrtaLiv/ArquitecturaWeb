@@ -2,6 +2,7 @@ package micro.example.microservicio_admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
+import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.entity.clases.Precio;
 import micro.example.microservicio_admin.service.ServicioAdministracion;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @RestController
@@ -26,6 +28,21 @@ public class AdministracionController {
     @Autowired
     public AdministracionController(ServicioAdministracion sa) {
         this.sa = sa;
+    }
+
+    /**
+     * Como administrador quiero consultar lo cantidad de monopatines actualmente en operacion, versus la cantidad de
+     * monopatines actualmente en mantenimeinto
+     */
+
+    /**
+     * Como administrador quiero consultar los monopatines con mas de X viajes en un cierto anio.
+     */
+    @GetMapping("/{cantidad}/{anio}")
+    public ResponseEntity<List<Monopatin>> findMonopatinesConMasDeXViajesPorAnio(
+            @PathVariable int cantidad,
+            @PathVariable int anio) {
+        return ResponseEntity.status(HttpStatus.OK).body(sa.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio).getBody());
     }
 
     /**

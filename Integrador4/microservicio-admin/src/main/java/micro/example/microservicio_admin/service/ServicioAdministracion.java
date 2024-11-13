@@ -15,6 +15,8 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -54,6 +56,14 @@ public class ServicioAdministracion {
         this.paradaFeignClient = paradaFeignClient;
         this.viajeFeignClient = viajeFeignClient;
         this.userFeignClient = userFeignClient;
+    }
+
+    @Transactional
+    @GetMapping("/{cantidad}/{anio}")
+    public ResponseEntity<List<Monopatin>> findMonopatinesConMasDeXViajesPorAnio(
+            @PathVariable int cantidad,
+            @PathVariable int anio) {
+        return ResponseEntity.ok(viajeFeignClient.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio).getBody());
     }
 
     @Transactional

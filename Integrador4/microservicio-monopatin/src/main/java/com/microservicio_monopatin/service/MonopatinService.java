@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import com.microservicio_monopatin.repository.MonopatinRepository;
-
 import java.util.List;
 import java.util.Optional;
 
