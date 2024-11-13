@@ -3,6 +3,7 @@ package micro.example.microservicio_admin.controller;
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Parada;
+import micro.example.microservicio_admin.entity.clases.Precio;
 import micro.example.microservicio_admin.service.ServicioAdministracion;
 import micro.example.microservicio_admin.dto.MonopatinDTO;
 import micro.example.microservicio_admin.dto.ParadaDTO;
@@ -11,17 +12,25 @@ import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 
 @RestController
 @RequestMapping("/administrar")
 @RequiredArgsConstructor
 public class AdministracionController {
+
     @Autowired
     private ServicioAdministracion sa;
 
     @Autowired
     public AdministracionController(ServicioAdministracion sa) {
         this.sa = sa;
+    }
+
+    @PostMapping("/precios/agregar")
+    public ResponseEntity<?> agregarPrecio(Precio p){
+        return ResponseEntity.status(HttpStatus.OK).body(sa.agregarPrecio(p));
     }
 
     @DeleteMapping("/paradas/{id}")

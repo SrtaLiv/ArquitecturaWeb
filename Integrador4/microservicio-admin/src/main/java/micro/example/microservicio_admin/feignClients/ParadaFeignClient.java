@@ -1,7 +1,6 @@
 package micro.example.microservicio_admin.feignClients;
 
 import micro.example.microservicio_admin.entity.clases.Parada;
-import micro.example.microservicio_admin.dto.ParadaDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

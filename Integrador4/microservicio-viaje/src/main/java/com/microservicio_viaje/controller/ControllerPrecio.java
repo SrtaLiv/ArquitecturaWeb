@@ -26,7 +26,7 @@ public class ControllerPrecio {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(sp.save(p));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar el precio, revise los campos e intente nuevamente.\"}");
         }
     }
     @GetMapping("")

@@ -4,20 +4,20 @@ import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.entity.clases.Parada;
+import micro.example.microservicio_admin.entity.clases.Precio;
 import micro.example.microservicio_admin.feignClients.MantenimientoFeignClient;
 import micro.example.microservicio_admin.feignClients.MonopatinFeignClient;
 import micro.example.microservicio_admin.feignClients.ParadaFeignClient;
+import micro.example.microservicio_admin.feignClients.ViajeFeignClient;
 import micro.example.microservicio_admin.repository.AdministracionRepo;
 import micro.example.microservicio_admin.entity.clases.Mantenimiento;
 import micro.example.microservicio_admin.dto.AdministradorDTO;
 import micro.example.microservicio_admin.dto.MonopatinDTO;
-import micro.example.microservicio_admin.dto.ParadaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,9 +27,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ServicioAdministracion {
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
     private AdministracionRepo ar;
@@ -44,20 +41,25 @@ public class ServicioAdministracion {
     ParadaFeignClient paradaFeignClient;
 
     @Autowired
-    public ServicioAdministracion(AdministracionRepo ar, RestTemplate restTemplate,
-                                  MonopatinFeignClient monopatinFeignClient, MantenimientoFeignClient mantenimientoFeignClient, ParadaFeignClient paradaFeignClient) {
-        this.restTemplate = restTemplate;
+    ViajeFeignClient viajeFeignClient;
+
+    @Autowired
+    public ServicioAdministracion(AdministracionRepo ar,
+                                  MonopatinFeignClient monopatinFeignClient, MantenimientoFeignClient mantenimientoFeignClient,
+                                  ParadaFeignClient paradaFeignClient, ViajeFeignClient viajeFeignClient) {
         this.ar = ar;
         this.monopatinFeignClient = monopatinFeignClient;
         this.mantenimientoFeignClient = mantenimientoFeignClient;
         this.paradaFeignClient = paradaFeignClient;
+        this.viajeFeignClient = viajeFeignClient;
     }
 
-    /**
-     * ==============================================
-     * Registrar y quitar una nueva Parada
-     * ==============================================
-     ** */
+   @Transactional
+   public ResponseEntity<?> agregarPrecio(Precio precio) {
+       return ResponseEntity.ok(viajeFeignClient.agregarPrecio(precio));
+
+   }
+
     @Transactional
     public ResponseEntity<?> createParada(Parada p) {
     try{
@@ -70,24 +72,7 @@ public class ServicioAdministracion {
         return ResponseEntity.badRequest().body(e.getMessage()+"fallo");
         }
     }
- /*   @Transactional
-    public ResponseEntity createParada(ParadaDTO parada){
-        ResponseEntity<ParadaDTO> response = paradaFeignClient.createParada(parada);
-        return ResponseEntity.ok(response.getBody());
-    }*/
-    /*@Transactional
-    public ResponseEntity createParada(ParadaDTO parada) {
-        ResponseEntity<ParadaDTO> response = paradaFeignClient.createParada(parada);
 
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return ResponseEntity.ok(response.getBody());
-        } else {
-            // Si la respuesta no es exitosa, se puede devolver un error específico
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("{\"error\":\"Error al crear la parada. Código de error: " + response.getStatusCode() + "\"}");
-        }
-    }
-*/
     @Transactional
     public ResponseEntity<String> deleteParada(Long id) {
         try {
