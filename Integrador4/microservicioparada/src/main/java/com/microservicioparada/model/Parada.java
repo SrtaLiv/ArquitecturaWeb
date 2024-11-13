@@ -1,4 +1,4 @@
-package com.microservicio_parada.model;
+package com.microservicioparada.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;

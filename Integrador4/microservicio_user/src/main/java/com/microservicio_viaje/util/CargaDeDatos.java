@@ -29,6 +29,11 @@ public class CargaDeDatos {
         this.cr = cr;
     }
 
+    public boolean isTablaVacia() {
+        // Verifica si la tabla 'viaje' está vacía
+        return ur.count() == 0 && cr.count() == 0;
+    }
+
     public void cargarDatosDesdeCSV() throws IOException {
         // Utiliza InputStream para cargar el archivo desde el classpath
         InputStream inputStream = getClass().getResourceAsStream("/usuarios.csv");

@@ -1,14 +1,14 @@
-package com.microservicio_parada.service;
+package com.microservicioparada.service;
 
-import com.microservicio_parada.dto.ParadaDTO;
+import com.microservicioparada.dto.ParadaDTO;
 import jakarta.transaction.Transactional;
-import com.microservicio_parada.model.Parada;
+import com.microservicioparada.model.Parada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.microservicio_parada.repository.ParadaRepository;
+import com.microservicioparada.repository.ParadaRepository;
 
 import java.util.List;
 import java.util.Optional;

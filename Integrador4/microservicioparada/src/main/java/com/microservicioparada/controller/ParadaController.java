@@ -1,11 +1,11 @@
-package com.microservicio_parada.controller;
+package com.microservicioparada.controller;
 
-import com.microservicio_parada.dto.ParadaDTO;
-import com.microservicio_parada.model.Parada;
+import com.microservicioparada.dto.ParadaDTO;
+import com.microservicioparada.model.Parada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.microservicio_parada.service.ParadaService;
+import com.microservicioparada.service.ParadaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -9,24 +9,13 @@ import lombok.Setter;
 @Entity @Getter @Setter
 public class Monopatin {
 
-   /* private int latitud;
-    private int longitud;
-    private boolean estado;*/
-
-    private String numeroSerie;
-    private double kilometraje;
-    private boolean enMantenimiento;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*
-    public Monopatin(int latitud, int longitud, boolean estado) {
-        this.latitud = latitud;
-        this.longitud = longitud;
-        this.estado = estado;
-    }*/
+    private String numeroSerie;
+    private double kilometraje;
+    private boolean enMantenimiento;
 
     public Monopatin(String numeroSerie, double kilometraje, boolean enMantenimiento) {
         this.numeroSerie = numeroSerie;
@@ -34,9 +23,7 @@ public class Monopatin {
         this.enMantenimiento = enMantenimiento;
     }
 
-    public Monopatin() {
-
-    }
+    public Monopatin() {}
 
     public boolean isEnMantenimiento() {
         return enMantenimiento;

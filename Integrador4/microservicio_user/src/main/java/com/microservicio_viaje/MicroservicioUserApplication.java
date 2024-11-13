@@ -22,7 +22,9 @@ public class MicroservicioUserApplication {
 
 	@PostConstruct
 	public void init() throws IOException {
-		cargaDeDatos.cargarDatosDesdeCSV();
+		if(cargaDeDatos.isTablaVacia()){
+			cargaDeDatos.cargarDatosDesdeCSV();
+		}
 	}
 
 }

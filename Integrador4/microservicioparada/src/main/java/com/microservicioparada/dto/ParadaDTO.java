@@ -1,4 +1,4 @@
-package com.microservicio_parada.dto;
+package com.microservicioparada.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
