@@ -56,6 +56,23 @@ public class CargaDeDatos {
         if (inputPrecio == null) {
             throw new IOException("Archivo Precio.csv no encontrado en resources.");
         }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputPrecio));
+             CSVParser datosPrecio = new CSVParser(reader, CSVFormat.DEFAULT.withHeader())){
+            for (CSVRecord precio : datosPrecio){
+                Precio p = new Precio();
+
+                p.setId((Long.valueOf(precio.get("idPrecio"))));
+                p.setClave(precio.get("clave"));
+                p.setValor(Double.parseDouble(precio.get("valor")));
+                p.setFechaFacturacion(LocalDate.parse(precio.get("fechaFacturacion"),formatterPrecio));
+                p.setValorPorPausaExtendida(Double.valueOf(precio.get("valorPorPausa")));
+
+                this.precio.save(p);
+            }
+        }
+        catch (IOException e){
+            throw new IOException(e+ "no se pudo abrir la lectura de Precio.csv.");
+        }
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputViaje));
              CSVParser datosViaje = new CSVParser(reader, CSVFormat.DEFAULT.withHeader())){
             for (CSVRecord viaje : datosViaje){
@@ -78,7 +95,6 @@ public class CargaDeDatos {
         catch (IOException e){
             throw new IOException(e+ "no se pudo abrir la lectura de Viaje.csv.");
         }
-
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputPausa));
              CSVParser datosPausa = new CSVParser(reader, CSVFormat.DEFAULT.withHeader())){
             for (CSVRecord pausa : datosPausa){
@@ -98,23 +114,8 @@ public class CargaDeDatos {
         catch (IOException e){
             throw new IOException(e+ "no se pudo abrir la lectura de Pausa.csv.");
         }
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputPrecio));
-             CSVParser datosPrecio = new CSVParser(reader, CSVFormat.DEFAULT.withHeader())){
-            for (CSVRecord precio : datosPrecio){
-                Precio p = new Precio();
 
-                p.setId((Long.valueOf(precio.get("idPrecio"))));
-                p.setClave(precio.get("clave"));
-                p.setValor(Double.parseDouble(precio.get("valor")));
-                p.setFechaFacturacion(LocalDate.parse(precio.get("fechaFacturacion"),formatterPrecio));
-                p.setValorPorPausaExtendida(Double.valueOf(precio.get("valorPorPausa")));
 
-                this.precio.save(p);
-            }
-        }
-        catch (IOException e){
-            throw new IOException(e+ "no se pudo abrir la lectura de Precio.csv.");
-        }
 
     }
 }

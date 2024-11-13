@@ -1,6 +1,7 @@
 package micro.example.microservicio_admin.service;
 
 import lombok.RequiredArgsConstructor;
+import micro.example.microservicio_admin.dto.FacturadoDTO;
 import micro.example.microservicio_admin.dto.ReporteKilometrajeDTO;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
@@ -202,10 +203,15 @@ public class ServicioAdministracion {
     @Transactional
     public ResponseEntity<?> getTotalFacturadoEntreMeses(int anio, int mesInicio, int mesFin) {
         try {
-
             ResponseEntity<Integer> response = viajeFeignClient.getTotalFacturadoEntreMeses(anio, mesInicio,mesFin);
-
-            return ResponseEntity.ok(response.getBody());
+            FacturadoDTO informe = new FacturadoDTO();
+            informe.setTotalFacturado(response.getBody());
+            if(response.getBody()==null){
+                return ResponseEntity.badRequest().body("No se recaudo en el periodo indicado");
+            }
+            else{
+                return ResponseEntity.ok(informe);
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage() + " fallo");
         }
