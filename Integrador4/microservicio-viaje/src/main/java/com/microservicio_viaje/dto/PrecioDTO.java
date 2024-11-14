@@ -27,7 +27,6 @@ public class PrecioDTO  implements Serializable {
     public PrecioDTO(Precio p){
         this.id = p.getId();
         this.valor = p.getValor();
-        this.fechaInicio = p.getFechaInicioAHabilitar();
         this.valorPorPausaExtendida= p.getValorPorPausaExtendida();
     }
 

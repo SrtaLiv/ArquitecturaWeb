@@ -1,14 +1,12 @@
 package com.microservicio_viaje.controller;
 
 
-import com.microservicio_viaje.dto.PrecioFechaDTO;
 import com.microservicio_viaje.entity.Precio;
 import com.microservicio_viaje.service.ServicioPrecio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,15 +25,10 @@ public class ControllerPrecio {
     @PutMapping("/editar/habilitar/{fechaAHabilitar}/{valor}")
     public ResponseEntity<?> ajustarPreciosPorFecha(@PathVariable double valor,
                                                     @PathVariable LocalDate fechaAHabilitar) {
-        if (fechaAHabilitar.isBefore(LocalDate.now())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La fecha de habilitación no puede ser en el pasado");
-        }
-
         List<Precio> preciosActualizados = sp.ajustarPreciosPorFecha(valor, fechaAHabilitar);
         if (preciosActualizados.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron precios para actualizar");
         }
-
         return ResponseEntity.status(HttpStatus.OK).body(preciosActualizados);
     }
 

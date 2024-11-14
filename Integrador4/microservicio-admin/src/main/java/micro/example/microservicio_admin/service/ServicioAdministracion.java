@@ -59,9 +59,9 @@ public class ServicioAdministracion {
     }
 
     @Transactional
-    public ResponseEntity ajustarPrecios(
-          Precio precio, LocalDate fechaAHabilitar) {
-        return viajeFeignClient.ajustarPreciosPorFecha(precio, fechaAHabilitar);
+    public ResponseEntity<?> ajustarPreciosPorFecha(
+          double valor, LocalDate fechaAHabilitar) {
+        return viajeFeignClient.ajustarPreciosPorFecha(valor, fechaAHabilitar);
     }
 
     @Transactional

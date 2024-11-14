@@ -15,16 +15,13 @@ public class UserDTO {
     private String nombre;
     private String apellido;
     private String password;
-    private double x;
-    private double y;
+
     private Set<Cuenta> cuenta;
 
     public UserDTO() {}
 
     public UserDTO(User usuario) {
         this.id = usuario.getId();
-        this.x = usuario.getX();
-        this.y = usuario.getY();
         this.telefono = usuario.getTelefono();
         this.email = usuario.getEmail();
         this.nombre = usuario.getNombre();
@@ -33,10 +30,8 @@ public class UserDTO {
         this.password=usuario.getPassword();
     }
 
-    public UserDTO(long id,int x,int y, String telefono, String email, String nombre, String apellido,Set<Cuenta> cuenta, String password) {
+    public UserDTO(long id, String telefono, String email, String nombre, String apellido,Set<Cuenta> cuenta, String password) {
         this.id = id;
-        this.x = x;
-        this.y = y;
         this.telefono = telefono;
         this.email = email;
         this.nombre = nombre;

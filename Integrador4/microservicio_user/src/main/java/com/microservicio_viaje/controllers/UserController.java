@@ -1,4 +1,4 @@
-package com.microservicio_viaje.controller;
+package com.microservicio_viaje.controllers;
 
 
 import com.microservicio_viaje.entity.User;
@@ -61,10 +61,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
         }
     }
-    @GetMapping("/parada/monopatinesCercanos/{idUsuario}")
-    public ResponseEntity<?> getMonopatinesCercanos (@PathVariable Long idUsuario) throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(se.getMonopatinesCercanos(idUsuario));
-    }
+
 
 
 }

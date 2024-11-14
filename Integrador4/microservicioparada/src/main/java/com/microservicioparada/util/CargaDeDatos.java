@@ -41,8 +41,8 @@ public class CargaDeDatos {
                 Parada p = new Parada();
 
                 p.setId(Long.parseLong(parada.get("idParada")));
-                p.setX(Double.parseDouble(parada.get("x")));
-                p.setY(Double.parseDouble(parada.get("y")));
+                p.setX(Long.valueOf(parada.get("x")));
+                p.setY(Long.valueOf(parada.get("y")));
 
                 String monopatinesStr = parada.get("monopatinIds");
                 if (monopatinesStr != null && !monopatinesStr.trim().isEmpty()) {

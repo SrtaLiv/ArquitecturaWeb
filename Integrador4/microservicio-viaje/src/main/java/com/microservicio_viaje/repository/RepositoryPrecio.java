@@ -12,6 +12,8 @@ import java.util.List;
 
 @Repository
 public interface RepositoryPrecio extends JpaRepository<Precio, Long> {
+    @Query("SELECT p FROM Precio p WHERE p.fechaFacturacion > :fechaAHabilitar")
+    List<Precio> findByFechaFacturacionAfter(@Param("fechaAHabilitar") LocalDate fechaAHabilitar);
 
 }
 

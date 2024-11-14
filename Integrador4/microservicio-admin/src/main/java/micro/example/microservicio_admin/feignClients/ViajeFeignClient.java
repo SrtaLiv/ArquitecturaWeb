@@ -26,7 +26,7 @@ public interface ViajeFeignClient {
     @GetMapping("/viajes/facturado/{anio}/{mesInicio}/{mesFin}")
     ResponseEntity<Integer> getTotalFacturadoEntreMeses(@PathVariable int anio, @PathVariable int mesInicio, @PathVariable int mesFin);
 
-    @PutMapping("/precios/editar/habilitar/{fechaAHabilitar}")
-    ResponseEntity<?> ajustarPreciosPorFecha(@RequestBody Precio precio,
+    @PutMapping("/precios//editar/habilitar/{fechaAHabilitar}/{valor}")
+    ResponseEntity<?> ajustarPreciosPorFecha(@PathVariable double valor,
                                                     @PathVariable LocalDate fechaAHabilitar);
 }

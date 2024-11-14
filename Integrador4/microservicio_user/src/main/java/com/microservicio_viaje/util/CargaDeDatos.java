@@ -78,8 +78,6 @@ public class CargaDeDatos {
                 u.setNombre(usuario.get("nombre"));
                 u.setEmail(usuario.get("email"));
                 u.setPassword(usuario.get("password"));
-                u.setX(Double.parseDouble(usuario.get("x")));
-                u.setY(Double.parseDouble(usuario.get("y")));
                 ur.save(u);
             }
         } catch (Exception e) {
