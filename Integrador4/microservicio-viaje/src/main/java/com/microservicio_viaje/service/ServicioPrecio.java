@@ -1,6 +1,7 @@
 package com.microservicio_viaje.service;
 
 
+import com.microservicio_viaje.dto.PrecioFechaDTO;
 import com.microservicio_viaje.entity.Precio;
 import com.microservicio_viaje.repository.RepositoryPrecio;
 import com.microservicio_viaje.dto.PrecioDTO;
@@ -10,8 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +26,26 @@ public class ServicioPrecio {
     @Autowired
     public ServicioPrecio(RepositoryPrecio pr) {
         this.pr = pr;
+    }
+
+    @Transactional
+    public List<Precio> ajustarPreciosPorFecha(double valor, LocalDate fechaAHabilitar) {
+        List<Precio> precios = pr.findAll();
+
+        if (precios.isEmpty()) {
+            return precios;
+        }
+
+        for (Precio pre : precios) {
+            if (Objects.equals(fechaAHabilitar, LocalDate.now())){ //si la fecha es hoy lo cambia directo
+                pre.setValor(valor);
+            }
+            pre.setFechaInicioAHabilitar(fechaAHabilitar); // Fecha de inicio de habilitación
+            pre.setValorPorPausaExtendida(valor); //precio temporal
+        }
+
+        pr.saveAll(precios);
+        return precios;
     }
 
     @Transactional

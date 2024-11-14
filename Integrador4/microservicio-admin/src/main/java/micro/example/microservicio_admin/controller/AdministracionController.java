@@ -3,15 +3,12 @@ package micro.example.microservicio_admin.controller;
 import lombok.RequiredArgsConstructor;
 import micro.example.microservicio_admin.dto.MonopatinViajeDTO;
 import micro.example.microservicio_admin.entity.Administrador;
-import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.entity.clases.Parada;
 import micro.example.microservicio_admin.entity.clases.Precio;
 import micro.example.microservicio_admin.service.ServicioAdministracion;
 import micro.example.microservicio_admin.dto.MonopatinDTO;
-import micro.example.microservicio_admin.dto.ParadaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -33,9 +30,15 @@ AdministracionController {
     }
 
     /**
-     * Como administrador quiero consultar lo cantidad de monopatines actualmente en operacion, versus la cantidad de
-     * monopatines actualmente en mantenimeinto
+     * Como administrador quiero hacer un ajuste de precios, y que a aprtir de cierta fecha el sistema habilite
+     * nuevos precios
      */
+    @PutMapping("/precios/editar/habilitar/{fechaAHabilitar}")
+    public ResponseEntity<?> ajustarPreciosPorFecha(
+            @RequestBody Precio precio,
+            @PathVariable LocalDate fechaAHabilitar) {
+        return ResponseEntity.status(HttpStatus.OK).body(sa.ajustarPrecios(precio, fechaAHabilitar));
+    }
 
     /**
      * Como administrador quiero consultar los monopatines con mas de X viajes en un cierto anio.
@@ -44,7 +47,7 @@ AdministracionController {
     public ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(
             @PathVariable int cantidad,
             @PathVariable int anio) {
-        return ResponseEntity.status(HttpStatus.OK).body(sa.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio).getBody());
+        return ResponseEntity.status(HttpStatus.OK).body(sa.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio));
     }
 
     /**
@@ -79,8 +82,6 @@ AdministracionController {
                     .body("{\"error\":\"Error. No se pudo agregar la parada.\"}");
         }
     }
-
-
 
     @PostMapping("/monopatines")
     public ResponseEntity<?> agregarMonopatin(@RequestBody MonopatinDTO entity) {

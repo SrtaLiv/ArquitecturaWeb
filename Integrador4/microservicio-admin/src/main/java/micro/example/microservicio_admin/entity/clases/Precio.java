@@ -21,8 +21,6 @@ public class Precio {
 
     private Viaje viaje;
 
-
-
     public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, Viaje viaje) {
         this.id = id;
         this.clave = clave;

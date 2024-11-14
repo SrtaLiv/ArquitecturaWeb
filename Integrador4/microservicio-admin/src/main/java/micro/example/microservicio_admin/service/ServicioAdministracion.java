@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -58,11 +59,15 @@ public class ServicioAdministracion {
     }
 
     @Transactional
-    @GetMapping("/{cantidad}/{anio}")
-    public ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(
-            @PathVariable int cantidad,
-            @PathVariable int anio) {
-        return ResponseEntity.ok(viajeFeignClient.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio).getBody());
+    public ResponseEntity ajustarPrecios(
+          Precio precio, LocalDate fechaAHabilitar) {
+        return viajeFeignClient.ajustarPreciosPorFecha(precio, fechaAHabilitar);
+    }
+
+    @Transactional
+    public List<MonopatinViajeDTO> findMonopatinesConMasDeXViajesPorAnio(int cantidad, int anio) {
+        ResponseEntity<List<MonopatinViajeDTO>> response = viajeFeignClient.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio);
+        return response.getBody();
     }
 
     @Transactional
@@ -101,11 +106,6 @@ public class ServicioAdministracion {
         }
     }
 
-    /**
-     * ==============================================
-     * Agregar y eliminar un nuevo monopatin
-     * ==============================================
-     ** */
     @Transactional
     public ResponseEntity addMonopatin(MonopatinDTO monopatin){
         ResponseEntity<MonopatinDTO> response = monopatinFeignClient.saveMonopatin(monopatin);

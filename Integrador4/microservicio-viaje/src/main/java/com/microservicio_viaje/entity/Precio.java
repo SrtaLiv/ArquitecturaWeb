@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -36,17 +37,21 @@ public class Precio {
     @Column
     private Double valorPorPausaExtendida;
 
+    @Setter
+    @Getter
+    @Column(nullable = true)  // Este campo puede ser nulo (opcional)
+    private LocalDate fechaInicioAHabilitar;
+
     @JsonIgnore
     @OneToOne(mappedBy = "precio")
     private Viaje viaje;
 
-
-
-    public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, Viaje viaje) {
+    public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, LocalDate fechaInicioAHabilitar, Viaje viaje) {
         this.id = id;
         this.clave = clave;
         this.valor = valor;
         this.fechaFacturacion = fechaFacturacion;
+        this.fechaInicioAHabilitar = fechaInicioAHabilitar;
         this.valorPorPausaExtendida = 0.0;
         this.viaje = viaje;
     }
@@ -62,13 +67,15 @@ public class Precio {
         this.fechaFacturacion = precio.fechaFacturacion;
         this.valorPorPausaExtendida = precio.valorPorPausaExtendida;
         this.viaje = precio.viaje;
+        this.fechaInicioAHabilitar = precio.fechaInicioAHabilitar;
     }
 
-    public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, Double valorPorPausaExtendida, Viaje viaje) {
+    public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, LocalDate fechaInicioAHabilitar, Double valorPorPausaExtendida, Viaje viaje) {
         this.id = id;
         this.clave = clave;
         this.valor = valor;
         this.fechaFacturacion = fechaFacturacion;
+        this.fechaInicioAHabilitar = fechaInicioAHabilitar;
         this.valorPorPausaExtendida = valorPorPausaExtendida;
         this.viaje = viaje;
     }

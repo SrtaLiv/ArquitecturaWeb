@@ -14,8 +14,6 @@ public class Usuario {
     private String nombre;
     private String apellido;
 
-
-
     private double x;
 
     private double y;
