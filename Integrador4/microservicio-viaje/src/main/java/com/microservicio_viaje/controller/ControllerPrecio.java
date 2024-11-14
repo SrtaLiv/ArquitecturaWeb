@@ -32,6 +32,7 @@ public class ControllerPrecio {
         return ResponseEntity.status(HttpStatus.OK).body(preciosActualizados);
     }
 
+
     @PostMapping("/agregar")
     public ResponseEntity<?> agregarPrecio(@RequestBody Precio p){
         try{

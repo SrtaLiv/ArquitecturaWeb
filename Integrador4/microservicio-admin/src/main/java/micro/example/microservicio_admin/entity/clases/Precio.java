@@ -11,8 +11,6 @@ public class Precio {
 
     private Long id;
 
-    private String clave;
-
     private double valor;
 
     private LocalDate fechaFacturacion;
@@ -21,9 +19,8 @@ public class Precio {
 
     private Viaje viaje;
 
-    public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, Viaje viaje) {
+    public Precio(Long id, double valor, LocalDate fechaFacturacion, Viaje viaje) {
         this.id = id;
-        this.clave = clave;
         this.valor = valor;
         this.fechaFacturacion = fechaFacturacion;
         this.valorPorPausaExtendida = 0.0;
@@ -36,16 +33,14 @@ public class Precio {
 
     public Precio(Precio precio) {
         this.id = precio.id;
-        this.clave = precio.clave;
         this.valor = precio.valor;
         this.fechaFacturacion = precio.fechaFacturacion;
         this.valorPorPausaExtendida = precio.valorPorPausaExtendida;
         this.viaje = precio.viaje;
     }
 
-    public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, Double valorPorPausaExtendida, Viaje viaje) {
+    public Precio(Long id, double valor, LocalDate fechaFacturacion, Double valorPorPausaExtendida, Viaje viaje) {
         this.id = id;
-        this.clave = clave;
         this.valor = valor;
         this.fechaFacturacion = fechaFacturacion;
         this.valorPorPausaExtendida = valorPorPausaExtendida;
@@ -66,14 +61,6 @@ public class Precio {
 
     public void setValorPorPausaExtendida(Double valorPorPausaExtendida) {
         this.valorPorPausaExtendida = valorPorPausaExtendida;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
     }
 
     public double getValor() {

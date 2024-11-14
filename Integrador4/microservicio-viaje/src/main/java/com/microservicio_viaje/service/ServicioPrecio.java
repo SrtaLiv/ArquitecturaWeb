@@ -60,7 +60,6 @@ public class ServicioPrecio {
                 .orElseThrow(ChangeSetPersister.NotFoundException::new);
 
         // Actualizar los campos necesarios
-        existingPrecio.setClave(updatedPrecio.getClave());
         existingPrecio.setValor(updatedPrecio.getValor());
         existingPrecio.setFechaFacturacion(updatedPrecio.getFechaFacturacion());
         existingPrecio.setValorPorPausaExtendida(updatedPrecio.getValorPorPausaExtendida());

@@ -17,7 +17,7 @@ public class PrecioDTO  implements Serializable {
     private Double valorPorPausaExtendida;
 
 
-    public PrecioDTO(Long id, String clave, double valor, LocalDate fechaInicio, Double valorPorPausaExtendida) {
+    public PrecioDTO(Long id, double valor, LocalDate fechaInicio, Double valorPorPausaExtendida) {
         this.id = id;
         this.valor = valor;
         this.fechaInicio = fechaInicio;

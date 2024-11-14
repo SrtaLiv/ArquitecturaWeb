@@ -62,7 +62,6 @@ public class CargaDeDatos {
                 Precio p = new Precio();
 
                 p.setId((Long.valueOf(precio.get("idPrecio"))));
-                p.setClave(precio.get("clave"));
                 p.setValor(Double.parseDouble(precio.get("valor")));
                 p.setFechaFacturacion(LocalDate.parse(precio.get("fechaFacturacion"),formatterPrecio));
                 p.setValorPorPausaExtendida(Double.valueOf(precio.get("valorPorPausa")));

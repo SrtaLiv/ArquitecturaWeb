@@ -22,11 +22,6 @@ public class Precio {
     @Setter
     @Getter
     @Column
-    private String clave;
-
-    @Setter
-    @Getter
-    @Column
     private double valor;
 
     @Column
@@ -41,9 +36,8 @@ public class Precio {
     @OneToOne(mappedBy = "precio")
     private Viaje viaje;
 
-    public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, LocalDate fechaInicioAHabilitar, Viaje viaje) {
+    public Precio(Long id, double valor, LocalDate fechaFacturacion, LocalDate fechaInicioAHabilitar, Viaje viaje) {
         this.id = id;
-        this.clave = clave;
         this.valor = valor;
         this.fechaFacturacion = fechaFacturacion;
         this.valorPorPausaExtendida = 0.0;
@@ -56,16 +50,14 @@ public class Precio {
 
     public Precio(Precio precio) {
         this.id = precio.id;
-        this.clave = precio.clave;
         this.valor = precio.valor;
         this.fechaFacturacion = precio.fechaFacturacion;
         this.valorPorPausaExtendida = precio.valorPorPausaExtendida;
         this.viaje = precio.viaje;
     }
 
-    public Precio(Long id, String clave, double valor, LocalDate fechaFacturacion, LocalDate fechaInicioAHabilitar, Double valorPorPausaExtendida, Viaje viaje) {
+    public Precio(Long id, double valor, LocalDate fechaFacturacion, LocalDate fechaInicioAHabilitar, Double valorPorPausaExtendida, Viaje viaje) {
         this.id = id;
-        this.clave = clave;
         this.valor = valor;
         this.fechaFacturacion = fechaFacturacion;
         this.valorPorPausaExtendida = valorPorPausaExtendida;
