@@ -66,4 +66,13 @@ public class ParadaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
         }
     }
+    @GetMapping("/monopatinesCercanos/{x}/{y}")
+    public ResponseEntity<?> getMonopatinesCercanos(@PathVariable double x, @PathVariable double y){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(paradaService.getMonopatinesCercanos(x,y));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+
+        }
+    }
 }

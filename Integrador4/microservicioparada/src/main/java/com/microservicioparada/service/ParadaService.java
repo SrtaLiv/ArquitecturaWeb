@@ -12,6 +12,7 @@ import com.microservicioparada.repository.ParadaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ParadaService {
@@ -67,6 +68,16 @@ public class ParadaService {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La parada con ID " + id + " no existe");
         }
+    }
+    @Transactional
+    public List<ParadaDTO> getMonopatinesCercanos(double x, double y) {
+
+        double distanciaCercana = 1000000000000000000.0;
+        List<Parada> paradas = paradaRepository.getMonopatinesCercanos(x,y, distanciaCercana);
+        List<ParadaDTO> paradaDTOs = paradas.stream()
+                .map(parada -> new ParadaDTO(parada))
+                .collect(Collectors.toList());
+        return paradaDTOs;
     }
 }
 

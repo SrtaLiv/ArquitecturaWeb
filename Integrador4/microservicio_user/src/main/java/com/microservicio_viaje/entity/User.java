@@ -29,6 +29,12 @@ public class User {
     @Column(nullable = false)
     private LocalDate fechaAlta;
 
+    @Column
+    private double x;
+
+    @Column
+    private double y;
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(
