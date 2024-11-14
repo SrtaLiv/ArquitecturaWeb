@@ -13,8 +13,8 @@ public class Parada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Long x;
-    private Long y;
+    private double x;
+    private double y;
 
     // Lista de IDs de Monopatines en lugar de la entidad completa
     @ElementCollection
@@ -27,7 +27,7 @@ public class Parada {
         this.monopatinIds = parada.monopatinIds;
     }
 
-    public Parada(Long x, Long y, List<Long> monopatinIds) {
+    public Parada(double x, double y, List<Long> monopatinIds) {
         this.x = x;
         this.y = y;
         this.monopatinIds = monopatinIds;

@@ -1,4 +1,4 @@
-package com.microservicio_viaje.controllers;
+package com.microservicio_viaje.controller;
 
 
 import com.microservicio_viaje.entity.Cuenta;
