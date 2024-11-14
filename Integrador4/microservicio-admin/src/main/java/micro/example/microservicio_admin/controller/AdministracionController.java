@@ -1,6 +1,7 @@
 package micro.example.microservicio_admin.controller;
 
 import lombok.RequiredArgsConstructor;
+import micro.example.microservicio_admin.dto.MonopatinViajeDTO;
 import micro.example.microservicio_admin.entity.Administrador;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.entity.clases.Parada;
@@ -20,7 +21,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/administrar")
 @RequiredArgsConstructor
-public class AdministracionController {
+public class
+AdministracionController {
 
     @Autowired
     private ServicioAdministracion sa;
@@ -39,7 +41,7 @@ public class AdministracionController {
      * Como administrador quiero consultar los monopatines con mas de X viajes en un cierto anio.
      */
     @GetMapping("/{cantidad}/{anio}")
-    public ResponseEntity<List<Monopatin>> findMonopatinesConMasDeXViajesPorAnio(
+    public ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(
             @PathVariable int cantidad,
             @PathVariable int anio) {
         return ResponseEntity.status(HttpStatus.OK).body(sa.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio).getBody());

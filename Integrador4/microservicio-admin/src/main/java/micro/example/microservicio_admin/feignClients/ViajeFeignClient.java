@@ -1,5 +1,6 @@
 package micro.example.microservicio_admin.feignClients;
 
+import micro.example.microservicio_admin.dto.MonopatinViajeDTO;
 import micro.example.microservicio_admin.dto.ReporteKilometrajeDTO;
 import micro.example.microservicio_admin.entity.clases.Monopatin;
 import micro.example.microservicio_admin.entity.clases.Precio;
@@ -18,7 +19,8 @@ public interface ViajeFeignClient {
     @PostMapping("/precios/agregar")
     ResponseEntity<?> agregarPrecio(@RequestBody Precio p);
 
-    ResponseEntity<List<Monopatin>> findMonopatinesConMasDeXViajesPorAnio(@PathVariable int cant, @PathVariable int anio);
+    @GetMapping("/{cantidad}/{anio}")
+    ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(@PathVariable int cant, @PathVariable int anio);
 
     @GetMapping("/viajes/getReporteKilometraje/{limite}/{incluirPausas}")
     ResponseEntity<List<ReporteKilometrajeDTO>> getReporteKilometraje(@PathVariable Long limite, @PathVariable boolean incluirPausas);

@@ -59,7 +59,7 @@ public class ServicioAdministracion {
 
     @Transactional
     @GetMapping("/{cantidad}/{anio}")
-    public ResponseEntity<List<Monopatin>> findMonopatinesConMasDeXViajesPorAnio(
+    public ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(
             @PathVariable int cantidad,
             @PathVariable int anio) {
         return ResponseEntity.ok(viajeFeignClient.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio).getBody());
