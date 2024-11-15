@@ -28,5 +28,5 @@ public interface ViajeFeignClient {
 
     @PutMapping("/precios/editar/habilitar/{fechaAHabilitar}/{valor}")
     ResponseEntity<?> ajustarPreciosPorFecha(@PathVariable double valor,
-                                                    @PathVariable LocalDate fechaAHabilitar);
+                                                    @PathVariable String fechaAHabilitar);
 }

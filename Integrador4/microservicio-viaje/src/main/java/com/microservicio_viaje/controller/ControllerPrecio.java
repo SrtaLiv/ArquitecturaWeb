@@ -1,6 +1,7 @@
 package com.microservicio_viaje.controller;
 
 
+import com.microservicio_viaje.dto.PrecioDTO;
 import com.microservicio_viaje.entity.Precio;
 import com.microservicio_viaje.service.ServicioPrecio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -24,8 +26,11 @@ public class ControllerPrecio {
 
     @PutMapping("/editar/habilitar/{fechaAHabilitar}/{valor}")
     public ResponseEntity<?> ajustarPreciosPorFecha(@PathVariable double valor,
-                                                    @PathVariable LocalDate fechaAHabilitar) {
-        List<Precio> preciosActualizados = sp.ajustarPreciosPorFecha(valor, fechaAHabilitar);
+                                                    @PathVariable String fechaAHabilitar) {
+
+        LocalDate fecha = LocalDate.parse(fechaAHabilitar, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        List<PrecioDTO> preciosActualizados = sp.ajustarPreciosPorFecha(valor, fecha);
         if (preciosActualizados.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron precios para actualizar");
         }

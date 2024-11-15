@@ -35,7 +35,7 @@ AdministracionController {
      */
     @PutMapping("/precios/editar/habilitar/{fechaAHabilitar}/{valor}")
     public ResponseEntity<?> ajustarPreciosPorFecha(@PathVariable double valor,
-                                                    @PathVariable LocalDate fechaAHabilitar) {
+                                                    @PathVariable String fechaAHabilitar) {
         return ResponseEntity.status(HttpStatus.OK).body(sa.ajustarPreciosPorFecha(valor, fechaAHabilitar));
     }
 
