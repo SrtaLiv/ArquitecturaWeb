@@ -1,4 +1,4 @@
-idPrecio,clave,valor,fechaFacturacion,valorPorPausa
+idPrecio,valor,fechaFacturacion,valorPorPausa
 1,206196.97,21/09/2022,355.52
 2,702899.71,18/08/2017,293.1
 3,172067.84,19/08/2014,901.29
@@ -11,4 +11,5 @@ idPrecio,clave,valor,fechaFacturacion,valorPorPausa
 10,9722.81,04/01/2017,252.37
 11,758110.21,04/12/2016,246.65
 12,972206.18,28/03/2006,743.32
-
+13,500123.45,15/01/2025,555.55
+14,612345.67,10/05/2025,666.66

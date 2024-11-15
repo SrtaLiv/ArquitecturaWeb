@@ -10,13 +10,9 @@ import java.time.LocalDate;
 public class Precio {
 
     private Long id;
-
     private double valor;
-
     private LocalDate fechaFacturacion;
-
     private Double valorPorPausaExtendida;
-
     private Viaje viaje;
 
     public Precio(Long id, double valor, LocalDate fechaFacturacion, Viaje viaje) {

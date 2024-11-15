@@ -33,10 +33,9 @@ AdministracionController {
      * Como administrador quiero hacer un ajuste de precios, y que a aprtir de cierta fecha el sistema habilite
      * nuevos precios
      */
-    @PutMapping("/precios/habilitar/{fechaAHabilitar}/{valor}")
-    public ResponseEntity<?> ajustarPreciosPorFecha(
-            @PathVariable double valor,
-            @PathVariable LocalDate fechaAHabilitar) {
+    @PutMapping("/precios/editar/habilitar/{fechaAHabilitar}/{valor}")
+    public ResponseEntity<?> ajustarPreciosPorFecha(@PathVariable double valor,
+                                                    @PathVariable LocalDate fechaAHabilitar) {
         return ResponseEntity.status(HttpStatus.OK).body(sa.ajustarPreciosPorFecha(valor, fechaAHabilitar));
     }
 
