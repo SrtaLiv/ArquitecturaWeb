@@ -1,6 +1,7 @@
 package com.microservicio_user.controller;
 
 
+import com.microservicio_user.dto.PrecioDTO;
 import com.microservicio_user.entity.Precio;
 import com.microservicio_user.service.ServicioPrecio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ControllerPrecio {
     @PutMapping("/editar/habilitar/{fechaAHabilitar}/{valor}")
     public ResponseEntity<?> ajustarPreciosPorFecha(@PathVariable double valor,
                                                     @PathVariable LocalDate fechaAHabilitar) {
-        List<Precio> preciosActualizados = sp.ajustarPreciosPorFecha(valor, fechaAHabilitar);
+        List<PrecioDTO> preciosActualizados = sp.ajustarPreciosPorFecha(valor, fechaAHabilitar);
         if (preciosActualizados.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron precios para actualizar");
         }

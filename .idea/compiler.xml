@@ -25,7 +25,7 @@
         <module name="config-server" />
         <module name="microservicio_viaje" />
         <module name="microservicio-viaje" />
-        <module name="microservicio_user" />
+        <module name="microservicio-user" />
         <module name="gateway" />
         <module name="microservicio_user (1)" />
       </profile>
@@ -40,6 +40,7 @@
       <module name="microservicio_mantenimiento" target="17" />
       <module name="microservicio_mantenimiento_admin" target="17" />
       <module name="microservicio_monopatin" target="17" />
+      <module name="microservicio_user" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -53,6 +54,7 @@
       <module name="microservicio-admin" options="-parameters" />
       <module name="microservicio-mantenimiento" options="-parameters" />
       <module name="microservicio-monopatin" options="-parameters" />
+      <module name="microservicio-user" options="-parameters" />
       <module name="microservicio-viaje" options="-parameters" />
       <module name="microservicio_admin" options="-parameters" />
       <module name="microservicio_user" options="-parameters" />

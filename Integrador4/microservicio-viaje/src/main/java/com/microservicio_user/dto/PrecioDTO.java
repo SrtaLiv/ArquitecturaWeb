@@ -1,8 +1,8 @@
-package com.microservicio_viaje.dto;
+package com.microservicio_user.dto;
 
 
-import com.microservicio_viaje.entity.Precio;
-import com.microservicio_viaje.entity.Viaje;
+import com.microservicio_user.entity.Precio;
+import com.microservicio_user.entity.Viaje;
 import lombok.Getter;
 
 import java.io.Serializable;
