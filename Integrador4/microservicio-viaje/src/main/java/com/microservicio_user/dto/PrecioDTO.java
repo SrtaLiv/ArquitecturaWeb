@@ -1,7 +1,8 @@
-package com.microservicio_user.dto;
+package com.microservicio_viaje.dto;
 
 
-import com.microservicio_user.entity.Precio;
+import com.microservicio_viaje.entity.Precio;
+import com.microservicio_viaje.entity.Viaje;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -13,8 +14,9 @@ public class PrecioDTO  implements Serializable {
 
     private double valor;
     private LocalDate fechaInicio;
-
+    private double valorXkilometro;
     private Double valorPorPausaExtendida;
+    private Viaje viaje;
 
 
     public PrecioDTO(Long id, double valor, LocalDate fechaInicio, Double valorPorPausaExtendida) {
@@ -28,6 +30,9 @@ public class PrecioDTO  implements Serializable {
         this.id = p.getId();
         this.valor = p.getValor();
         this.valorPorPausaExtendida= p.getValorPorPausaExtendida();
+        this.valorXkilometro = p.getValorXkilometro();
+        this.fechaInicio = p.getFechaFacturacion();
+        this.viaje = p.getViaje();
     }
 
     public Long getId() {

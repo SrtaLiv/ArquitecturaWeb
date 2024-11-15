@@ -65,7 +65,7 @@ public class CargaDeDatos {
                 p.setValor(Double.parseDouble(precio.get("valor")));
                 p.setFechaFacturacion(LocalDate.parse(precio.get("fechaFacturacion"),formatterPrecio));
                 p.setValorPorPausaExtendida(Double.valueOf(precio.get("valorPorPausa")));
-
+                p.setValorXkilometro(1000);
                 this.precio.save(p);
             }
         }

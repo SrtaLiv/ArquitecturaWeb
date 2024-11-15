@@ -23,6 +23,11 @@ public class Precio {
     @Column
     private double valor;
 
+    @Setter
+    @Getter
+    @Column
+    private double valorXkilometro;
+
     @Column
     private LocalDate fechaFacturacion;
 
@@ -62,5 +67,10 @@ public class Precio {
         this.valorPorPausaExtendida = valorPorPausaExtendida;
         this.viaje = viaje;
     }
-
+    public void setValorXkilometro(double valorxkilometro) {
+        this.valorXkilometro = valorxkilometro;
+    }
+    public double getValor(){
+        return this.valor;
+    }
 }

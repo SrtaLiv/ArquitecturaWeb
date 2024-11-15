@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,19 +26,22 @@ public class ServicioPrecio {
     }
 
     @Transactional
-    public List<Precio> ajustarPreciosPorFecha(double valor, LocalDate fechaAHabilitar) {
+    public List<PrecioDTO> ajustarPreciosPorFecha(double valor, LocalDate fechaAHabilitar) {
         List<Precio> precios = pr.findByFechaFacturacionAfter(fechaAHabilitar);
 
+        List<PrecioDTO> result = new ArrayList<>();
         if (precios.isEmpty()) {
-            return precios;
+            return result;
         }
 
         for (Precio pre : precios) {
-            pre.setValor(valor);
+            pre.setValorXkilometro(valor);
+            PrecioDTO response = new PrecioDTO(pre);
+            result.add(response);
         }
 
         pr.saveAll(precios);
-        return precios;
+        return result;
     }
 
     @Transactional
