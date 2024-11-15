@@ -23,6 +23,8 @@ public class MonopatinController {
         this.monopatinService = monopatinService;
     }
 
+
+
         @GetMapping("")
         public ResponseEntity<List<Monopatin>> getAllMonopatines() throws Exception {
             try{

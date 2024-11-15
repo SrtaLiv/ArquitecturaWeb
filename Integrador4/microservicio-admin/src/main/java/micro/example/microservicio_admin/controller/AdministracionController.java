@@ -47,15 +47,20 @@ AdministracionController {
     public ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(
             @PathVariable int cantidad,
             @PathVariable int anio) {
-        return ResponseEntity.status(HttpStatus.OK).body(sa.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio));
+        return ResponseEntity.status(HttpStatus.OK).body(sa.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio).getBody());
     }
 
     /**
      * Como administrador quiero poder anular cuentas para ihabilitar el uso momentaneo de la misma.
      */
-    @PutMapping("/anular/{id}")
+    @PutMapping("/cuentas/anular/{id}")
     public ResponseEntity<?> anularCuenta(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(sa.anularCuenta(id));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(sa.anularCuenta(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"error\":\"Error. No se pudo anular la cuenta, revise los campos e intente nuevamente.\"}");
+        }
     }
 
     @PostMapping("/precios/agregar")
@@ -153,16 +158,18 @@ AdministracionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
         }
     }
+
     @GetMapping("/monopatines/reporte/kilometraje/{limite}/{incluirPausas}")
-    public ResponseEntity<?> getReporteKilometraje(@PathVariable Long limite, @PathVariable boolean incluirPausas){
-        try{
+    public ResponseEntity<?> getReporteKilometraje(@PathVariable Long limite, @PathVariable boolean incluirPausas) {
+        try {
             return ResponseEntity.status(HttpStatus.OK).body(sa.getReporteKilometraje(limite, incluirPausas));
-        }catch (Exception e ){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo conseguir lo buscado intente nuevamente.\"}");
 
         }
     }
-    @GetMapping("/viajes/totalFacturado/{anio}/{mesInicio}/{mesFin}")
+
+        @GetMapping("/viajes/totalFacturado/{anio}/{mesInicio}/{mesFin}")
     public ResponseEntity<?> getTotalFacturadoEntreMeses(@PathVariable int anio, @PathVariable int mesInicio, @PathVariable int mesFin){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(sa.getTotalFacturadoEntreMeses(anio, mesInicio, mesFin));

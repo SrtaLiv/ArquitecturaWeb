@@ -80,7 +80,7 @@
 
     <modules>
         <module>microservicio-admin</module>
-        <module>microservicio_user</module>
+        <module>microservicio-user</module>
         <module>microservicio-monopatin</module>
         <module>microservicio-viaje</module>
         <module>microservicioparada</module>

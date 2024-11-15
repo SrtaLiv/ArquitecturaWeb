@@ -14,9 +14,6 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -59,20 +56,35 @@ public class ServicioAdministracion {
     }
 
     @Transactional
+    public ResponseEntity<?> getReporteKilometraje(Long limite, boolean incluirPausas) {
+        try {
+            ResponseEntity<List<ReporteKilometrajeDTO>> response = viajeFeignClient.getReporteKilometraje(limite, incluirPausas);
+            return ResponseEntity.ok(response.getBody());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage() + " fallo");
+        }
+    }
+
+    @Transactional
     public ResponseEntity<?> ajustarPreciosPorFecha(
           double valor, LocalDate fechaAHabilitar) {
         return viajeFeignClient.ajustarPreciosPorFecha(valor, fechaAHabilitar);
     }
 
     @Transactional
-    public List<MonopatinViajeDTO> findMonopatinesConMasDeXViajesPorAnio(int cantidad, int anio) {
-        ResponseEntity<List<MonopatinViajeDTO>> response = viajeFeignClient.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio);
-        return response.getBody();
+    public ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(int cantidad, int anio) {
+            ResponseEntity<List<MonopatinViajeDTO>> response = viajeFeignClient.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio);
+            return response;
     }
 
     @Transactional
     public ResponseEntity<?> anularCuenta(Long id){
-        return ResponseEntity.ok(userFeignClient.anularCuenta(id));
+        try{
+            return ResponseEntity.ok(userFeignClient.anularCuenta(id));
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage()+"fallo");
+        }
     }
 
     @Transactional
@@ -196,17 +208,7 @@ public class ServicioAdministracion {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La entidad con ID " + id + " no existe");
         }
     }
-    @Transactional
-    public ResponseEntity<?> getReporteKilometraje(Long limite, boolean incluirPausas) {
-        try {
 
-            ResponseEntity<List<ReporteKilometrajeDTO>> response = viajeFeignClient.getReporteKilometraje(limite, incluirPausas);
-
-            return ResponseEntity.ok(response.getBody());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage() + " fallo");
-        }
-    }
     @Transactional
     public ResponseEntity<?> getTotalFacturadoEntreMeses(int anio, int mesInicio, int mesFin) {
         try {

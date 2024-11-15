@@ -18,7 +18,7 @@ public interface ViajeFeignClient {
     ResponseEntity<?> agregarPrecio(@RequestBody Precio p);
 
     @GetMapping("/viajes/{cantidad}/{anio}")
-    ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(@PathVariable int cant, @PathVariable int anio);
+    ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(@PathVariable int cantidad, @PathVariable int anio);
 
     @GetMapping("/viajes/getReporteKilometraje/{limite}/{incluirPausas}")
     ResponseEntity<List<ReporteKilometrajeDTO>> getReporteKilometraje(@PathVariable Long limite, @PathVariable boolean incluirPausas);
