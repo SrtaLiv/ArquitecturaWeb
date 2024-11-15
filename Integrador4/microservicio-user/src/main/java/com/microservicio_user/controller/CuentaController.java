@@ -1,4 +1,4 @@
-package com.microservicio_user.controllers;
+package com.microservicio_user.controller;
 
 
 import com.microservicio_user.entity.Cuenta;
