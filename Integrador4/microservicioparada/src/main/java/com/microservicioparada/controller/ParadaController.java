@@ -35,6 +35,15 @@ public class ParadaController {
         }
     }
 
+    @GetMapping("/monopatinesCercanos/{x}/{y}")
+    public ResponseEntity<?> getMonopatinesCercanos(@PathVariable double x, @PathVariable double y){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(paradaService.getMonopatinesCercanos(x,y));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Parada> getParadaById(@PathVariable Long id) throws Exception {
         Optional<Parada> parada = Optional.ofNullable(paradaService.findById(id));

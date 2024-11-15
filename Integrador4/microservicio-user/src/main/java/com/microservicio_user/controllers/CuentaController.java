@@ -18,7 +18,6 @@ public class CuentaController {
         this.cs=cs;
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id){
         try{

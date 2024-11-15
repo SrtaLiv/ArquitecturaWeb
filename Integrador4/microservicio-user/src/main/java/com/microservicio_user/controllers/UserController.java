@@ -16,6 +16,11 @@ public class UserController {
     @Autowired
     private UserService se;
 
+    @GetMapping("/parada/monopatinesCercanos/{idUsuario}")
+    public ResponseEntity<?> getMonopatinesCercanos (@PathVariable Long idUsuario) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(se.getMonopatinesCercanos(idUsuario));
+    }
+
     @GetMapping("")
     public ResponseEntity<?> getAll(){
         try{
@@ -61,7 +66,5 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
         }
     }
-
-
 
 }

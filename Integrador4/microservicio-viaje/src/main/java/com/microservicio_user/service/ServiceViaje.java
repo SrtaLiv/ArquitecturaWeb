@@ -35,6 +35,11 @@ public class ServiceViaje {
     }
 
     @Transactional
+    public Integer getFacturadoEntreMeses(int anio, int mesInicio, int mesFin) {
+        return repositoryViaje.getFacturadoEntreMeses(anio, mesInicio, mesFin);
+    }
+
+    @Transactional
     public List<MonopatinViajeDTO> findMonopatinesConMasDeXViajesPorAnio(int cantidad, int anio) {
         return repositoryViaje.findMonopatinesConMasDeXViajesPorAnio(cantidad, anio);
     }

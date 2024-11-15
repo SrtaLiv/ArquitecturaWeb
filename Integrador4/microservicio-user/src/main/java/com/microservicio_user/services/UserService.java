@@ -1,6 +1,8 @@
 package com.microservicio_user.services;
 
 import com.microservicio_user.entity.User;
+import com.microservicio_user.feignClient.ParadaFeignClient;
+import com.microservicio_user.services.dto.ParadaDTO;
 import com.microservicio_user.services.dto.UserDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,28 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ParadaFeignClient paradaFeignClient;
+
+    @Autowired
+    public UserService(ParadaFeignClient paradaFeignClient) {
+        this.paradaFeignClient = paradaFeignClient;
+    }
+
+    @Transactional
+    public ResponseEntity<?> getMonopatinesCercanos(Long idUsuario) throws Exception {
+        UserDTO usuario = this.findById(idUsuario);
+        if (usuario != null){
+            try{
+                ResponseEntity<List<ParadaDTO>> response = paradaFeignClient.getMonopatinesCercanos(usuario.getX(),usuario.getY());
+                return ResponseEntity.ok(response.getBody());
+            }
+            catch(Exception e){
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+        return null;
+    }
 
     @Transactional
     public List<UserDTO> findAll() throws Exception {
