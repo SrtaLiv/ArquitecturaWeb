@@ -14,8 +14,8 @@
         <module name="microservicio_admin" />
         <module name="ejemploDAOyPatrones" />
         <module name="config-service" />
-        <module name="microservicio-admin" />
         <module name="microservicioparada" />
+        <module name="microservicio-admin" />
         <module name="microservicio-mantenimiento" />
         <module name="integrador3" />
         <module name="integrador2" />

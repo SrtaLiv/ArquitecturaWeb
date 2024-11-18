@@ -2,7 +2,9 @@ package com.microservicio_monopatin.service;
 
 import com.microservicio_monopatin.dto.EstadoMonopatinDTO;
 import com.microservicio_monopatin.model.Monopatin;
+import com.microservicio_monopatin.model.classes.Cuenta;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import com.microservicio_monopatin.repository.MonopatinRepository;
+import org.springframework.web.reactive.function.client.WebClient;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +23,23 @@ public class MonopatinService {
     @Autowired
     private MonopatinRepository monopatinRepository;
 
+    @Autowired
+    private ModelMapper mapper;
+
+    @Autowired
+    private WebClient webClient;
+
+    public EstadoMonopatinDTO getEmployeeById(Long id) {
+
+        Optional<Monopatin> employee = monopatinRepository.findById(id);
+        EstadoMonopatinDTO employeeResponse = mapper.map(employee, EstadoMonopatinDTO.class);
+
+        // Using WebClient
+        //EstadoMonopatinDTO addressResponse = webClient.get().uri("/administrar/" + id).retrieve().bodyToMono(EstadoMonopatinDTO.class).block();
+        //employeeResponse.setEnOperacion(addressResponse);
+
+        return employeeResponse;
+    }
     @Autowired
     public MonopatinService(MonopatinRepository monopatinRepo) {
         this.monopatinRepository = monopatinRepo;
