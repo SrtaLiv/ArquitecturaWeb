@@ -3,7 +3,6 @@ package com.microservicio_monopatin.service;
 import com.microservicio_monopatin.dto.EstadoMonopatinDTO;
 import com.microservicio_monopatin.model.Monopatin;
 import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import com.microservicio_monopatin.repository.MonopatinRepository;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
