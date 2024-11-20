@@ -1,17 +1,22 @@
 server:
   port: ${PORT:${SERVER_PORT:0}}
+
 spring:
   application:
     name: microservicio-mantenimiento
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3310/mantenimiento?createDatabaseIfNotExist=true
-    username: root
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/mantenimiento
   jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database: mysql
+    enabled: false  # Disable JPA
+  datasource:
+    enabled: false  # Disable datasource configuration
+
+
 eureka:
   client:
     fetch-registry: true

@@ -1,7 +1,7 @@
 package com.microservicio_mantenimiento.util;
 
-import com.microservicio_mantenimiento.entity.Mantenimiento;
-import com.microservicio_mantenimiento.repository.MantenimientoRepositorio;
+import com.microservicio_mantenimiento.entity.mongo.Mantenimiento;
+import com.microservicio_mantenimiento.repository.mongo.MantenimientoRepositorioMongodb;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -15,10 +15,10 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class CargaDeDatos {
 
-    private final MantenimientoRepositorio mr;
+    private final MantenimientoRepositorioMongodb mr;
 
     @Autowired
-    public CargaDeDatos(MantenimientoRepositorio mr) {
+    public CargaDeDatos(MantenimientoRepositorioMongodb mr) {
         this.mr = mr;
     }
 
@@ -40,7 +40,7 @@ public class CargaDeDatos {
             for (CSVRecord mantenimiento : datosMantenimiento) {
                 Mantenimiento m = new Mantenimiento();
 
-                m.setId(Long.valueOf(mantenimiento.get("idMantenimiento")));
+                m.setId(String.valueOf(mantenimiento.get("idMantenimiento")));
                 m.setId_monopatin(Long.valueOf(mantenimiento.get("idMonopatin")));
                 m.setInicio(LocalDate.parse(mantenimiento.get("inicio"), formatter));
                 m.setFin(LocalDate.parse(mantenimiento.get("fin"), formatter));
