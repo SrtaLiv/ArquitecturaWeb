@@ -1,6 +1,6 @@
 package com.microservicio_mantenimiento.controller;
 
-import com.microservicio_mantenimiento.entity.Mantenimiento;
+import com.microservicio_mantenimiento.entity.mongo.Mantenimiento;
 import com.microservicio_mantenimiento.service.MantenimientoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

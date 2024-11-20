@@ -1,8 +1,8 @@
 package com.microservicio_mantenimiento.service;
 
 
-import com.microservicio_mantenimiento.entity.Mantenimiento;
-import com.microservicio_mantenimiento.repository.MantenimientoRepositorio;
+import com.microservicio_mantenimiento.entity.mongo.Mantenimiento;
+import com.microservicio_mantenimiento.repository.mongo.MantenimientoRepositorioMongodb;
 import com.microservicio_mantenimiento.service.dto.MantenimientoDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class MantenimientoServicio {
-    private MantenimientoRepositorio mr;
+    private MantenimientoRepositorioMongodb mr;
 
     @Autowired
-    public MantenimientoServicio(MantenimientoRepositorio mr){
+    public MantenimientoServicio(MantenimientoRepositorioMongodb mr){
         this.mr=mr;
     }
 
@@ -31,13 +31,13 @@ public class MantenimientoServicio {
     @Transactional
     public MantenimientoDTO save(Mantenimiento entity) throws Exception {
         Mantenimiento nuevoMantenimiento = mr.save(entity);
-        return this.findById(nuevoMantenimiento.getId());
+        return this.findById(Long.parseLong(nuevoMantenimiento.getId()));
     }
 
     @Transactional
     public Mantenimiento update(Long id, Mantenimiento updatedMantenimiento) {
         // Busca el Mantenimiento existente por ID
-        Mantenimiento existingMantenimiento = mr.findById(id)
+        Mantenimiento existingMantenimiento = mr.findById(String.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException("Mantenimiento con ID " + id + " no encontrado"));
 
         // Aplica las modificaciones en la entidad existente
@@ -57,13 +57,13 @@ public class MantenimientoServicio {
 
     @Transactional
     public MantenimientoDTO findById(Long id) throws Exception {
-        return mr.findById(id).map(MantenimientoDTO::new).orElse(null);
+        return mr.findById(String.valueOf(id)).map(MantenimientoDTO::new).orElse(null);
     }
 
     @Transactional
     public ResponseEntity<String> delete(Long id) throws Exception {
-        if (mr.existsById(id)) {
-            mr.deleteById(id);
+        if (mr.existsById(String.valueOf(id))) {
+            mr.deleteById(String.valueOf(id));
             return ResponseEntity.status(HttpStatus.OK).body("Eliminación exitosa");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La entidad con ID " + id + " no existe");
@@ -72,6 +72,6 @@ public class MantenimientoServicio {
 
     @Transactional
     public MantenimientoDTO findByIdMonopatin(Long idMonopatin) {
-        return mr.findByIdMonopatin(idMonopatin).map(MantenimientoDTO::new).orElse(null);
+        return mr.findByIdMonopatin(String.valueOf(idMonopatin)).map(MantenimientoDTO::new).orElse(null);
     }
 }
