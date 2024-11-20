@@ -7,5 +7,6 @@ public final class AuthotityConstant {
 
     public static final String _ADMIN = "ADMIN";
     public static final String _USER = "USER";
+    public static final String _MANTENIMIENTO = "MANTENIMIENTO";
 
 }

@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> saveUser( @RequestBody @Valid UserDTO userDTO) {
-        final var id = userService.saveUser( userDTO );
+        final var id = userService.saveUser(userDTO);
         return new ResponseEntity<>( id, HttpStatus.CREATED );
     }
 }

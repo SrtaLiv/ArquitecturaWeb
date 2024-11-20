@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -43,16 +44,22 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll() //permite crear usuarios
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/monopatines").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/estudiantes/").hasAuthority(AuthotityConstant._USER)// de más específica a menos específica
+
                         .requestMatchers("/administrar/**").hasAuthority(AuthotityConstant._ADMIN)
-                        .anyRequest().authenticated()
-                )
+                        .requestMatchers("/mantenimiento/**").hasAuthority(AuthotityConstant._MANTENIMIENTO)
+
+                        .requestMatchers(HttpMethod.GET, "/users/parada/monopatinesCercanos/").hasAuthority(AuthotityConstant._USER)
+
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(new JwtFilter(this.tokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
 }
