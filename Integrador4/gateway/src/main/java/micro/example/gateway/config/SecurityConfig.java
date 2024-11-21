@@ -1,5 +1,6 @@
 package micro.example.gateway.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import micro.example.gateway.security.AuthotityConstant;
 import micro.example.gateway.security.jwt.JwtFilter;
 import micro.example.gateway.security.jwt.TokenProvider;
@@ -37,29 +38,36 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
     @Bean
-    public SecurityFilterChain securityFilterChain(final HttpSecurity http ) throws Exception {
+    public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable);
-        http
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
-
                         .requestMatchers("/administrar/**").hasAuthority(AuthotityConstant._ADMIN)
                         .requestMatchers("/mantenimiento/**").hasAuthority(AuthotityConstant._MANTENIMIENTO)
-
                         .requestMatchers(HttpMethod.GET, "/users/parada/monopatinesCercanos/").hasAuthority(AuthotityConstant._USER)
-
-                        .anyRequest().authenticated())
+                        .anyRequest().authenticated()
+                )
                 .httpBasic(Customizer.withDefaults())
-                .addFilterBefore(new JwtFilter(this.tokenProvider), UsernamePasswordAuthenticationFilter.class);
+                // Configura logout
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // URL para logout
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            // Respuesta personalizada tras logout (opcional)
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.getWriter().write("Logout exitoso");
+                            response.getWriter().flush();
+                        })
+                        .invalidateHttpSession(true) // Invalida sesión
+                        .deleteCookies("JSESSIONID") // Elimina cookies de sesión
+                );
+
         return http.build();
     }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
 }

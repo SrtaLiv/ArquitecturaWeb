@@ -72,6 +72,7 @@ public class MantenimientoServicio {
 
     @Transactional
     public MantenimientoDTO findByIdMonopatin(Long idMonopatin) {
-        return mr.findByIdMonopatin(String.valueOf(idMonopatin)).map(MantenimientoDTO::new).orElse(null);
+        String idMonopatinString = String.valueOf(idMonopatin);
+        return mr.findByIdMonopatin(String.valueOf(idMonopatinString)).map(MantenimientoDTO::new).orElse(null);
     }
 }
