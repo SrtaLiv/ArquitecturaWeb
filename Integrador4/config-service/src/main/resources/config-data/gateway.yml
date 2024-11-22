@@ -39,6 +39,8 @@ spring:
             uri: lb://microservicio-viaje
             predicates:
               - Path=/viajes/**
+              - Path=/precios/**
+              - Path=/pausa/**
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG

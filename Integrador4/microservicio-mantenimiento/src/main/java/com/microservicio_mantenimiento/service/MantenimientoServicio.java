@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.aspectj.runtime.internal.Conversions.intValue;
 
 @Service
 public class MantenimientoServicio {
@@ -71,8 +74,7 @@ public class MantenimientoServicio {
     }
 
     @Transactional
-    public MantenimientoDTO findByIdMonopatin(Long idMonopatin) {
-        String idMonopatinString = String.valueOf(idMonopatin);
-        return mr.findByIdMonopatin(String.valueOf(idMonopatinString)).map(MantenimientoDTO::new).orElse(null);
+    public Optional<Mantenimiento> findByIdMonopatin(Long idMonopatin) {
+        return mr.findByIdMonopatin(idMonopatin);
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/mantenimiento")
 public class MantenimientoController {
@@ -39,9 +41,18 @@ public class MantenimientoController {
     @GetMapping("/getMonopatin/{idMonopatin}")
     public ResponseEntity<?> getMantenimientoPorIdMonopatin(@PathVariable Long idMonopatin) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(ms.findByIdMonopatin(idMonopatin));
+            Optional<Mantenimiento> mantenimiento = ms.findByIdMonopatin(idMonopatin);
+
+            if (mantenimiento.isPresent()) {
+                return ResponseEntity.status(HttpStatus.OK).body(mantenimiento.get());
+            } else {
+                String mensaje = "{\"mensaje\":\"No se pudo encontrar un monopatin en mantenimiento con el id ingresado\"}";
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
+            }
+
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+            String errorMessage = "{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
     }
 

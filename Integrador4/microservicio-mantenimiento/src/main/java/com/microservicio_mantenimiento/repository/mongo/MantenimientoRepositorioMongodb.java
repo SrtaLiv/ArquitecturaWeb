@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface MantenimientoRepositorioMongodb extends MongoRepository<Mantenimiento, String> {
 
-    @Query("{ 'id_monopatin': ?0, 'fin': null }")
-    Optional<Mantenimiento> findByIdMonopatin(String idMonopatin);
+    @Query("{ \"id_monopatin\": ?0, \"fin\": null }")
+    Optional<Mantenimiento> findByIdMonopatin(Long idMonopatin);
 
 }
