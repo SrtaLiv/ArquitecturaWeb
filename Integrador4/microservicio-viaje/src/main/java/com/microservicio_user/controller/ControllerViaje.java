@@ -3,6 +3,7 @@ package com.microservicio_user.controller;
 import com.microservicio_user.dto.MonopatinViajeDTO;
 import com.microservicio_user.entity.Viaje;
 import com.microservicio_user.service.ServiceViaje;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class ControllerViaje {
     public ControllerViaje(ServiceViaje serviceViaje) {
         this.serviceViaje = serviceViaje;
     }
-
+    @Operation(summary = "Obtiene un reporte de los monopatines con mas de cierto kilometraje")
     @GetMapping("/getReporteKilometraje/{limite}/{incluirPausa}")
     public ResponseEntity<?> getReporteKilometraje(@PathVariable Long limite, @PathVariable boolean incluirPausa){
         try {
@@ -31,7 +32,7 @@ public class ControllerViaje {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }
     }
-
+    @Operation(summary = "Obtiene el total facturado en cierto periodo")
     @GetMapping("/facturado/{anio}/{mesInicio}/{mesFin}")
     public ResponseEntity<?> getFacturadoEntreMeses(@PathVariable int anio, @PathVariable int mesInicio, @PathVariable int mesFin){
         try{
@@ -40,7 +41,7 @@ public class ControllerViaje {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }
     }
-
+    @Operation(summary = "Obtiene un reporte de los monopatines con mas de ciertos viajes en un año")
     @GetMapping("/{cantidad}/{anio}")
     public ResponseEntity<List<MonopatinViajeDTO>> findMonopatinesConMasDeXViajesPorAnio(
             @PathVariable int cantidad,
@@ -52,7 +53,7 @@ public class ControllerViaje {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @Operation(summary = "Obtiene todos los viajes")
     @GetMapping("")
     public ResponseEntity<List<Viaje>> getAllViajes() throws Exception {
         try{
@@ -63,14 +64,14 @@ public class ControllerViaje {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @Operation(summary = "Obtiene un viaje")
     @GetMapping("/{id}")
     public ResponseEntity<Viaje> getViajeById(@PathVariable Long id) throws Exception {
         Optional<Viaje> viaje = Optional.ofNullable(serviceViaje.findById(id));
         return viaje.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    @Operation(summary = "Agrega un viaje")
     @PostMapping("")
     public ResponseEntity<?> createViaje(@RequestBody Viaje entity){
         try{
@@ -79,14 +80,14 @@ public class ControllerViaje {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
     }
-
+    @Operation(summary = "Edita un viaje")
     @PutMapping("/{id}")
     public ResponseEntity<Viaje> updateViaje(@PathVariable Long id, @RequestBody Viaje viaje) throws ChangeSetPersister.NotFoundException {
         Optional<Viaje> updateViaje = Optional.ofNullable(serviceViaje.update(id, viaje));
         return updateViaje.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    @Operation(summary = "Elimina un viaje")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteViaje(@PathVariable Long id) throws Exception {
         try{

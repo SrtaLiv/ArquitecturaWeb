@@ -1,7 +1,14 @@
 server:
   port: ${PORT:${SERVER_PORT:0}}
-
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+application-description: Mantenimiento API
+application-version: 1.0
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
   application:
     name: microservicio-mantenimiento
   autoconfigure:

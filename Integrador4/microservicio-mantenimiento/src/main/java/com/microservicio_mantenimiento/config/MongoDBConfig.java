@@ -1,5 +1,9 @@
 package com.microservicio_mantenimiento.config;
 
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -36,5 +40,22 @@ public class MongoDBConfig {
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
         return new MongoTemplate(mongo(), "mantenimientomongodb");
+    }
+    @Bean
+    public GroupedOpenApi groupedOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("mantenimiento")
+                .pathsToMatch("/mantenimiento/**")
+                .build();
+    }
+
+    @Bean("OpenAPI")
+    public io.swagger.v3.oas.models.OpenAPI customOpenAPI(@Value("${application-description}") String description,
+                                                          @Value("${application-version}") String version) {
+        return new io.swagger.v3.oas.models.OpenAPI()
+                .info(new Info().title("Mantenimiento API")
+                        .version(version)
+                        .description(description)
+                        .license(new License().name("Mantenimiento API Licence")));
     }
 }

@@ -2,6 +2,7 @@ package com.microservicio_monopatin.controller;
 
 import com.microservicio_monopatin.model.Monopatin;
 import com.microservicio_monopatin.service.MonopatinService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class MonopatinController {
     public MonopatinController(MonopatinService monopatinService) {
         this.monopatinService = monopatinService;
     }
-
+        @Operation(summary = "Obtiene todos los monopatines")
         @GetMapping("")
         public ResponseEntity<List<Monopatin>> getAllMonopatines() throws Exception {
             try{
@@ -33,12 +34,12 @@ public class MonopatinController {
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
+        @Operation(summary = "Obtiene un monopatin")
         @GetMapping("/{id}")
         public ResponseEntity<Monopatin> getMonopatinById(@PathVariable Long id) throws Exception {
             return ResponseEntity.ok(monopatinService.findById(id));
         }
-
+        @Operation(summary = "Agrega un monopatin")
         @PostMapping("")
         public ResponseEntity<?> createMonopatin(@RequestBody Monopatin entity){
             try{
@@ -47,14 +48,14 @@ public class MonopatinController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
             }
         }
-
+        @Operation(summary = "Edita un monopatin")
         @PutMapping("/editar/{id}")
         public ResponseEntity<Monopatin> updateMonopatin(@PathVariable Long id, @RequestBody Monopatin paradaDetails) throws ChangeSetPersister.NotFoundException {
             Optional<Monopatin> updatedMonopatin = Optional.ofNullable(monopatinService.update(id, paradaDetails));
             return updatedMonopatin.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
-
+        @Operation(summary = "Elimina un monopatin")
         @DeleteMapping("/{id}")
         public ResponseEntity<?> deleteMonopatin(@PathVariable Long id) throws Exception {
             try{
@@ -63,6 +64,7 @@ public class MonopatinController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
             }
         }
+        @Operation(summary = "Obtiene un reporte comparando los monopatines activos contra los que estan en mantenimiento")
         @GetMapping("/comparacionEstados")
         public ResponseEntity<?> getComparacionEstados(){
             try {

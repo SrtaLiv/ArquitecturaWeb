@@ -4,6 +4,7 @@ package com.microservicio_user.controller;
 import com.microservicio_user.dto.PrecioDTO;
 import com.microservicio_user.entity.Precio;
 import com.microservicio_user.service.ServicioPrecio;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class ControllerPrecio {
     public ControllerPrecio(ServicioPrecio sp) {
         this.sp = sp;
     }
-
+    @Operation(summary = "Ingresa un precio a partir de cierta fecha")
     @PutMapping("/editar/habilitar/{fechaAHabilitar}/{valor}")
     public ResponseEntity<?> ajustarPreciosPorFecha(@PathVariable double valor,
                                                     @PathVariable LocalDate fechaAHabilitar) {
@@ -33,7 +34,7 @@ public class ControllerPrecio {
         return ResponseEntity.status(HttpStatus.OK).body(preciosActualizados);
     }
 
-
+    @Operation(summary = "Agrega un precio")
     @PostMapping("/agregar")
     public ResponseEntity<?> agregarPrecio(@RequestBody Precio p){
         try{
@@ -42,6 +43,7 @@ public class ControllerPrecio {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar el precio, revise los campos e intente nuevamente.\"}");
         }
     }
+    @Operation(summary = "Obtiene todos los precios")
     @GetMapping("")
     public ResponseEntity<?> getAll(){
         try{
@@ -50,7 +52,7 @@ public class ControllerPrecio {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }
     }
-
+    @Operation(summary = "Obtiene un precio")
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id){
         try{
@@ -60,7 +62,7 @@ public class ControllerPrecio {
                     ".\"}");
         }
     }
-
+    @Operation(summary = "Edita un precio")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody Precio entity){
         try{
@@ -69,7 +71,7 @@ public class ControllerPrecio {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo editar, o no se encontró el ID. Revise los campos e intente nuevamente.\"}");
         }
     }
-
+    @Operation(summary = "Elimina un precio")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         try{

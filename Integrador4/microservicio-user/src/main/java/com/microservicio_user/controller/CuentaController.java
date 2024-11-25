@@ -3,6 +3,7 @@ package com.microservicio_user.controller;
 
 import com.microservicio_user.entity.Cuenta;
 import com.microservicio_user.services.CuentaService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class CuentaController {
     public CuentaController(CuentaService cs){
         this.cs=cs;
     }
-
+    @Operation(summary = "Obtiene una cuenta")
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id){
         try{
@@ -27,7 +28,7 @@ public class CuentaController {
                     ".\"}");
         }
     }
-
+    @Operation(summary = "Obtiene todas las cuentas")
     @GetMapping("")
     public ResponseEntity<?> getAll(){
         try{
@@ -37,7 +38,7 @@ public class CuentaController {
         }
     }
 
-
+    @Operation(summary = "Agrega una cuenta")
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Cuenta entity){
         try{
@@ -47,7 +48,7 @@ public class CuentaController {
         }
     }
 
-
+    @Operation(summary = "Edita una cuenta")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody Cuenta entity){
         try{
@@ -57,7 +58,7 @@ public class CuentaController {
         }
     }
 
-
+    @Operation(summary = "Elimina una cuenta")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         try{
@@ -66,7 +67,7 @@ public class CuentaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
         }
     }
-
+    @Operation(summary = "Anula una cuenta")
     @PutMapping("/anular/{id}")
     public ResponseEntity<?> anularCuenta(@PathVariable Long id){
         try{
@@ -76,7 +77,7 @@ public class CuentaController {
 
         }
     }
-
+    @Operation(summary = "Habilida una cuenta")
     @PutMapping("/habilitar/{id}")
     public ResponseEntity<?> habilitarCuenta(@PathVariable Long id){
         try{

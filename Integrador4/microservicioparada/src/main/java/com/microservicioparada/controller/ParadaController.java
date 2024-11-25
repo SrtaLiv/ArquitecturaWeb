@@ -2,6 +2,7 @@ package com.microservicioparada.controller;
 
 import com.microservicioparada.dto.ParadaDTO;
 import com.microservicioparada.model.Parada;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class ParadaController {
         this.paradaService = paradaService;
     }
 
+    @Operation(summary = "Obtiene todas las paradas")
     @GetMapping("")
     public ResponseEntity<List<Parada>> getAllParadas() throws Exception {
         try{
@@ -34,7 +36,7 @@ public class ParadaController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @Operation(summary = "Obtiene los monopatines cercanos a cierta ubicacion")
     @GetMapping("/monopatinesCercanos/{x}/{y}")
     public ResponseEntity<?> getMonopatinesCercanos(@PathVariable double x, @PathVariable double y){
         try {
@@ -43,14 +45,14 @@ public class ParadaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }
     }
-
+    @Operation(summary = "Obtiene una parada")
     @GetMapping("/{id}")
     public ResponseEntity<Parada> getParadaById(@PathVariable Long id) throws Exception {
         Optional<Parada> parada = Optional.ofNullable(paradaService.findById(id));
         return parada.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    @Operation(summary = "Agrega una parada")
     @PostMapping("")
     public ResponseEntity<?> createParada(@RequestBody Parada entity){
         try{
@@ -59,14 +61,14 @@ public class ParadaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
     }
-
+    @Operation(summary = "Edita una parada")
     @PutMapping("/{id}")
     public ResponseEntity<Parada> updateParada(@PathVariable Long id, @RequestBody Parada paradaDetails) throws ChangeSetPersister.NotFoundException {
         Optional<Parada> updatedParada = Optional.ofNullable(paradaService.update(id, paradaDetails));
         return updatedParada.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    @Operation(summary = "Elimina una parada")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteParada(@PathVariable Long id) throws Exception {
         try{

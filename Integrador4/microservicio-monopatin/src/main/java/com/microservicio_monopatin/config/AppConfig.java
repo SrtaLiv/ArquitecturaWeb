@@ -1,24 +1,24 @@
-package com.microservicio_user.config;
-
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+package com.microservicio_monopatin.config;
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import org.springdoc.core.models.GroupedOpenApi;
-import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 public class AppConfig {
+
     @Bean("clienteRest")
-    @LoadBalanced
     public RestTemplate registrarRestTemplate(){return new RestTemplate();}
+
     @Bean
     public GroupedOpenApi groupedOpenApi() {
         return GroupedOpenApi.builder()
-                .group("UsuarioCuenta")
-                .pathsToMatch("/users/**","/cuentas/**")
+                .group("Monopatin")
+                .pathsToMatch("/monopatines/**")
                 .build();
     }
 
@@ -26,9 +26,9 @@ public class AppConfig {
     public io.swagger.v3.oas.models.OpenAPI customOpenAPI(@Value("${application-description}") String description,
                                                           @Value("${application-version}") String version) {
         return new io.swagger.v3.oas.models.OpenAPI()
-                .info(new Info().title("UsuarioCuenta API")
+                .info(new Info().title("Monopatin API")
                         .version(version)
                         .description(description)
-                        .license(new License().name("UsuarioCuenta API Licence")));
+                        .license(new License().name("Monopatin API Licence")));
     }
 }
