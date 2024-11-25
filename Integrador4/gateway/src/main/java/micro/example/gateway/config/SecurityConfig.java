@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -58,19 +59,8 @@ public class SecurityConfig {
                         .requestMatchers("/users/**").hasAuthority(AuthotityConstant._USER)
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())
-                // Configura logout
-                .logout(logout -> logout
-                        .logoutUrl("/logout") // URL para logout
-                        .logoutSuccessHandler((request, response, authentication) -> {
-                            // Respuesta personalizada tras logout (opcional)
-                            response.setStatus(HttpServletResponse.SC_OK);
-                            response.getWriter().write("Logout exitoso");
-                            response.getWriter().flush();
-                        })
-                        .invalidateHttpSession(true) // Invalida sesión
-                        .deleteCookies("JSESSIONID") // Elimina cookies de sesión
-                );
+                .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class) // Filtro JWT
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
